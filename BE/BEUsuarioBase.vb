@@ -14,10 +14,8 @@
 
 
 
-'Option Explicit On
-'Option Strict On
-
-
+Option Explicit On
+Option Strict On
 
 Public MustInherit Class BEUsuarioBase
 
@@ -26,12 +24,12 @@ Public MustInherit Class BEUsuarioBase
     Private _email As String
     Private _estado As String
     Private _id As Integer
-    Private _idioma As BEIdioma
+    Private _idioma As Idioma
     Private _passwd As String
     Private _patente As BEFamilia
     Private _username As String
     Public m_BEFamilia As BEFamilia
-    Public m_BEIdioma As BEIdioma
+    Public m_BEIdioma As Idioma
 
     Public Property Dvh() As String
         Get
@@ -69,11 +67,11 @@ Public MustInherit Class BEUsuarioBase
         End Set
     End Property
 
-    Public Property Idioma() As BEIdioma
+    Public Property Idioma() As Idioma
         Get
             Return _idioma
         End Get
-        Set(ByVal Value As BEIdioma)
+        Set(ByVal Value As Idioma)
             _idioma = Value
         End Set
     End Property
@@ -111,3 +109,4 @@ Public MustInherit Class BEUsuarioBase
 
 
 End Class ' BEUsuarioBase
+

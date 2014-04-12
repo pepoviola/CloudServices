@@ -11,6 +11,10 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DAL", "DAL\DAL.vbproj", "{1
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Infra", "Infra\Infra.vbproj", "{0A0CD641-EC31-439E-802D-ED13D9BBCE24}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Criptografia", "Criptografia\Criptografia.vbproj", "{96FB8E77-1A8B-41FC-8C2C-26B19BD6C40A}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExceptionsPersonales", "ExceptionsPersonales\ExceptionsPersonales.vbproj", "{E402E6FF-587A-40DA-8BCF-596F685A9259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{0A0CD641-EC31-439E-802D-ED13D9BBCE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0CD641-EC31-439E-802D-ED13D9BBCE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0CD641-EC31-439E-802D-ED13D9BBCE24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96FB8E77-1A8B-41FC-8C2C-26B19BD6C40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FB8E77-1A8B-41FC-8C2C-26B19BD6C40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FB8E77-1A8B-41FC-8C2C-26B19BD6C40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FB8E77-1A8B-41FC-8C2C-26B19BD6C40A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E402E6FF-587A-40DA-8BCF-596F685A9259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E402E6FF-587A-40DA-8BCF-596F685A9259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E402E6FF-587A-40DA-8BCF-596F685A9259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E402E6FF-587A-40DA-8BCF-596F685A9259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -62,6 +62,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bitacora.vb" />
+    <Compile Include="DigitoVerificador.vb" />
+    <Compile Include="DVV.vb" />
+    <Compile Include="InfraUsuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -101,6 +105,18 @@
     <ProjectReference Include="..\BE\BE.vbproj">
       <Project>{366e560e-e9d2-4a7f-9d14-ded9a7bb7702}</Project>
       <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Criptografia\Criptografia.vbproj">
+      <Project>{96fb8e77-1a8b-41fc-8c2c-26b19bd6c40a}</Project>
+      <Name>Criptografia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.vbproj">
+      <Project>{1479666f-6f02-4756-9552-1a24b44e5ed4}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionsPersonales\ExceptionsPersonales.vbproj">
+      <Project>{e402e6ff-587a-40da-8bcf-596f685a9259}</Project>
+      <Name>ExceptionsPersonales</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

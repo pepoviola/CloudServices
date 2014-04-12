@@ -62,13 +62,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BEBackup.vb" />
     <Compile Include="BEFamilia.vb" />
-    <Compile Include="BEIdioma.vb" />
     <Compile Include="BEPatenteBasica.vb" />
     <Compile Include="BEPermiso.vb" />
-    <Compile Include="BETag.vb" />
     <Compile Include="BEUsuario.vb" />
     <Compile Include="BEUsuarioBase.vb" />
+    <Compile Include="Bitacora.vb" />
+    <Compile Include="Idioma.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -84,6 +85,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tag.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

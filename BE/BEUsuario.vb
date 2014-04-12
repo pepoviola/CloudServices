@@ -14,8 +14,10 @@
 
 
 
-'Option Explicit On
-'Option Strict On
+Option Explicit On
+Option Strict On
+
+
 
 
 Public Class BEUsuario

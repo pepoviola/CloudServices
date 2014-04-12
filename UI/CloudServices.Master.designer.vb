@@ -23,11 +23,29 @@ Partial Public Class CloudServices
     Protected WithEvents head As Global.System.Web.UI.WebControls.ContentPlaceHolder
 
     '''<summary>
-    '''container control.
+    '''menu_home control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents container As Global.System.Web.UI.WebControls.ContentPlaceHolder
+    Protected WithEvents menu_home As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''menu_about control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menu_about As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''main control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents main As Global.System.Web.UI.WebControls.ContentPlaceHolder
 End Class
