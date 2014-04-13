@@ -21,13 +21,15 @@
         oUsuario.Passwd = txtPassword.Text
         Dim oInfraUsuario As Infra.InfraUsuario = New Infra.InfraUsuario()
         Dim ret As Boolean = oInfraUsuario.validarCredenciales(oUsuario)
-        'just to probe
-        Session("auth") = "OK"
-        If Not String.IsNullOrEmpty(Request.QueryString("ReturnUrl")) Then
-            Response.Redirect(Request.QueryString("ReturnUrl"))
-        Else
-            Response.Redirect("/Default.aspx")
+        If ret Then
+            Session("auth") = "OK"
+            If Not String.IsNullOrEmpty(Request.QueryString("ReturnUrl")) Then
+                Response.Redirect(Request.QueryString("ReturnUrl"))
+            Else
+                Response.Redirect("/Default.aspx")
+            End If
         End If
+
 
     End Sub
 End Class

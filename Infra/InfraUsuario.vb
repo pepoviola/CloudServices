@@ -15,9 +15,9 @@ Public Class InfraUsuario
 
             'encripto la pass
             'Dim sPassword As String = crypto.generarMD5(oUser.Password)
-            oUser.Passwd = crypto.generarMD5(oUser.Passwd)
+            'oUser.Passwd = crypto.generarMD5(oUser.Passwd)
             'comparo el login
-            'Dim retorno = oUserDal.validarCredenciales(oUser)
+            Dim retorno = oUserDal.validarCredenciales(oUser)
             'If retorno Then
             '    'debo traer el perfil del usuario
             '    oUserDal.getProfile(oUser)
@@ -34,7 +34,7 @@ Public Class InfraUsuario
 
             '    oInfraBita.Log(oBita)
             'Else
-            'Return retorno
+            Return retorno
             'End If
 
             Return True

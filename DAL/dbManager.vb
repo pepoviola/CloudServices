@@ -12,7 +12,7 @@ Public Class dbManager
 
 
     Public Shared Function getConnection() As IDbConnection
-        Dim ConnString As String = Configuration.ConfigurationManager.ConnectionStrings("Tinytickets").ConnectionString
+        Dim ConnString As String = Configuration.ConfigurationManager.ConnectionStrings("CloudServices").ConnectionString
 
         Dim conn As SqlConnection = New SqlConnection(ConnString)
         Return conn
