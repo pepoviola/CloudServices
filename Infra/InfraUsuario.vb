@@ -18,24 +18,24 @@ Public Class InfraUsuario
             'oUser.Passwd = crypto.generarMD5(oUser.Passwd)
             'comparo el login
             Dim retorno = oUserDal.validarCredenciales(oUser)
-            'If retorno Then
-            '    'debo traer el perfil del usuario
-            '    oUserDal.getProfile(oUser)
-            '    'Listo cargue el perfil
-            '    'guardo en bitacora, creo el obj bitacora
-            '    Dim oBita As New BE.Bitacora
-            '    Dim oBitaUser As New BE.BEUsuario
-            '    oBita.Categoria = "Login"
-            '    oBita.Descripcion = "Ingreso Correcto"
-            '    oBita.Fecha = Date.Now
-            '    'oBitaUser.IdUsuario = BE.BEUsuario.getUser.IdUsuario
-            '    oBita.Usuario = oBitaUser
-            '    oBita.DVH = "todo"
+            If retorno Then
+                'debo traer el perfil del usuario
+                oUserDal.getProfile(oUser)
+                'Listo cargue el perfil
+                'guardo en bitacora, creo el obj bitacora
+                Dim oBita As New BE.Bitacora
+                'Dim oBitaUser As New BE.BEUsuario
+                oBita.Categoria = "Login"
+                oBita.Descripcion = "Ingreso Correcto"
+                oBita.Fecha = Date.Now
+                'oBitaUser.Id = oUser.Id
+                oBita.Usuario = oUser
+                oBita.DVH = "todo"
 
-            '    oInfraBita.Log(oBita)
-            'Else
-            Return retorno
-            'End If
+                oInfraBita.Log(oBita)
+            Else
+                Return retorno
+            End If
 
             Return True
         Catch ex As Exception

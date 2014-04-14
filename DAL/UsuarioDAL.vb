@@ -4,7 +4,7 @@ Public Class UsuarioDAL
     Implements ICRUD(Of BE.BEUsuario)
 
 
-    Public Function validarCredenciales(ByVal oUser As BE.BEUsuario) As Boolean
+    Public Function validarCredenciales(ByRef oUser As BE.BEUsuario) As Boolean
 
         Dim conn As IDbConnection = dbManager.getConnection
         Try
@@ -42,7 +42,7 @@ Public Class UsuarioDAL
     End Function
 
 
-    Public Function getProfile(ByVal oUser As BE.BEUsuario) As Boolean
+    Public Function getProfile(ByRef oUser As BE.BEUsuario) As Boolean
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             conn.Open()
@@ -60,7 +60,7 @@ Public Class UsuarioDAL
                     'relleno el usuario
 
                     'patentes
-                    Dim oFlia As New BE.BEFamilia(Convert.ToInt32(drsql("IdFamilia")), Convert.ToString(drsql("DescripFlia")))
+                    Dim oFlia As New BE.BEFamilia(Convert.ToInt32(drsql("IdFamilia")), Convert.ToString(drsql("Descrip")))
                     'Dim _lista As List(Of BE.BEPatenteBasica)
                     Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
                     '_lista = oFliaDAL.getPatentes(oFlia)
@@ -74,7 +74,7 @@ Public Class UsuarioDAL
                         'drsql(7)
                         '.Patente = drsql(8)
                         .Patente = oFlia
-                        .DVH = drsql(9)
+                        .Dvh = drsql(9)
                     End With
 
                 End While
