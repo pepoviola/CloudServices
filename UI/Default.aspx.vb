@@ -10,7 +10,9 @@
             FormsAuthentication.RedirectToLoginPage()
         End If
 
-       
+        'fill fields
+        Dim menu_username As Literal = Master.FindControl("menu_username")
+        menu_username.Text = "Admin"
 
         'Me.welcome_message.Text = "hola mundo!"
         'Dim m As Label = Master.FindControl("menu_about")

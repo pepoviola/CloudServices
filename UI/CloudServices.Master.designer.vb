@@ -41,6 +41,24 @@ Partial Public Class CloudServices
     Protected WithEvents menu_about As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''menu_username control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menu_username As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''menu_logout control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menu_logout As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''main control.
     '''</summary>
     '''<remarks>
