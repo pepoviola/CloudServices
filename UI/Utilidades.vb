@@ -10,16 +10,38 @@
         Return instance
     End Function
 
-    Public Sub translateContentPage(ByVal ctrl As Control)
+    Public Function translate(ByVal ctrl_id As String, lang As Integer)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)
+    End Function
+    Public Sub translateContentPage(ByVal ctrl As Control, lang As Integer)
         For Each c As Control In ctrl.Controls
             If c.Controls.Count > 0 Then
-                translateContentPage(c)
+                translateContentPage(c, lang)
             Else
                 ' busco labels y botones
                 If TypeOf (c) Is Label Then
-                    ' cat to label
+                    CType(c, Label).Text = Infra.TraductorMgr.TraducirControl(c.ID, lang)
+                ElseIf TypeOf (c) Is Button Then
+                    CType(c, Button).Text = Infra.TraductorMgr.TraducirControl(c.ID, lang)
 
-                    CType(c, Label).Text = Infra.TraductorMgr.TraducirControl(c.ID, 1)
+
+                End If
+            End If
+        Next
+
+
+    End Sub
+    Public Sub translatePage(ByVal p As Page, lang As Integer)
+        For Each c As Control In p.Controls
+            If c.Controls.Count > 0 Then
+                translateContentPage(c, lang)
+            Else
+                ' busco labels y botones
+                If TypeOf (c) Is Label Then
+                    CType(c, Label).Text = Infra.TraductorMgr.TraducirControl(c.ID, lang)
+                ElseIf TypeOf (c) Is Button Then
+                    CType(c, Button).Text = Infra.TraductorMgr.TraducirControl(c.ID, lang)
+                Else
 
                 End If
             End If

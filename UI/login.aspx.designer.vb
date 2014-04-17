@@ -14,49 +14,58 @@ Option Explicit On
 Partial Public Class login
 
     '''<summary>
-    '''loginform control.
+    '''login_error_acceso control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents loginform As Global.System.Web.UI.HtmlControls.HtmlForm
+    Protected WithEvents login_error_acceso As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblUsername control.
+    '''login_error_complete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblUsername As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents login_error_complete As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtUser control.
+    '''login_form_username control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtUser As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents login_form_username As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblPassword control.
+    '''txt_login_username control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPassword As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txt_login_username As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtPassword control.
+    '''login_form_password control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPassword As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents login_form_password As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''txt_login_passwd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txt_login_passwd As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''login_submit control.

@@ -11,9 +11,11 @@
         End If
 
         'fill fields
-        Dim menu_username As Literal = Master.FindControl("menu_username")
-        menu_username.Text = "Admin"
+        'Dim menu_username As Literal = Master.FindControl("menu_username")
+        'menu_username.Text = "Admin"
 
+        Dim menu_admin As HtmlGenericControl = Master.FindControl("menu_container_admin")
+        'menu_admin.Visible = True
         'Me.welcome_message.Text = "hola mundo!"
         'Dim m As Label = Master.FindControl("menu_about")
         'm.Text = "pepo"
@@ -37,7 +39,7 @@
         Dim utils As Utilidades = Utilidades.getUtilidades()
 
         For Each c As Control In Page.Controls
-            utils.translateContentPage(c)
+            utils.translateContentPage(c, Session("lang"))
         Next
     End Sub
 End Class

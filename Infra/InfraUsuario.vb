@@ -1,7 +1,7 @@
 ﻿
 Public Class InfraUsuario
 
-    Public Function validarCredenciales(ByVal oUser As BE.BEUsuarioBase) As Boolean
+    Public Function validarCredenciales(ByRef oUser As BE.BEUsuarioBase) As Boolean
 
         Try
             'recibe un usuario con credenciales par validar y devuelve un entero

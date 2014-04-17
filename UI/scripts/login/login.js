@@ -1,14 +1,26 @@
-﻿$(function(){
-    var textfield = $("input[name='user']");
-    var passfield =  $("input[name='password']")
-            $('button[type="submit"]').click(function(e) {
-                e.preventDefault();
-                //little validation just to check username
-                if (textfield.val() == "" || passfield.val() == "" ) {
-                    //remove success mesage replaced with error message
-                    $("#output").removeClass(' alert alert-success');
-                    $("#output").addClass("alert alert-danger animated fadeInUp").html("sorry enter a username / password ");
-                }
+﻿
+$('#login_submit').click(function(ev) {
+    // check if are filled username and password
+    // DRY
+    var valid = true;
+    ctrls = ["txt_login_username", "txt_login_passwd"];
+    $.each(ctrls, function (k, v) {
+        if ($("#" + v).val() == "") { valid = false; $("#" + v).css({"border-color":"red"}) }
+    });
 
-            });
-});
+    if (!(valid)) {
+        ev.preventDefault();
+        // if there is an error before hide first
+        $('#alert_div').hide();
+        $('#alert_div_complete').show();
+
+    }
+
+    //if ($('#txt_login_username').val() == "" || $('#txt_login_passwd').val() == "" ) {
+    //    ev.preventDefault();
+    //    // if there is an error before hide first
+    //    $('#alert_div').hide();
+    //    $('#alert_div_complete').show();
+    //}
+    
+})
