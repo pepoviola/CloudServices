@@ -67,6 +67,7 @@
     <Compile Include="dbManager.vb" />
     <Compile Include="DVManager.vb" />
     <Compile Include="FamiliaDAL.vb" />
+    <Compile Include="IdiomaDAL.vb" />
     <Compile Include="InterfaceDAL.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -65,6 +65,7 @@
     <Compile Include="Bitacora.vb" />
     <Compile Include="DigitoVerificador.vb" />
     <Compile Include="DVV.vb" />
+    <Compile Include="Idioma.vb" />
     <Compile Include="InfraUsuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -81,6 +82,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Tag.vb" />
     <Compile Include="TraductorMgr.vb" />
   </ItemGroup>
   <ItemGroup>

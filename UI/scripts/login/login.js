@@ -11,16 +11,12 @@ $('#login_submit').click(function(ev) {
     if (!(valid)) {
         ev.preventDefault();
         // if there is an error before hide first
-        $('#alert_div').hide();
+        $('#alert_err').hide();
         $('#alert_div_complete').show();
-
+        // check why this don't work!!!
+        $('#txt_login_username').focus();
     }
 
-    //if ($('#txt_login_username').val() == "" || $('#txt_login_passwd').val() == "" ) {
-    //    ev.preventDefault();
-    //    // if there is an error before hide first
-    //    $('#alert_div').hide();
-    //    $('#alert_div_complete').show();
-    //}
+    
     
 })

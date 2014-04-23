@@ -6,8 +6,8 @@
 <head runat="server">
     <title></title>
      <!-- Bootstrap core CSS -->
-    <link href="content/css/bootstrap.css" rel="stylesheet"/>
-    <link href="content/css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="/content/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/content/css/bootstrap-responsive.css" rel="stylesheet"/>
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
     <style>
         body {
@@ -28,9 +28,17 @@
 				<a class="brand" href="#">CloudServices</a>	
                                 <div class="nav-collapse collapse">
                      <ul class="nav">
-                          <li class="active"><a href="#"><asp:Label runat="server" ID="menu_home" Text="Home"></asp:Label></a></li>
-                          <li><a href="#"><asp:label runat="server" ID="menu_about" Text="About"></asp:label></a></li>
-                          <li><a href="#"><asp:label runat="server" ID="menu_admin" Text="Admin"></asp:label></a></li>
+                          <li class="active"><a href="#"><% =translate("menu_home")%></a></li>
+                          <li><a href="#"><% =translate("menu_about")%></a></li>
+                          <li class="dropdown"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="#" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>
+                                  <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><% =translate("menu_idiomas")%></a></li>
+                                  <li><a href="#" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
+                                  <li><a href="#" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
+                                  <li><a href="#" id="menu_dv"><% =translate("menu_dv")%></a></li>
+                              </ul>
+                          </li>
                     </ul>
                     
                     <ul class="nav pull-right">
@@ -41,8 +49,9 @@
                             <b class="caret"></b>
                             </a>
                         <ul class="dropdown-menu">
-                        <li>
-                              <a href="/logout.aspx"  id="A1"><asp:Label runat="server" ID="menu_logout"></asp:Label></a>
+                        <li>  
+                              <a href="/logout.aspx"  id="menu_settings"><% =translate("menu_settings")%></a>  
+                              <a href="/logout.aspx"  id="menu_logout"><% =translate("menu_logout")%></a>
                         </li>
                         </ul>
                     </li>
@@ -60,13 +69,13 @@
 
 
     
-    <div class="container">
+    <div class="container-fluid">
         <asp:ContentPlaceHolder ID="main" runat="server">
         </asp:ContentPlaceHolder>
     </div>
         
     
-    <script src="scripts/jquery-2.1.0.js"></script>
-    <script src="scripts/bootstrap.min.js"></script>
+    <script src="/scripts/jquery-2.1.0.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
 </body>
 </html>
