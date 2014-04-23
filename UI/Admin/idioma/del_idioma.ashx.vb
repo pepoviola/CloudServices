@@ -21,15 +21,29 @@ Public Class del_idioma
             Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma()
             Dim oIdioma As BE.Idioma = New BE.Idioma()
             oIdioma.Id = context.Request.Form.Get("idlang")
-            If oInfraIdioma.Eliminar(oIdioma) Then
-                Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
-                resp.Add("status", "200")
-                resp.Add("idlang", oIdioma.Id.ToString())
-                Dim oRes = jss.Serialize(resp)
-                context.Response.Write(oRes)
-            Else
+            Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            Try
+                If oInfraIdioma.Eliminar(oIdioma) Then
+                    resp.Add("status", "200")
+                    resp.Add("idlang", oIdioma.Id.ToString())
+                Else
+                    ' deberia escribir en la bitacora
+                    ' envio el error
+                    resp.Add("status", "400")
+                    resp.Add("idlang", oIdioma.Id.ToString())
 
-            End If
+                End If
+
+            Catch ex As ExceptionsPersonales.CustomException
+
+
+                resp.Add("status", "500")
+                resp.Add("msg", Infra.TraductorMgr.TraducirControl(ex.codigo, context.Session("lang")))
+
+            End Try
+
+            Dim oRes = jss.Serialize(resp)
+            context.Response.Write(oRes)
 
 
         Else

@@ -117,6 +117,9 @@
       <DependentUpon>idiomas.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Admin\idioma\tags.ashx.vb">
+      <DependentUpon>tags.ashx</DependentUpon>
+    </Compile>
     <Compile Include="CloudServices.Master.designer.vb">
       <DependentUpon>CloudServices.Master</DependentUpon>
     </Compile>
@@ -177,6 +180,7 @@
   <ItemGroup>
     <Content Include="CloudServices.Master" />
     <Content Include="Admin\idioma\del_idioma.ashx" />
+    <Content Include="Admin\idioma\tags.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -201,6 +205,10 @@
     <ProjectReference Include="..\BLL\BLL.vbproj">
       <Project>{033e4165-a655-44cd-80a0-a3cfd6a66e75}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionsPersonales\ExceptionsPersonales.vbproj">
+      <Project>{e402e6ff-587a-40da-8bcf-596f685a9259}</Project>
+      <Name>ExceptionsPersonales</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infra\Infra.vbproj">
       <Project>{0a0cd641-ec31-439e-802d-ed13d9bbce24}</Project>

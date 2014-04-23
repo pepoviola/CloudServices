@@ -8,6 +8,10 @@
                 <div class="well"><% =translate("welcome_mesg_idioma") %></div>
             </header>
             <section>
+                <div class="alert alert-error hide">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <div class="alert-msg"></div>
+                </div>
                 <div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_idioma">
@@ -26,12 +30,12 @@
                         </thead>
                         <tbody>
                             <% For Each l As BE.Idioma In langs %>
-                                <tr id="idlang-"<% =l.Id%>>
+                                <tr id="idlang-<% =l.Id%>">
                                     <td><% =l.Codigo %></td>
                                     <td><% =l.Descripcion %></td>
                                     <td>
-                                        <a href="#" class="btn btn-primary" id="idioma_edit"><i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
-                                        <a href="#" class="btn btn-danger" id="idioma_delete" data-idlang="<% =l.Id %>"><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>
+                                        <a href="#" class="btn btn-primary idioma_edit" data-idlang="<% =l.Id %>" data-codelang="<%=l.Codigo%>"><i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
+                                        <a href="#" class="btn btn-danger idioma_delete" data-idlang="<% =l.Id %>"><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>
                                     </td>
                                 </tr>                            
                             <% Next%>                            
@@ -77,11 +81,47 @@
         </div>
         <div class="modal-footer">
             <a href="#" class="btn">Close</a>
-            <button type="submit" class="btn btn-primary">save</button>
+            <button type="submit" class="btn btn-primary" data-action="create" id="idioma_create">save</button>
         </div>
     <!-- end form -->            
     </form>
     </div>
 
     <!-- .end modal -->
+</asp:Content>
+<asp:Content runat="server" ID="js" ContentPlaceHolderID="js_block">
+    <script>
+        $(document).ready(function () {
+            //binding actions
+
+            // edit idioma
+            $('idioma_edit').click(function (ev) {
+                ev.preventDefault();
+                //get the tags and fill the form
+
+            });
+            // delete idioma
+            $('.idioma_delete').click(function (ev) {
+                ev.preventDefault();
+                //console.log(ev.target.dataset.idlang);
+                
+                // make post
+                $.post('/Admin/idioma/del_idioma.ashx', { idlang: ev.target.dataset.idlang }, function (data) {
+                    console.log(data);
+                    if (data.status == 200) {
+                        // remove row                        
+                        $('#idlang-' + data.idlang).remove();
+                    }
+                    else {
+                        //show error
+                        $('.alert-msg').html(data.msg);
+                        $('.alert').show();
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
 </asp:Content>
