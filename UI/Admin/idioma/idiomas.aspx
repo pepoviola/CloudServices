@@ -8,10 +8,7 @@
                 <div class="well"><% =translate("welcome_mesg_idioma") %></div>
             </header>
             <section>
-                <div class="alert alert-error hide">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <div class="alert-msg"></div>
-                </div>
+              
                 <div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_idioma">
@@ -114,8 +111,13 @@
                     }
                     else {
                         //show error
-                        $('.alert-msg').html(data.msg);
-                        $('.alert').show();
+                        var div_alert = '<div class="alert alert-error">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">'+ data.msg+'</div></div>';
+
+                        //remove if there any
+                        $('.alert').remove();
+                        $('section').prepend(div_alert);
                     }
                 });
 
