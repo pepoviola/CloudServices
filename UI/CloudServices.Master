@@ -14,6 +14,10 @@
             padding-top:60px; /* make the content go after menu*/
         }
     </style>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
        <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,17 +29,17 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="#">CloudServices</a>	
+				<a class="brand" href="/">CloudServices</a>	
                                 <div class="nav-collapse collapse">
                      <ul class="nav">
-                          <li class="active"><a href="#"><% =translate("menu_home")%></a></li>
-                          <li><a href="#"><% =translate("menu_about")%></a></li>
-                          <li class="dropdown"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
+                          <li class="active menu_home"><a href="/"><% =translate("menu_home")%></a></li>
+                          <li class="menu_about"><a href="#"><% =translate("menu_about")%></a></li>
+                          <li class="dropdown menu_admin"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
                               <ul class="dropdown-menu">
                                   <li><a href="#" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>
                                   <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><% =translate("menu_idiomas")%></a></li>
                                   <li><a href="#" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
-                                  <li><a href="#" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
+                                  <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
                                   <li><a href="#" id="menu_dv"><% =translate("menu_dv")%></a></li>
                               </ul>
                           </li>

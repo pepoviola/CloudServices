@@ -1,4 +1,5 @@
 ﻿Public Class Utilidades
+    'Implements IReadOnlySessionState
 
     Private Shared ReadOnly instance As Utilidades = New Utilidades
 
