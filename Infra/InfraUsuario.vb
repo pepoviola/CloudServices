@@ -14,8 +14,8 @@ Public Class InfraUsuario
             Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
 
             'encripto la pass
-            'Dim sPassword As String = crypto.generarMD5(oUser.Password)
-            'oUser.Passwd = crypto.generarMD5(oUser.Passwd)
+            'Dim sPassword As String = crypto.generarMD5(oUser.Passwd)
+            oUser.Passwd = crypto.generarMD5(oUser.Passwd)
             'comparo el login
             Dim retorno = oUserDal.validarCredenciales(oUser)
             If retorno Then
@@ -28,7 +28,6 @@ Public Class InfraUsuario
                 oBita.Categoria = "Login"
                 oBita.Descripcion = "Ingreso Correcto"
                 oBita.Fecha = Date.Now
-                'oBitaUser.Id = oUser.Id
                 oBita.Usuario = oUser
                 oBita.DVH = "todo"
 

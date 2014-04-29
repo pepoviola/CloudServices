@@ -8,7 +8,12 @@
                 <div class="well"><% =translate("welcome_mesg_idioma") %></div>
             </header>
             <section>
-              
+              <% If Not String.IsNullOrEmpty(Me.Request.QueryString("err")) Then %>
+                     <div class="alert alert-error">
+                         <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           <div class="alert-msg"><%=translate(Me.Request.QueryString.Get("err"))%></div>
+                     </div>
+                  <%End If%>
                 <div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_idioma" data-action="add">
@@ -32,7 +37,7 @@
                                     <td><% =l.Descripcion %></td>
                                     <td>
                                         <a href="#" class="btn btn-primary idioma_edit" data-idlang="<% =l.Id %>" data-codelang="<%=l.Codigo%>" data-descripcionlang="<% =l.Descripcion %>"><i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
-                                        <a href="#" class="btn btn-danger idioma_delete" data-idlang="<% =l.Id %>"><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>
+                                        <a href="#" class="btn btn-danger idioma_delete" data-idlang="<% =l.Id %>"  data-codelang="<%=l.Codigo%>"><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>
                                     </td>
                                 </tr>                            
                             <% Next%>                            
@@ -166,6 +171,13 @@
                     //console.log(data);
                     $('#modal_idioma_edit').modal("hide");
                     var alert_type = (data.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                            + '<div class="alert-msg">' + data.msg + '</div></div>';
+                    //remove if there any
+                    $('.alert').remove();
+                    $('section').prepend(div_alert);
+
                 });
             });
             // delete idioma
@@ -173,22 +185,21 @@
                 ev.preventDefault();
                 
                 // make post
-                $.post('/Admin/idioma/del_idioma.ashx', { idlang: $(this).data("idlang") }, function (data) {
-                    console.log(data);
+                $.post('/Admin/idioma/del_idioma.ashx', { idlang: $(this).data("idlang"), codelang: $(this).data("codelang") },
+                   function (data) {
+                       console.log(data);
+                       var alert_type = (data.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                            + '<div class="alert-msg">' + data.msg + '</div></div>';
+
                     if (data.status == 200) {
                         // remove row                        
                         $('#idlang-' + data.idlang).remove();
                     }
-                    else {
-                        //show error
-                        var div_alert = '<div class="alert alert-error">'
-                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                                + '<div class="alert-msg">'+ data.msg+'</div></div>';
-
                         //remove if there any
                         $('.alert').remove();
                         $('section').prepend(div_alert);
-                    }
                 });
 
             });

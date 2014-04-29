@@ -44,7 +44,10 @@ Public Class Bitacora
             Dim oDalBita As DAL.BitacoraDAL = DAL.BitacoraDAL.getBitacoraDal()
             'genero el DVH
             Dim bitaString As String = String.Empty
-            bitaString += bita.Descripcion + bita.Categoria + Convert.ToString(bita.Fecha) _
+            ' old implementation
+            'bitaString += bita.Descripcion + bita.Categoria + Convert.ToString(bita.Fecha) _
+            '                        + Convert.ToString(bita.Usuario.Id)
+            bitaString += bita.Descripcion + bita.Categoria _
                         + Convert.ToString(bita.Usuario.Id)
             bita.DVH = Criptografia.Crypto.getCrypto().generarMD5(bitaString)
             retorno = oDalBita.Log(bita)

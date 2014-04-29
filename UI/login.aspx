@@ -27,8 +27,8 @@
     <div class="container">
 	<div class="wrap">
     <div class="row" id="alertas">
-        <% If Me.login_err > 0 Then %>
-        <div  class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
+        <% If Session("_login_err") > 0 Then %>
+        <div  id="aler_div_error" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
             <% =translate("login_error_acceso",1) %>
         </div>  
         <%    End If %>
@@ -85,7 +85,7 @@
             </form>
         </div>
     </div>
-        Idioma detectado: <% =HttpContext.Current.Request.UserLanguages(0) %>
+        Idioma detectado: <%=HttpContext.Current.Request.UserLanguages(0) %>
 </div>
         
     </div>

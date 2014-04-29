@@ -27,10 +27,9 @@
         If Request.RequestType = "POST" Then
             ' make login
             login(Request.Form("txt_login_username"), Request.Form("txt_login_passwd"))
-
-
         End If
 
+        ' pasa a client side
         'Dim utils As Utilidades = Utilidades.getUtilidades()
         ''TODO: default lang
         'utils.translatePage(Page, 1)
@@ -46,30 +45,45 @@
 
     Protected Sub login(ByVal username As String, ByVal passwd As String)
         Dim oUsuario As BE.BEUsuario = New BE.BEUsuario()
-        oUsuario.Username = username
-        oUsuario.Passwd = passwd
-        Dim oInfraUsuario As Infra.InfraUsuario = New Infra.InfraUsuario()
-        Dim ret As Boolean = oInfraUsuario.validarCredenciales(oUsuario)
-        If ret Then
-            'fill the session object for this user
-            Session("auth") = "OK"
-            Session("username") = oUsuario.Username
-            Session("lang") = oUsuario.Idioma.Id
-            Session("lang_code") = oUsuario.Idioma.Codigo
-            If Not String.IsNullOrEmpty(Request.QueryString("ReturnUrl")) Then
-                Response.Redirect(Request.QueryString("ReturnUrl"))
-            Else
-                Response.Redirect("/Default.aspx")
-            End If
-        Else
+        Try
+            oUsuario.Username = username
+            oUsuario.Passwd = passwd
+            Dim oInfraUsuario As Infra.InfraUsuario = New Infra.InfraUsuario()
+            Dim ret As Boolean = oInfraUsuario.validarCredenciales(oUsuario)
+            If ret Then
+                'fill the session object for this user
+                Session("auth") = "OK"
+                Session("username") = oUsuario.Username
+                Session("user_id") = oUsuario.Id
+                Session("lang") = oUsuario.Idioma.Id
+                Session("lang_code") = oUsuario.Idioma.Codigo
+                Dim oInfraDV As Infra.DVV = New Infra.DVV
+                Dim l As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
 
-            If _last_user = username Then
-                _login_err += 1
+                l = oInfraDV.check("Bitacora")
+                ' if l is bigger than 0
+                ' we have an issue with the dvs
+
+                If Not String.IsNullOrEmpty(Request.QueryString("ReturnUrl")) Then
+                    Response.Redirect(Request.QueryString("ReturnUrl"))
+                Else
+                    Response.Redirect("/Default.aspx")
+                End If
             Else
-                _last_user = username
-                _login_err = 1
+
+                If Session("_last_user") = username Then
+                    Session("_login_err") = Session("_login_err") + 1
+                Else
+                    Session("_last_user") = username
+                    Session("_login_err") = 1
+                End If
             End If
-        End If
+
+        Catch ex As Exception
+            'show system error
+
+
+        End Try
 
     End Sub
 
