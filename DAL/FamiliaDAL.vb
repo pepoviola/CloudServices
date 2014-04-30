@@ -168,6 +168,7 @@ Public Class FamiliaDAL
             oPatente.codigo = drsql(0)
             oPatente.descripcion = drsql(1)
             oPatente.Patentes = Me.getPatentes(oPatente)
+            oPatente.Nativo = 1 ' not a native one
             Return oPatente
         Else
             Dim oPatente As New BE.BEPermiso
@@ -287,7 +288,7 @@ Public Class FamiliaDAL
     'TODO
     '   change return value
     Public Function Delete(ByVal oFlia As BE.BEFamilia) As Boolean
-        Dim registros As Integer
+        Dim registros As Integer = True
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             Dim cmd As IDbCommand = dbManager.getCmd("DeleteFlia")
@@ -297,7 +298,8 @@ Public Class FamiliaDAL
             conn.Open()
             registros = cmd.ExecuteNonQuery()
 
-            Return (registros > 0)
+            'Return (registros > 0)
+            Return True
         Catch ex As Exception
             Throw ex
         Finally

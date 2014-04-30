@@ -38,7 +38,7 @@
                               <ul class="dropdown-menu">
                                   <li><a href="#" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>
                                   <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><% =translate("menu_idiomas")%></a></li>
-                                  <li><a href="#" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
+                                  <li><a href="/Admin/permiso/permisos.aspx" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
                                   <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
                                   <li><a href="#" id="menu_dv"><% =translate("menu_dv")%></a></li>
                               </ul>

@@ -84,6 +84,7 @@
     <Content Include="Admin\bitacora\index.aspx" />
     <Content Include="Admin\idioma\add_idioma.aspx" />
     <Content Include="Admin\idioma\idiomas.aspx" />
+    <Content Include="Admin\permiso\permisos.aspx" />
     <Content Include="content\css\bootstrap-responsive.css" />
     <Content Include="content\css\bootstrap-responsive.min.css" />
     <Content Include="content\css\bootstrap.css" />
@@ -91,6 +92,8 @@
     <Content Include="content\css\login\login.css" />
     <Content Include="content\img\glyphicons-halflings-white.png" />
     <Content Include="content\img\glyphicons-halflings.png" />
+    <Content Include="content\img\Minus.png" />
+    <Content Include="content\img\Plus.png" />
     <Content Include="Default.aspx" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
@@ -130,6 +133,22 @@
     </Compile>
     <Compile Include="Admin\idioma\tags.ashx.vb">
       <DependentUpon>tags.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\permiso\add_flia.ashx.vb">
+      <DependentUpon>add_flia.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\permiso\del_flias.ashx.vb">
+      <DependentUpon>del_flias.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\permiso\flias.ashx.vb">
+      <DependentUpon>flias.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\permiso\permisos.aspx.designer.vb">
+      <DependentUpon>permisos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\permiso\permisos.aspx.vb">
+      <DependentUpon>permisos.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="CloudServices.Master.designer.vb">
       <DependentUpon>CloudServices.Master</DependentUpon>
@@ -193,6 +212,9 @@
     <Content Include="Admin\idioma\del_idioma.ashx" />
     <Content Include="Admin\idioma\tags.ashx" />
     <Content Include="Admin\bitacora\filtrar.ashx" />
+    <Content Include="Admin\permiso\add_flia.ashx" />
+    <Content Include="Admin\permiso\del_flias.ashx" />
+    <Content Include="Admin\permiso\flias.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -228,7 +250,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\permiso\" />
     <Folder Include="Admin\usuario\" />
   </ItemGroup>
   <PropertyGroup>

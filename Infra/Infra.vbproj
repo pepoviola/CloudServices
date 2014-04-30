@@ -65,6 +65,7 @@
     <Compile Include="Bitacora.vb" />
     <Compile Include="DigitoVerificador.vb" />
     <Compile Include="DVV.vb" />
+    <Compile Include="Familia.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="InfraUsuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -82,6 +83,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PatenteBasica.vb" />
+    <Compile Include="Permiso.vb" />
     <Compile Include="Tag.vb" />
     <Compile Include="TraductorMgr.vb" />
   </ItemGroup>
