@@ -117,9 +117,9 @@ Public Class Familia
 
             If oFliaDAL.Modify(oFlia, permisos) Then
                 'bitacora
-                Dim obita As New BE.Bitacora("Familia", String.Format("se modificó la familia {0} co néxito", oFlia.descripcion))
-                Dim infraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
-                infraBita.Log(obita)
+                'Dim obita As New BE.Bitacora("Familia", String.Format("se modificó la familia {0} con éxito", oFlia.descripcion))
+                'Dim infraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
+                'infraBita.Log(obita)
                 If Not DVV.Actualizar("Familia") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If

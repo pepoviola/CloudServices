@@ -36,11 +36,11 @@
                           <li class="menu_about"><a href="#"><% =translate("menu_about")%></a></li>
                           <li class="dropdown menu_admin"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
                               <ul class="dropdown-menu">
-                                  <li><a href="#" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>
+                                  <li><a href="/Admin/usuario/usuarios.aspx" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>
                                   <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><% =translate("menu_idiomas")%></a></li>
                                   <li><a href="/Admin/permiso/permisos.aspx" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
                                   <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
-                                  <li><a href="#" id="menu_dv"><% =translate("menu_dv")%></a></li>
+                                  <li><a href="/Admin/dv.aspx" id="menu_dv"><% =translate("menu_dv")%></a></li>
                               </ul>
                           </li>
                     </ul>
@@ -54,7 +54,7 @@
                             </a>
                         <ul class="dropdown-menu">
                         <li>  
-                              <a href="/logout.aspx"  id="menu_settings"><% =translate("menu_settings")%></a>  
+                              <a href="/settings.aspx"  id="menu_settings"><% =translate("menu_settings")%></a>  
                               <a href="/logout.aspx"  id="menu_logout"><% =translate("menu_logout")%></a>
                         </li>
                         </ul>

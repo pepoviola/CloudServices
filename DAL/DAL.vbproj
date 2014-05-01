@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupDAL.vb" />
     <Compile Include="BitacoraDAL.vb" />
     <Compile Include="dbManager.vb" />
     <Compile Include="DVManager.vb" />

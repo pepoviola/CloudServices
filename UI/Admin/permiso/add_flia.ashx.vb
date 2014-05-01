@@ -28,8 +28,8 @@ Public Class add_flia
                     Dim permisos As List(Of Integer) = New List(Of Integer)
 
                     For Each ctrl As String In context.Request.Form
-                        If ctrl = "flia_desc" Then
-                            oFlia.descripcion = context.Request.Form.Get("flia_desc")
+                        If ctrl = "flia_code" Then
+                            oFlia.descripcion = context.Request.Form.Get("flia_code")
                         Else
                             permisos.Add(ctrl)
                         End If
