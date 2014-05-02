@@ -41,6 +41,8 @@
                                   <li><a href="/Admin/permiso/permisos.aspx" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
                                   <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
                                   <li><a href="/Admin/dv.aspx" id="menu_dv"><% =translate("menu_dv")%></a></li>
+                                  <li><a href="/Admin/resguardo/resguardos.aspx" ><% =translate("menu_resguardo")%></a></li>
+                                  <li><a href="/Admin/helpers/helper.aspx" ><% =translate("menu_helper")%></a></li>
                               </ul>
                           </li>
                     </ul>

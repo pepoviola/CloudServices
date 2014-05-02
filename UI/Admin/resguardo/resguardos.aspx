@@ -17,7 +17,7 @@
                 <div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" id="make_bkp" data-action="add">
-                            <i class="icon-plus icon-white"></i> <% =translate("btn_new")%>
+                            <i class="icon-lock icon-white"></i> <% =translate("btn_bkp")%>
                         </a>
                     </div>
                     <br />
@@ -36,7 +36,7 @@
                                     <td><% =b.Filename%></td>
                                     <td><% =b.Fecha%></td>
                                     <td>                                        
-                                        <a href="#" class="btn btn-danger restore" data-idbkp="<% =b.Id%>"  data-file="<%=b.Filename%>"><i class="icon-trash icon-white"></i> <% =translate("btn_restore")%></a>
+                                        <a href="#" class="btn btn-danger restore" data-idbkp="<% =b.Id%>"  data-file="<%=b.Filename%>"><i class="icon-file icon-white"></i> <% =translate("btn_restore")%></a>
                                     </td>
                                 </tr>                            
                             <% Next%>                            

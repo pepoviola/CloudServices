@@ -61,25 +61,21 @@ Public Class UsuarioDAL
 
                     'patentes
                     Dim oFlia As New BE.BEFamilia(Convert.ToInt32(drsql("IdFamilia")), Convert.ToString(drsql("Descrip")))
-                    'Dim _lista As List(Of BE.BEPatenteBasica)
                     Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
-                    '_lista = oFliaDAL.getPatentes(oFlia)
                     oFlia.Patentes = oFliaDAL.getPatentes(oFlia)
                     With oUser
                         .Apellido = Convert.ToString(drsql("Apellido"))
                         .Nombre = Convert.ToString(drsql("Nombre"))
                         .Estado = Convert.ToString(drsql("Estado"))
-                        '.Legajo = drsql(4)
                         .Idioma = New BE.Idioma(Convert.ToInt32(drsql("IdIdioma")), Convert.ToString(drsql("codigo")), Convert.ToString(drsql("Descrip")))
-                        'drsql(7)
+
                         '.Patente = drsql(8)
                         .Patente = oFlia
                         .Dvh = drsql(9)
                     End With
 
                 End While
-                'for test only
-                'Throw New Exception
+
                 Return True
             Else
                 Return False
@@ -234,6 +230,7 @@ Public Class UsuarioDAL
             dbManager.addParam(cmd, "@Nombre", t.Nombre)
             dbManager.addParam(cmd, "@Username", t.Username)
             dbManager.addParam(cmd, "@Password", t.Passwd)
+            dbManager.addParam(cmd, "@email", t.Email)
             dbManager.addParam(cmd, "@IdIdioma", t.Idioma.Id)
             dbManager.addParam(cmd, "@IdPatente", t.Patente.codigo)
             dbManager.addParam(cmd, "@DVH", t.DVH)
@@ -272,6 +269,7 @@ Public Class UsuarioDAL
     Public Function Filtrar(ByVal t As BE.BEUsuario) As System.Collections.Generic.List(Of BE.BEUsuario) Implements ICRUD(Of BE.BEUsuario).Filtrar
         Dim _lista As New List(Of BE.BEUsuario)
 
+
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             'get cmd
@@ -309,6 +307,7 @@ Public Class UsuarioDAL
                 oUser.Nombre = Convert.ToString(lector("Nombre"))
                 oUser.Username = Convert.ToString(lector("Username"))
                 oUser.Passwd = Convert.ToString(lector("Password"))
+                oUser.Email = Convert.ToString(lector("Email"))
                 oUser.DVH = Convert.ToString(lector("DVH"))
                 oUser.Estado = Convert.ToString(lector("Estado"))
                 oUser.Idioma = New BE.Idioma(Convert.ToInt32(lector("IdIdioma")), _

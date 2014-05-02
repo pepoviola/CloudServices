@@ -1,6 +1,7 @@
 ﻿
 Public Class InfraUsuario
 
+    Private frase As String = Configuration.ConfigurationManager.AppSettings("frase")
     Public Function validarCredenciales(ByRef oUser As BE.BEUsuarioBase) As Boolean
 
         Try
@@ -46,6 +47,8 @@ Public Class InfraUsuario
 
     Public Function Agregar(ByVal oUser As BE.BEUsuario) As Boolean
         Dim ret As Boolean
+
+
         Try
             'objeto dal
             Dim oUserDal As New DAL.UsuarioDAL
@@ -54,17 +57,21 @@ Public Class InfraUsuario
             'Convert.ToString(oUser.IdUsuario) +
             dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado
             dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
-            oUser.DVH = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+            oUser.Dvh = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+
+            'hash pass
+            oUser.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oUser.Passwd)
+
+            'encrypt mail
+            oUser.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oUser.Email, frase, True)
+
             ret = (oUserDal.Agregar(oUser))
             If ret Then
                 'update dvv
                 If Not DVV.Actualizar("Usuario") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
-                'log in bitacora
-                Dim oBita As New BE.Bitacora("Usuarios", "Se creo ok el usuario: " + oUser.Username)
-                Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-                oInfraBita.Log(oBita)
+               
             End If
         Catch exCus As ExceptionsPersonales.CustomException
             Throw exCus
@@ -118,6 +125,10 @@ Public Class InfraUsuario
             Dim _lista As New List(Of BE.BEUsuario)
             Dim dal As New DAL.UsuarioDAL
             _lista = dal.Filtrar(filtro)
+            'recorro lo lista y desencripto el mail
+            For Each user As BE.BEUsuario In _lista
+                user.Email = Criptografia.Crypto.getCrypto().DecypherTripleDES(user.Email, frase, True)
+            Next
             Return _lista
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrFiltrarUsers")
@@ -131,20 +142,7 @@ Public Class InfraUsuario
         Try
             Dim dal As New DAL.UsuarioDAL
             retorno = dal.Eliminar(user)
-            If retorno Then
-                'bitacora
-                Dim oBita As New BE.Bitacora("Usuarios", "Se eliminó con éxito el usuario: " + user.Username)
-                Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-                oInfraBita.Log(oBita)
-                If Not DVV.Actualizar("Usuario") Then
-                    Throw New ExceptionsPersonales.CustomException("ErrDVV")
-                End If
-            Else
-                Dim oBita As New BE.Bitacora("Usuarios", "Error al eliminar el usuario: " + user.Username)
-                Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-                oInfraBita.Log(oBita)
-            End If
-           
+
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrEliminarUsers")
 

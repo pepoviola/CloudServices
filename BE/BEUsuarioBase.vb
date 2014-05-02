@@ -28,8 +28,8 @@ Public MustInherit Class BEUsuarioBase
     Private _passwd As String
     Private _patente As BEFamilia
     Private _username As String
-    Public m_BEFamilia As BEFamilia
-    Public m_BEIdioma As Idioma
+    'Public m_BEFamilia As BEFamilia
+    'Public m_BEIdioma As Idioma
 
     Public Property Dvh() As String
         Get
