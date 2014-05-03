@@ -25,6 +25,7 @@ Public Class add_usuario
                     oUser.Apellido = context.Request.Form.Get("apellido")
                     oUser.Email = context.Request.Form.Get("email")
                     oUser.Passwd = context.Request.Form.Get("password")
+                    oUser.Estado = 1 ' meens Activo
                     oUser.Patente = New BE.BEFamilia()
                     oUser.Patente.codigo = context.Request.Form.Get("flia")
                     oUser.Idioma = New BE.Idioma()

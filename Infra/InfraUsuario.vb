@@ -54,8 +54,8 @@ Public Class InfraUsuario
             Dim oUserDal As New DAL.UsuarioDAL
             'get dvh 
             Dim dvhString As String
-            'Convert.ToString(oUser.IdUsuario) +
-            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado
+
+            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
             dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
             oUser.Dvh = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
 
@@ -159,7 +159,7 @@ Public Class InfraUsuario
             'get dvh 
             Dim dvhString As String
 
-            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado
+            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
             dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
             oUser.DVH = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
             ret = (oUserDal.Modificar(oUser))
@@ -169,13 +169,14 @@ Public Class InfraUsuario
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
                 'log in bitacora
-                Dim oBita As New BE.Bitacora("Usuarios", "Se modificó el usuario: " + oUser.Username)
-                Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-                oInfraBita.Log(oBita)
+                'Dim oBita As New BE.Bitacora("Usuarios", "Se modificó el usuario: " + oUser.Username)
+                'Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
+                'oInfraBita.Log(oBita)
 
             End If
         Catch ex As Exception
             'ex personalizada
+            Throw New ExceptionsPersonales.CustomException("ex_modif_user", ex.Message)
         End Try
         Return ret
 

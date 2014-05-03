@@ -179,6 +179,12 @@
     <Compile Include="Admin\usuario\del_usuario.ashx.vb">
       <DependentUpon>del_usuario.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\usuario\filtra_usuarios.ashx.vb">
+      <DependentUpon>filtra_usuarios.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\usuario\mod_usuario.ashx.vb">
+      <DependentUpon>mod_usuario.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\usuario\usuarios.aspx.designer.vb">
       <DependentUpon>usuarios.aspx</DependentUpon>
     </Compile>
@@ -255,6 +261,8 @@
     <Content Include="Admin\resguardo\restore.ashx" />
     <Content Include="Admin\usuario\add_usuario.ashx" />
     <Content Include="Admin\usuario\del_usuario.ashx" />
+    <Content Include="Admin\usuario\mod_usuario.ashx" />
+    <Content Include="Admin\usuario\filtra_usuarios.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

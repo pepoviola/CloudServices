@@ -12,20 +12,19 @@
 ''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
-
-Option Explicit On
-Option Strict On
+Imports System.Web.Script.Serialization
 
 
 
 
+<Serializable()> _
 Public Class BEUsuario
     Inherits BE.BEUsuarioBase
 
 
     Private _apellido As String
     Private _nombre As String
+
 
     Public Property Apellido() As String
         Get

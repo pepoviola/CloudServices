@@ -11,13 +11,13 @@
 ''  
 ''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Imports System.Web.Script.Serialization
 
 
 
-Option Explicit On
-Option Strict On
 
 Public MustInherit Class BEUsuarioBase
+
 
 
     Private _dvh As String
@@ -28,10 +28,9 @@ Public MustInherit Class BEUsuarioBase
     Private _passwd As String
     Private _patente As BEFamilia
     Private _username As String
-    'Public m_BEFamilia As BEFamilia
-    'Public m_BEIdioma As Idioma
 
-    Public Property Dvh() As String
+    <ScriptIgnore()> _
+        Public Property Dvh() As String
         Get
             Return _dvh
         End Get
@@ -79,7 +78,7 @@ Public MustInherit Class BEUsuarioBase
     Public Sub New()
 
     End Sub
-
+    <ScriptIgnore()> _
     Public Property Passwd() As String
         Get
             Return _passwd

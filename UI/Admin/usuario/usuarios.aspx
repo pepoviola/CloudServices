@@ -143,10 +143,97 @@
     </div>
     <!-- .end modal create -->
 
+    <!-- modal edit -->
+    <div id="Div1" class="modal hide fade">
+        <form class="form-horizontal" id="form_edit_user">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3><%=translate("lbl_editar_usuario")%></h3>
+        </div>
+        <div class="modal-body">
+          
+            <div class="control-group">
+                <label class="control-label" for="username"><% =translate("username")%></label>
+                <div class="controls">
+                        <input type="text" name="username" id="Text1" maxlength="25"  readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="username"><% =translate("password")%></label>
+                <div class="controls">
+                        <input type="text" name="password" id="Text2" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="username"><% =translate("repeat_password")%></label>
+                <div class="controls">
+                        <input type="text" name="repeat_password" id="Text3" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="nombre"><% =translate("nombre")%></label>
+                <div class="controls">
+                        <input type="text" name="nombre" id="Text4" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="apellido"><% =translate("apellido")%></label>
+                <div class="controls">
+                        <input type="text" name="apellido" id="Text5" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
+          
+            <div class="control-group">
+                <label class="control-label" for="email"><% =translate("email")%></label>
+                <div class="controls">
+                        <input type="text" name="email" id="Text6" placeholder="" maxlength="150" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="idioma"><% =translate("idioma")%></label>
+                <div class="controls">
+                    <select name="idioma">
+                      <% For Each i As BE.Idioma In lista_idioma %>
+                        <option value="<% =i.Id%>"><% =i.Codigo%></option>              
+                      <% Next%>
+                    </select>                        
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="flia"><% =translate("familia")%></label>
+                <div class="controls">
+                    <select name="flia">
+                      <% For Each f As BE.BEPatenteBasica In lista_flia%>
+                        <% If f.Nativo = 1 Then %>
+                            <option value="<% =f.codigo%>"><% =f.descripcion%></option>                      
+                        <%End If%>                        
+                      <% Next%>
+                    </select>                        
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn">Close</a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="Button1">save</button>
+        </div>
+    <!-- end form -->            
+    </form>
+    </div>
+    <!-- .end modal edit -->
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
         // binding actions
+
+        // CREATE
         $('#user_create').click(function (ev) {
             ev.preventDefault();
             console.log($('#form_new_user').serialize());
@@ -199,6 +286,33 @@
                 
             });
         });
+
+        // EDIT
+        $('.user_edit').click(function (ev) {
+            ev.preventDefault();
+            var uid = $(this).data('uid');
+            var uname = $(this).data('username');
+            // get the data
+            $.post('/Admin/usuario/filtra_usuarios.ashx', { username: uname }, function (res) {
+                // if the session expired reload the page to go to login form
+                if (res.status == undefined) location.reload();
+                if (res.status == "200") {
+                    // show the form
+                }
+                else {
+                    // show the error
+                    var div_alert = '<div class="alert alert-error">'
+                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                    //remove if there any
+                    $('.alert').remove();
+                    $('section').prepend(div_alert);
+                }
+               
+            });
+        } );
+
 
     </script>
 </asp:Content>
