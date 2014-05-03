@@ -57,6 +57,8 @@
                 Session("user_id") = oUsuario.Id
                 Session("lang") = oUsuario.Idioma.Id
                 Session("lang_code") = oUsuario.Idioma.Codigo
+                Session("flia") = oUsuario.Patente.codigo
+                Session("flia_desc") = oUsuario.Patente.descripcion
                 Dim oInfraDV As Infra.DVV = New Infra.DVV
                 Dim l As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
 

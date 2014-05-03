@@ -1,5 +1,6 @@
-﻿Public Class Utilidades
-    'Implements IReadOnlySessionState
+﻿
+
+Public Class Utilidades
 
     Private Shared ReadOnly instance As Utilidades = New Utilidades
 
@@ -14,6 +15,7 @@
     Public Function translate(ByVal ctrl_id As String, lang As Integer)
         Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)
     End Function
+
     Public Sub translateContentPage(ByVal ctrl As Control, lang As Integer)
         For Each c As Control In ctrl.Controls
             If c.Controls.Count > 0 Then
@@ -119,18 +121,51 @@
     '    End Sub
 
 
-    '    'Private Function tieneAcceso(ByVal ctrl As String) As Boolean
-    '    Public Function tieneAcceso(ByVal ctrl As String) As Boolean
-    '        'recorro las familias
-    '        Dim retorno As Boolean
-    '        Dim user As BE.UsuarioSession = BE.UsuarioSession.getUser()
-    '        For Each flia As BE.BEPatenteBasica In user.Patente.Patentes
-    '            If flia.Validar(ctrl) Then
-    '                retorno = True
-    '            End If
-    '        Next
-    '        Return retorno
-    '    End Function
+    Public Function get_user_permisos(ByVal flia_code As String) As List(Of String)
+        'devuelve todos los permisos del usuario
+        ' ex. los nativos
+
+        Dim lista_permisos As List(Of String) = New List(Of String)
+        If Not flia_code Is Nothing Then
+            Dim oFlia As BE.BEFamilia = New BE.BEFamilia
+            oFlia.codigo = flia_code
+            Dim oFliaInfra As Infra.Familia = New Infra.Familia
+            Dim patentes As List(Of BE.BEPatenteBasica) = New List(Of BE.BEPatenteBasica)
+            patentes = oFliaInfra.getPatentesFromFlia(oFlia)
+
+            ' valido los permisos
+            For Each p As String In New List(Of String) From _
+                {"idioma_read", "idioma_write", "patente_read", "patente_write", "usuario_read", _
+                 "usuario_write", "bitacora", "dv_mgr", "bkp", "restore"}
+
+                For Each flia As BE.BEPatenteBasica In patentes
+                    If flia.Validar(p) Then
+                        lista_permisos.Add(p)
+                    End If
+                Next
+            Next
+        End If
+
+        Return lista_permisos
+
+    End Function
+
+
+    ''' <summary>
+    ''' tieneAcceso
+    ''' Verifica si el usuario tiene acceso a la pagina pasada como argumento
+    ''' </summary>
+    ''' <param name="ctrl">@string : pagina a verficar si tiene acceso</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function tieneAcceso(ByVal ctrl As String, ByVal permisos As List(Of String)) As Boolean
+        'recorro las familias
+        Dim retorno As Boolean = True
+        If permisos.IndexOf(ctrl) < 0 Then
+            retorno = False
+        End If
+        Return retorno
+    End Function
 
     '    Public Sub tienePermiso(ByVal f As Form)
     '        'permisos

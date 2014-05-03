@@ -1,12 +1,13 @@
 ﻿Public Class index
     Inherits System.Web.UI.Page
 
-    Private _lang As Integer
-    Public ReadOnly Property lang As Integer
+    Private _read As Boolean
+    Public ReadOnly Property read
         Get
-            Return _lang
+            Return _read
         End Get
     End Property
+    
 
     Private _lista_bita As List(Of BE.Bitacora) = New List(Of BE.Bitacora)
     Public ReadOnly Property lista_bita() As List(Of BE.Bitacora)
@@ -32,7 +33,15 @@
             FormsAuthentication.RedirectToLoginPage()
             'ElseIf 
         Else
-            _lang = Session("lang")
+            '' verifico si tiene acceso
+
+            _read = Utilidades.getUtilidades().tieneAcceso("bitacora", Master.user_permisos)
+
+
+            '' si no tiene acceso
+            If Not _read Then
+                Response.Redirect("/")
+            End If
 
             Try
                 ' obtengo la bitacora
@@ -48,7 +57,7 @@
     End Sub
 
     Public Function translate(ByVal ctrl_id As String)
-        Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Master.lang)
     End Function
 
 End Class

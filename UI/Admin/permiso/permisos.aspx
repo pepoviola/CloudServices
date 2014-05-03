@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/CloudServices.Master" CodeBehind="permisos.aspx.vb" Inherits="UI.permisos" %>
+<%@ MasterType VirtualPath="~/CloudServices.Master" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
        <style type="text/css">
         .patentes_nodes { width:500px }        
@@ -70,8 +72,8 @@
         <div class="create modal-body">
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn cerrar_modal" data-dismiss="modal" ><%=translate("btn_cerrar") %></a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="flia_create"> <%=translate("btn_guardar")%></button>
+            <a href="#" class="btn cerrar_modal" data-dismiss="modal" ><%=translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="flia_create"> <%=translate("btn_save")%></button>
         </div>
         </form>
        </div> 
@@ -87,8 +89,8 @@
         <div class="modify modal-body">
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn cerrar_modal" data-dismiss="modal" ><%=translate("btn_cerrar") %></a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="flia_save"> <%=translate("btn_guardar")%></button>
+            <a href="#" class="btn cerrar_modal" data-dismiss="modal" ><%=translate("btn_close") %></a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="flia_save"> <%=translate("btn_save")%></button>
         </div>
         </form>
        </div> 

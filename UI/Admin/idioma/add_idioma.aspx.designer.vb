@@ -11,17 +11,5 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class resguardos
-
-    '''<summary>
-    '''Master property.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated property.
-    '''</remarks>
-    Public Shadows ReadOnly Property Master() As UI.CloudServices
-        Get
-            Return CType(MyBase.Master, UI.CloudServices)
-        End Get
-    End Property
+Partial Public Class add_idioma
 End Class

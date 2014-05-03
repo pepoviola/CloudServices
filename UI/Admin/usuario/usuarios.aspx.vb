@@ -28,13 +28,42 @@
             Return _errores
         End Get
     End Property
+    Private _read As Boolean
+    Public ReadOnly Property read
+        Get
+            Return _read
+        End Get
+    End Property
+    Private _write As Boolean
+    Public ReadOnly Property write
+        Get
+            Return _write
+        End Get
+    End Property
 
 
+    ''' <summary>
+    ''' Si la session no existe lo redirigo al login form
+    ''' Si no tiene acceso ( access denied ) lo redirigo al /
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If String.IsNullOrEmpty(Context.Session("auth")) Then
             ' redirect to login page
             FormsAuthentication.RedirectToLoginPage()
+
         Else
+            ' verifico si tiene acceso
+            _read = Utilidades.getUtilidades().tieneAcceso("usuario_read", Master.user_permisos)
+            _write = Utilidades.getUtilidades().tieneAcceso("usuario_write", Master.user_permisos)
+
+            ' si no tiene acceso
+            If Not _read And Not _write Then
+                Response.Redirect("/")
+            End If
+
             Try
                 Dim oInfraUser As Infra.InfraUsuario = New Infra.InfraUsuario()
                 _lista_usuarios = oInfraUser.Filtrar(New BE.BEUsuario())
@@ -49,10 +78,10 @@
                 _errores = translate(ex.codigo)
             End Try
 
-        End If
+            End If
 
     End Sub
     Public Function translate(ByVal ctrl_id As String)
-        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Session("lang"))
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Master.lang)
     End Function
 End Class

@@ -156,6 +156,22 @@ Public Class InfraUsuario
         Try
             'objeto dal
             Dim oUserDal As New DAL.UsuarioDAL
+            ' si el password esta vacio es porque no se debe cambiar
+            ' pero debemos obtener el actual para generar el dvh
+
+            If oUser.Passwd = "" Then
+                Dim temp_user As BE.BEUsuario = New BE.BEUsuario
+                temp_user.Username = oUser.Username
+                Dim l As List(Of BE.BEUsuario) = New List(Of BE.BEUsuario)
+                l = Filtrar(temp_user)
+                oUser.Passwd = l.First().Passwd
+            Else
+                ' encrypt new passwd
+                oUser.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oUser.Passwd)
+            End If
+
+            
+
             'get dvh 
             Dim dvhString As String
 
@@ -167,11 +183,7 @@ Public Class InfraUsuario
                 'update dvv
                 If Not DVV.Actualizar("Usuario") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
-                End If
-                'log in bitacora
-                'Dim oBita As New BE.Bitacora("Usuarios", "Se modificó el usuario: " + oUser.Username)
-                'Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-                'oInfraBita.Log(oBita)
+                End If            
 
             End If
         Catch ex As Exception

@@ -1,16 +1,6 @@
 ﻿Public Class permisos
     Inherits System.Web.UI.Page
-    ''' <summary>
-    ''' _lang is used to translate the page
-    ''' the value comes from the session
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private _lang As Integer
-    Public ReadOnly Property lang As Integer
-        Get
-            Return _lang
-        End Get
-    End Property
+   
 
     Private _langs As List(Of BE.Idioma) = New List(Of BE.Idioma)
     Public ReadOnly Property langs As List(Of BE.Idioma)
@@ -25,22 +15,46 @@
             Return _listaPatentes
         End Get
     End Property
+
+    Private _read As Boolean
+    Public ReadOnly Property read
+        Get
+            Return _read
+        End Get
+    End Property
+    Private _write As Boolean
+    Public ReadOnly Property write
+        Get
+            Return _write
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ' protect the page
         If String.IsNullOrEmpty(Session("auth")) Then
             FormsAuthentication.RedirectToLoginPage()
             'ElseIf 
         Else
-            _lang = Session("lang")
+
+            '' verifico si tiene acceso
+
+            _read = Utilidades.getUtilidades().tieneAcceso("patente_read", Master.user_permisos)
+            _write = Utilidades.getUtilidades().tieneAcceso("patente_write", Master.user_permisos)
+
+            '' si no tiene acceso
+            If Not _read And Not _write Then
+                Response.Redirect("/")
+            End If
+
             'obtengo todas las patentes
             Dim oInfraFlia As Infra.Familia = New Infra.Familia()
             _listaPatentes = oInfraFlia.getListaCompleta()
-        End If
+            End If
     End Sub
 
 
     Public Function translate(ByVal ctrl_id As String)
-        Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Master.lang)
     End Function
 
     ''' <summary>

@@ -340,6 +340,7 @@ Public Class UsuarioDAL
             dbManager.addParam(cmd, "@Nombre", t.Nombre)
             dbManager.addParam(cmd, "@Username", t.Username)
             dbManager.addParam(cmd, "@Password", t.Passwd)
+            dbManager.addParam(cmd, "@Email", t.Email)
             dbManager.addParam(cmd, "@Estado", t.Estado)
             dbManager.addParam(cmd, "@IdIdioma", t.Idioma.Id)
             dbManager.addParam(cmd, "@IdPatente", t.Patente.codigo)

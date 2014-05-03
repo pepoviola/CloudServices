@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/CloudServices.Master" CodeBehind="usuarios.aspx.vb" Inherits="UI.usuarios" %>
+<%@ MasterType VirtualPath="~/CloudServices.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
@@ -135,8 +136,8 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="user_create">save</button>
+            <a href="#" class="btn"><%=translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="user_create"><%=translate("btn_save")%></button>
         </div>
     <!-- end form -->            
     </form>
@@ -144,14 +145,14 @@
     <!-- .end modal create -->
 
     <!-- modal edit -->
-    <div id="Div1" class="modal hide fade">
+    <div id="modal_edit_user" class="modal hide fade">
         <form class="form-horizontal" id="form_edit_user">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3><%=translate("lbl_editar_usuario")%></h3>
         </div>
         <div class="modal-body">
-          
+             <input type="hidden" name="uid"/>
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("username")%></label>
                 <div class="controls">
@@ -220,8 +221,8 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="Button1">save</button>
+            <a href="#" class="btn"><%=translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="edit" id="save_edited_user"><%=translate("btn_save") %></button>
         </div>
     <!-- end form -->            
     </form>
@@ -236,7 +237,7 @@
         // CREATE
         $('#user_create').click(function (ev) {
             ev.preventDefault();
-            console.log($('#form_new_user').serialize());
+            //console.log($('#form_new_user').serialize());
             $.post('/Admin/usuario/add_usuario.ashx', $('#form_new_user').serialize(), function (res) {
                 // if the session expired reload the page to go to login form
                 if (res.status == undefined) location.reload();
@@ -297,7 +298,19 @@
                 // if the session expired reload the page to go to login form
                 if (res.status == undefined) location.reload();
                 if (res.status == "200") {
+                    // complete the form
+                    parsed_user = JSON.parse(res.lista)[0];
+
+                    $('#form_edit_user input[name="uid"]').val(parsed_user.Id);
+                    $('#form_edit_user input[name="username"]').val(parsed_user.Username);
+                    $('#form_edit_user input[name="nombre"]').val(parsed_user.Nombre);
+                    $('#form_edit_user input[name="apellido"]').val(parsed_user.Apellido);
+                    $('#form_edit_user input[name="email"]').val(parsed_user.Email);
+                    $('#form_edit_user select[name="idioma"] option[value="'+parsed_user.Idioma.Id+'"]').attr("selected", true)
+                    $('#form_edit_user select[name="flia"] option[value="'+parsed_user.Patente.codigo+'"]').attr("selected", true)
                     // show the form
+                    $('#modal_edit_user').modal("show");
+
                 }
                 else {
                     // show the error
@@ -310,6 +323,34 @@
                     $('section').prepend(div_alert);
                 }
                
+            }, "json");
+        } );
+
+        // SAVE EDITED USER
+        $('#save_edited_user').click(function (ev) {
+            ev.preventDefault();
+            //console.log($('#form_edit_user').serialize());
+            $.post('/Admin/usuario/mod_usuario.ashx', $('#form_edit_user').serialize(), function (res) {
+                // if the session expired reload the page to go to login form
+                if (res.status == undefined) location.reload();
+
+                var alert_type = (res.status == 200) ? "info" : "error";
+                var div_alert = '<div class="alert alert-' + alert_type + '">'
+                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                //remove if there any
+                $('.alert').remove();
+                //remove modal
+                $("#modal_edit_user").modal("hide");
+                $('section').prepend(div_alert);
+
+
+                // continue
+                if (res.status == "200") {
+                    // it's new so reload the page in 1 sec
+                    setTimeout(function () { location.reload(); }, 1000);
+                }
             });
         } );
 

@@ -1,14 +1,16 @@
 ﻿Public Class idiomas
     Inherits System.Web.UI.Page
-    ''' <summary>
-    ''' _lang is used to translate the page
-    ''' the value comes from the session
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private _lang As Integer
-    Public ReadOnly Property lang As Integer
+
+    Private _read As Boolean
+    Public ReadOnly Property read
         Get
-            Return _lang
+            Return _read
+        End Get
+    End Property
+    Private _write As Boolean
+    Public ReadOnly Property write
+        Get
+            Return _write
         End Get
     End Property
 
@@ -33,7 +35,15 @@
             FormsAuthentication.RedirectToLoginPage()
             'ElseIf 
         Else
-            _lang = Session("lang")
+            '' verifico si tiene acceso
+            _read = Utilidades.getUtilidades().tieneAcceso("idioma_read", Master.user_permisos)
+            _write = Utilidades.getUtilidades().tieneAcceso("idioma_write", Master.user_permisos)
+
+            '' si no tiene acceso
+            If Not _read And Not _write Then
+                Response.Redirect("/")
+            End If
+
             Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma()
             _langs = oInfraIdioma.Filtrar(New BE.Idioma())
 
@@ -48,7 +58,7 @@
 
 
     Public Function translate(ByVal ctrl_id As String)
-        Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Master.lang)
     End Function
 
 End Class
