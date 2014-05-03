@@ -78,14 +78,14 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="text" name="password" id="password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="text" name="repeat_password" id="repeat_password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="repeat_password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
@@ -163,14 +163,14 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="text" name="password" id="Text2" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="Text2" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="text" name="repeat_password" id="Text3" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="Text3" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 

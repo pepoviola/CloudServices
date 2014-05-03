@@ -21,15 +21,15 @@
 					        <label  for="bita_filer_by_user"><% =translate("bita_filtro_categoria")%>
                                 <input type="text" class="input-medium search-query" name="bita_filtro_categoria" id="bita_filtro_categoria"  placeholder="<% =translate("categoria")%>" />
 					        </label>							    
-                            <button type="button" id="filtrar" class="btn"><% =translate("filtrar") %></button> 
+                            <button type="button" id="filtrar" class="btn"><i class=" icon-search"></i> <% =translate("filtrar") %></button> 
 					</div>
                     <br />
                     <br />
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th><%=translate("username")%></th>
-                                <th><%=translate("Categoria")%></th>
+                                <th><%=translate("th_usuario")%></th>
+                                <th><%=translate("th_categoria")%></th>
                                 <th><%=translate("Fecha")%></th>
                                 <th><%=translate("Descripcion")%></th>
                             </tr>

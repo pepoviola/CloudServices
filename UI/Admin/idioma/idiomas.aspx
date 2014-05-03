@@ -19,7 +19,7 @@
                 <div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_idioma" data-action="add">
-                            <i class="icon-plus icon-white"></i> <% =translate("btn_new")%>
+                            <i class="icon-flag icon-white"></i> <% =translate("btn_new")%>
                         </a>
                     </div>
                     <br />
