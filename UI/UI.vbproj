@@ -104,6 +104,7 @@
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\jquery-2.1.0.js" />
     <Content Include="scripts\login\login.js" />
+    <Content Include="settings.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +239,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="settings.aspx.designer.vb">
+      <DependentUpon>settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="settings.aspx.vb">
+      <DependentUpon>settings.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Utilidades.vb" />
   </ItemGroup>

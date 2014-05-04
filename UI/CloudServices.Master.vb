@@ -2,10 +2,13 @@
     Inherits System.Web.UI.MasterPage
 
     Private _lang As Integer
-    Public ReadOnly Property lang
+    Public Property lang
         Get
             Return _lang
         End Get
+        Set(value)
+            _lang = value
+        End Set
     End Property
 
     Private _user_permisos As List(Of String) = New List(Of String)
