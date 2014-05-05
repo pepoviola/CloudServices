@@ -136,7 +136,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn"><%=translate("btn_close")%></a>
+            <a href="#" class="btn close" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
             <button type="submit" class="btn btn-primary" data-action="create" id="user_create"><%=translate("btn_save")%></button>
         </div>
     <!-- end form -->            
@@ -221,7 +221,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn"><%=translate("btn_close")%></a>
+            <a href="#" class="btn close" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
             <button type="submit" class="btn btn-primary" data-action="edit" id="save_edited_user"><%=translate("btn_save") %></button>
         </div>
     <!-- end form -->            
@@ -232,6 +232,28 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+
+        // VALIDACIONES
+        var validate_new = function () {
+            $("#form_new_user").validate({
+                rules: {
+                    username: {
+                        required :true,
+                        minlength : 4
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("{0} <%=translate("x_caracteres_requeridos")%>"),
+                    }
+                }
+            });
+        };
+
+        var validate_edit = function () {
+        };
+        // end validaciones
         // binding actions
 
         // CREATE
