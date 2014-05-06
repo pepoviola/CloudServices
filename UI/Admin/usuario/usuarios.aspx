@@ -239,14 +239,46 @@
                 rules: {
                     username: {
                         required :true,
-                        minlength : 4
+                        minlength: 4,
+                        maxlength: 25
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 50,
+                    },
+                    repeat_password: {
+                        requerid: true,
+                        minlength: 6,
+                        maxlength: 50,
+                    },
+                    nombre: {
+                        requerid: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    apellido: {
+                        requerid: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        email:  true
                     }
                 },
-                messages: {
+                messages: {                   
                     username: {
                         required: "<%=translate("campo_requerido")%>",
-                        minlength: $.validator.format("{0} <%=translate("x_caracteres_requeridos")%>"),
-                    }
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+                    password: {
+                        required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+
                 }
             });
         };
