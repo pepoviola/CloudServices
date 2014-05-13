@@ -29,7 +29,6 @@ Public Class flias
         End If
 
         'End If
-
         If root.GetType().Name = "BEFamilia" Then
 
             nivel += 1
@@ -61,11 +60,14 @@ Public Class flias
             FormsAuthentication.RedirectToLoginPage()
             'ElseIf 
         Else
+            context.Response.ContentType = "application/json"
+            Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
+            Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
             If context.Request.HttpMethod = "POST" Then
                 ' es modificacion devuelvo json
-                context.Response.ContentType = "application/json"
-                Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
-                Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
+                'context.Response.ContentType = "application/json"
+                'Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
+                'Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
                 Try
                     ' do stuffs
                     Dim oFlia As BE.BEFamilia = New BE.BEFamilia
@@ -82,7 +84,7 @@ Public Class flias
                                 p.codigo = ctrl
                                 permisos.Add(p)
                             End If
-                            
+
                         End If
                     Next
                     'preparo bitacora
@@ -138,7 +140,12 @@ Public Class flias
                 Next
                 modal += "</ul></div></div>"
                 modal += "<script>biddinchecks()</script>"
-                context.Response.Write(modal)
+
+                resp.Add("status", "200")
+                resp.Add("modalbody", modal)
+                'context.Response.Write(modal)
+                Dim oRes = jss.Serialize(resp)
+                context.Response.Write(oRes)
             End If
 
         End If

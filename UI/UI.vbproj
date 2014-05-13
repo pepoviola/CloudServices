@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\bitacora\index.aspx" />
+    <Content Include="Admin\dvManager\dvs.aspx" />
     <Content Include="Admin\idioma\add_idioma.aspx" />
     <Content Include="Admin\idioma\idiomas.aspx" />
     <Content Include="Admin\permiso\add_familia.aspx" />
@@ -123,6 +124,16 @@
     <Compile Include="Admin\bitacora\index.aspx.vb">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\dvManager\dvs.aspx.designer.vb">
+      <DependentUpon>dvs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\dvManager\dvs.aspx.vb">
+      <DependentUpon>dvs.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\dvManager\generate_dv.ashx.vb">
+      <DependentUpon>generate_dv.ashx</DependentUpon>
     </Compile>
     <Compile Include="Admin\idioma\add_idioma.aspx.designer.vb">
       <DependentUpon>add_idioma.aspx</DependentUpon>
@@ -277,6 +288,7 @@
     <Content Include="Admin\usuario\del_usuario.ashx" />
     <Content Include="Admin\usuario\mod_usuario.ashx" />
     <Content Include="Admin\usuario\filtra_usuarios.ashx" />
+    <Content Include="Admin\dvManager\generate_dv.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

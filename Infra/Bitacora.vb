@@ -45,10 +45,10 @@ Public Class Bitacora
             'genero el DVH
             Dim bitaString As String = String.Empty
             ' old implementation
-            'bitaString += bita.Descripcion + bita.Categoria + Convert.ToString(bita.Fecha) _
-            '                        + Convert.ToString(bita.Usuario.Id)
-            bitaString += bita.Descripcion + bita.Categoria _
-                        + Convert.ToString(bita.Usuario.Id)
+            bitaString += bita.Descripcion + bita.Categoria + Convert.ToString(bita.Fecha) _
+                                    + Convert.ToString(bita.Usuario.Id)
+            'bitaString += bita.Descripcion + bita.Categoria _
+            '           + Convert.ToString(bita.Usuario.Id)
             bita.DVH = Criptografia.Crypto.getCrypto().generarMD5(bitaString)
             retorno = oDalBita.Log(bita)
             If retorno Then

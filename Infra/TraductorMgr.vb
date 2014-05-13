@@ -12,7 +12,7 @@ Public Class TraductorMgr
             ret = tagsDal.getTagValue(control, idioma)
         Catch ex As System.Data.SqlClient.SqlException
             'si no me puedo conectar a la db siempre respondo con error de conexión
-            ret = String.Format("Error en TRAD MGR")
+            ret = String.Format("Error en TRAD MGR [verificar keys]")
 
         Catch ex As Exception
             'custom ex

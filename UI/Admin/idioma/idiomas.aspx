@@ -102,14 +102,14 @@
         <div class="modal-body">
           
             <div class="control-group">
-                <label class="control-label" for="idioma_code"><% =translate("idioma_code")%></label>
+                <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
                         
                         <input type="text" name="idioma_code" id="edit_idioma_code" placeholder="" value="" readonly/>
                 </div>
              </div>
             <div class="control-group">
-                <label class="control-label" for="idioma_descripcion"><% =translate("idioma_descripcion")%></label>
+                <label class="control-label" for="idioma_descripcion"><% =translate("lbl_idioma_descripcion")%></label>
                 <div class="controls">
                         <input type="text" name="idioma_descripcion" id="edit_idioma_descripcion" placeholder="" disabled />
                 </div>

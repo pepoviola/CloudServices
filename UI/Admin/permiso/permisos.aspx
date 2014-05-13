@@ -159,11 +159,12 @@
             ev.preventDefault();
             // get the body
             $.get('/Admin/permiso/flias.ashx?new=on', function (res) {
-                if (res) {
-                    $('.create.modal-body').html(res);
+                if (res.status == undefined) { location.reload(); }
+                else{
+                    $('.create.modal-body').html(res.modalbody);
                     $('#modal_flia').modal("show");
                 }
-            }, "html");
+            }, "json");
         });
 
 
@@ -221,8 +222,9 @@
             var flia_to = $(this).data('codpat');
             var flia_des = $(this).data('despat');
             $.get('/Admin/permiso/flias.ashx', function (res) {
-                if (res) {
-                    $('.modify.modal-body').html(res);
+                if (res.status == undefined) { location.reload(); }
+                else{
+                    $('.modify.modal-body').html(res.modalbody);
                     // make and input hidden of the id
                     var hidden = $("<input>").attr({ type: "hidden", name: "codpat", value: flia_to });
                     $('#form_modify').prepend(hidden);
@@ -233,9 +235,9 @@
                     $(root).parent().parent().find("input[type='checkbox']").each(function () {
                         $(this).prop("checked", true);
                     });
-                    $('#mod_modal').modal("show")
+                    $('#mod_modal').modal("show");
                 }
-            }, "html");
+            }, "json");
         });
 
         // SEND MOD MODAL

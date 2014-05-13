@@ -66,8 +66,10 @@
     <Compile Include="Backup.vb" />
     <Compile Include="Bitacora.vb" />
     <Compile Include="DigitoVerificador.vb" />
+    <Compile Include="DVH.vb" />
     <Compile Include="DVV.vb" />
     <Compile Include="Familia.vb" />
+    <Compile Include="helper_dv.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="InfraUsuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

@@ -152,11 +152,11 @@ Public Class Utilidades
 
 
     ''' <summary>
-    ''' tieneAcceso
-    ''' Verifica si el usuario tiene acceso a la pagina pasada como argumento
+    ''' 
     ''' </summary>
-    ''' <param name="ctrl">@string : pagina a verficar si tiene acceso</param>
-    ''' <returns></returns>
+    ''' <param name="ctrl">control a validar</param>
+    ''' <param name="permisos">lista de permisos del usuario</param>
+    ''' <returns>boolean (si tiene acceso a ese control o no)</returns>
     ''' <remarks></remarks>
     Public Function tieneAcceso(ByVal ctrl As String, ByVal permisos As List(Of String)) As Boolean
         'recorro las familias

@@ -87,6 +87,7 @@
                 Throw ex
             End Try
         Catch ex As Exception
+            Throw ex
         Finally
             conn.Close()
         End Try
