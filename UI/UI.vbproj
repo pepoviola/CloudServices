@@ -83,6 +83,7 @@
   <ItemGroup>
     <Content Include="Admin\bitacora\index.aspx" />
     <Content Include="Admin\dvManager\dvs.aspx" />
+    <Content Include="dvsErr.aspx" />
     <Content Include="Admin\idioma\add_idioma.aspx" />
     <Content Include="Admin\idioma\idiomas.aspx" />
     <Content Include="Admin\permiso\add_familia.aspx" />
@@ -130,6 +131,13 @@
     </Compile>
     <Compile Include="Admin\dvManager\dvs.aspx.vb">
       <DependentUpon>dvs.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="dvsErr.aspx.designer.vb">
+      <DependentUpon>dvsErr.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dvsErr.aspx.vb">
+      <DependentUpon>dvsErr.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Admin\dvManager\generate_dv.ashx.vb">

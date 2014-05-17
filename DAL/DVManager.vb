@@ -15,7 +15,9 @@
                 Dim q As Integer = lector.FieldCount
                 Dim campo As String = String.Empty
                 For i As Integer = 1 To (q - 2)
-                    campo += Convert.ToString(lector(i))
+                    If Not lector.GetName(i) = "Fecha" Then
+                        campo += Convert.ToString(lector(i))
+                    End If
                 Next
                 lista.Add(Convert.ToInt32(lector(0)), _
                           New Dictionary(Of String, String) From {{campo, Convert.ToString(lector((q - 1)))}})

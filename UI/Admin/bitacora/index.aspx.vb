@@ -35,12 +35,15 @@
         Else
             '' verifico si tiene acceso
 
-            _read = Utilidades.getUtilidades().tieneAcceso("bitacora", Master.user_permisos)
+            ' old implementation
+            '_read = Utilidades.getUtilidades().tieneAcceso("bitacora", Master.user_permisos)
+            _read = Utilidades.getUtilidades().tieneAcceso("bitacora", Session("flia"))
 
 
             '' si no tiene acceso
             If Not _read Then
-                Response.Redirect("/")
+                Response.Redirect("/", False)
+                Exit Sub
             End If
 
             Try

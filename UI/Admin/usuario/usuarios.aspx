@@ -136,7 +136,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn close" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
             <button type="submit" class="btn btn-primary" data-action="create" id="user_create"><%=translate("btn_save")%></button>
         </div>
     <!-- end form -->            
@@ -156,42 +156,42 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("username")%></label>
                 <div class="controls">
-                        <input type="text" name="username" id="Text1" maxlength="25"  readonly="true"/>
+                        <input type="text" name="username" id="edit_username" maxlength="25"  readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="password" name="password" id="Text2" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="edit_password" "/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="password" name="repeat_password" id="Text3" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="edit_repeat_password"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="nombre"><% =translate("nombre")%></label>
                 <div class="controls">
-                        <input type="text" name="nombre" id="Text4" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="text" name="nombre" id="edit_nombre" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="apellido"><% =translate("apellido")%></label>
                 <div class="controls">
-                        <input type="text" name="apellido" id="Text5" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="text" name="apellido" id="edit_apellido" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
           
             <div class="control-group">
                 <label class="control-label" for="email"><% =translate("email")%></label>
                 <div class="controls">
-                        <input type="text" name="email" id="Text6" placeholder="" maxlength="150" />
+                        <input type="text" name="email" id="edit_email" placeholder="" maxlength="150" />
                 </div>
             </div>
 
@@ -221,7 +221,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn close" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
             <button type="submit" class="btn btn-primary" data-action="edit" id="save_edited_user"><%=translate("btn_save") %></button>
         </div>
     <!-- end form -->            
@@ -233,9 +233,42 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
 
+        // mensajes
+        var messages =  {                   
+                username: {
+                    required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+                    password: {
+                            required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+                    repeat_password: {
+                            required: "<%=translate("campo_requerido")%>",
+                        equalTo: "<%=translate("las_claves_deben_coincidir")%>"
+                    },
+                    nombre: {
+                            required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+                    apellido: {
+                            required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+                    email: {
+                            required: "<%=translate("campo_requerido")%>",
+                            email : "<%=translate("debe_ser_email_valido")%>"
+                    }
+                }
+
         // VALIDACIONES
         var validate_new = function () {
             $("#form_new_user").validate({
+                debug :true,
                 rules: {
                     username: {
                         required :true,
@@ -248,17 +281,16 @@
                         maxlength: 50,
                     },
                     repeat_password: {
-                        requerid: true,
-                        minlength: 6,
-                        maxlength: 50,
+                        required: true,
+                        equalTo: "#password",
                     },
                     nombre: {
-                        requerid: true,
+                        required: true,
                         minlength: 2,
                         maxlength: 50,
                     },
                     apellido: {
-                        requerid: true,
+                        required: true,
                         minlength: 2,
                         maxlength: 50,
                     },
@@ -267,23 +299,35 @@
                         email:  true
                     }
                 },
-                messages: {                   
-                    username: {
-                        required: "<%=translate("campo_requerido")%>",
-                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
-                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
-                    },
-                    password: {
-                        required: "<%=translate("campo_requerido")%>",
-                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
-                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
-                    },
-
-                }
+                messages : messages                
             });
         };
 
         var validate_edit = function () {
+            $("#form_edit_user").validate({
+                debug: true,
+                rules: {                   
+                    repeat_password: {
+                        equalTo: "#edit_password",
+                    },
+                    nombre: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    apellido: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: messages
+            });
+
         };
         // end validaciones
         // binding actions
@@ -291,30 +335,33 @@
         // CREATE
         $('#user_create').click(function (ev) {
             ev.preventDefault();
-            //console.log($('#form_new_user').serialize());
-            $.post('/Admin/usuario/add_usuario.ashx', $('#form_new_user').serialize(), function (res) {
-                // if the session expired reload the page to go to login form
-                if (res.status == undefined) location.reload();
+            // instancio validacion
+            validate_new();
+            if ($("#form_new_user").valid()) {
+                //console.log($('#form_new_user').serialize());
+                $.post('/Admin/usuario/add_usuario.ashx', $('#form_new_user').serialize(), function (res) {
+                    // if the session expired reload the page to go to login form
+                    if (res.status == undefined) location.reload();
 
-                var alert_type = (res.status == 200) ? "info" : "error";
-                var div_alert = '<div class="alert alert-' + alert_type + '">'
+                    var alert_type = (res.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
                         + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                         + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                //remove if there any
-                $('.alert').remove();
-                //remove modal
-                $("#modal_new_user").modal("hide");
-                $('section').prepend(div_alert);
-               
+                    //remove if there any
+                    $('.alert').remove();
+                    //remove modal
+                    $("#modal_new_user").modal("hide");
+                    $('section').prepend(div_alert);
 
-                // continue
-                if (res.status == "200") {
-                    // it's new so reload the page in 1 sec
-                    setTimeout(function () { location.reload(); }, 1000);
-                }
-            });
-        });
+                    // continue
+                    if (res.status == "200") {
+                        // it's new so reload the page in 1 sec
+                        setTimeout(function () { location.reload(); }, 1000);
+                    }
+                });
+            } // del if valid
+        }); // end 
 
         //DELETE
         $('.user_delete').click(function (ev) {
@@ -383,30 +430,35 @@
         // SAVE EDITED USER
         $('#save_edited_user').click(function (ev) {
             ev.preventDefault();
-            //console.log($('#form_edit_user').serialize());
-            $.post('/Admin/usuario/mod_usuario.ashx', $('#form_edit_user').serialize(), function (res) {
-                // if the session expired reload the page to go to login form
-                if (res.status == undefined) location.reload();
 
-                var alert_type = (res.status == 200) ? "info" : "error";
-                var div_alert = '<div class="alert alert-' + alert_type + '">'
+            // vaido
+            validate_edit();
+
+            if ($("#form_edit_user").valid()) {
+                $.post('/Admin/usuario/mod_usuario.ashx', $('#form_edit_user').serialize(), function (res) {
+                    // if the session expired reload the page to go to login form
+                    if (res.status == undefined) location.reload();
+
+                    var alert_type = (res.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
                         + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                         + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                //remove if there any
-                $('.alert').remove();
-                //remove modal
-                $("#modal_edit_user").modal("hide");
-                $('section').prepend(div_alert);
+                    //remove if there any
+                    $('.alert').remove();
+                    //remove modal
+                    $("#modal_edit_user").modal("hide");
+                    $('section').prepend(div_alert);
 
 
-                // continue
-                if (res.status == "200") {
-                    // it's new so reload the page in 1 sec
-                    setTimeout(function () { location.reload(); }, 1000);
-                }
-            });
-        } );
+                    // continue
+                    if (res.status == "200") {
+                        // it's new so reload the page in 1 sec
+                        setTimeout(function () { location.reload(); }, 1000);
+                    }
+                });
+            }// del if valid
+        }); // end
 
 
     </script>

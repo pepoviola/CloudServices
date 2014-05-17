@@ -23,8 +23,12 @@ Public Class DVH
             'CType(pair.Value, KeyValuePair(Of String, String)))
             If Not pair.Value.Item(pair.Value.Keys(0)).Equals(n) Then
                 'erro en dvh
-                lista.Add(New Dictionary(Of String, String) From {{String.Format("Tabla: {0}", tabla), _
-                                                                   String.Format("ID: {0}", pair.Key)}})
+                'lista.Add(New Dictionary(Of String, String) From {{String.Format("Tabla: {0}", tabla), _
+                '                                                   String.Format("ID: {0}", pair.Key)}})
+
+                ' more json frendly
+                lista.Add(New Dictionary(Of String, String) From {{String.Format("{0}", tabla), _
+                                                                   String.Format("{0}", pair.Key)}})
             End If
         Next
         Return lista

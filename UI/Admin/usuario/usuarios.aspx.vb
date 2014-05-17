@@ -56,12 +56,13 @@
 
         Else
             ' verifico si tiene acceso
-            _read = Utilidades.getUtilidades().tieneAcceso("usuario_read", Master.user_permisos)
-            _write = Utilidades.getUtilidades().tieneAcceso("usuario_write", Master.user_permisos)
+            _read = Utilidades.getUtilidades().tieneAcceso("usuario_read", Session("flia"))
+            _write = Utilidades.getUtilidades().tieneAcceso("usuario_write", Session("flia"))
 
             ' si no tiene acceso
             If Not _read And Not _write Then
-                Response.Redirect("/")
+                Response.Redirect("/", False)
+                Exit Sub
             End If
 
             Try

@@ -54,7 +54,7 @@
                                   <% End If%>
 
                                    <% If Me.tieneAcceso("dv_mgr") Then%>
-                                  <li><a href="/Admin/dv.aspx" id="menu_dv"><% =translate("menu_dv")%></a></li>
+                                  <li><a href="/Admin/dvManager/dvs.aspx" id="menu_dv"><% =translate("menu_dv")%></a></li>
                                   <% End If%>
 
                                   <% If Me.tieneAcceso("bkp") Or Me.tieneAcceso("restore") Then%>

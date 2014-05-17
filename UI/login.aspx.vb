@@ -1,4 +1,6 @@
-﻿Public Class login
+﻿Imports System.Web.Script.Serialization
+
+Public Class login
     Inherits System.Web.UI.Page
 
     'Dim alert_div As HtmlGenericControl
@@ -60,16 +62,51 @@
                 Session("flia") = oUsuario.Patente.codigo
                 Session("flia_desc") = oUsuario.Patente.descripcion
                 Dim oInfraDV As Infra.DVV = New Infra.DVV
+                Dim oInfraDVH As Infra.DVH = New Infra.DVH
                 Dim l As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                Dim l2 As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
 
                 l = oInfraDV.check("Bitacora")
+                l2 = oInfraDVH.check("Bitacora")
+                Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
+                Session("dvvErrs") = jss.Serialize(l)
+                Session("dvhErrs") = jss.Serialize(l2)
+
+                Dim a As String = Session("dvhErrs")
+
                 ' if l is bigger than 0
                 ' we have an issue with the dvs
 
+                If l2.Count > 0 Or l.Count > 0 Then
+                    ' errores de validacion
+                    ' si el usuario tiene el permiso lo redirecciono
+                    ' sino cierro la session y lo mando a login 
+                    ' con el mensaje de error correspondiente
+                    If Utilidades.getUtilidades().tieneAcceso("dv_mgr", Session("flia")) Then
+                        Response.Redirect("/dvsErr.aspx", False)
+                        ' control with exit sub
+                        ' http://msdn.microsoft.com/en-us/library/a8wa7sdt.aspx
+                        '
+                        Exit Sub
+                    Else
+                        ' corto la session y mando el mensaje en una nueva
+                        ' Session.Abandon()
+                        Session("auth") = Nothing
+                        Session("_msg_dv_err") = "errores en dvs"
+                        Response.Redirect("/login.aspx", False)
+                        ' control with exit sub
+                        ' http://msdn.microsoft.com/en-us/library/a8wa7sdt.aspx
+                        '
+                        Exit Sub
+                    End If
+
+                End If
+
+
                 If Not String.IsNullOrEmpty(Request.QueryString("ReturnUrl")) Then
-                    Response.Redirect(Request.QueryString("ReturnUrl"))
+                    Response.Redirect(Request.QueryString("ReturnUrl"), False)
                 Else
-                    Response.Redirect("/Default.aspx")
+                    Response.Redirect("/Default.aspx", False)
                 End If
             Else
 
@@ -83,7 +120,6 @@
 
         Catch ex As Exception
             'show system error
-
 
         End Try
 

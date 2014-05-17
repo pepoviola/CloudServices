@@ -121,9 +121,11 @@ Public Class Utilidades
     '    End Sub
 
 
+    ' no se deberia usar mas
+
     Public Function get_user_permisos(ByVal flia_code As String) As List(Of String)
         'devuelve todos los permisos del usuario
-        ' ex. los nativos
+
 
         Dim lista_permisos As List(Of String) = New List(Of String)
         If Not flia_code Is Nothing Then
@@ -166,6 +168,36 @@ Public Class Utilidades
         End If
         Return retorno
     End Function
+
+    ''' <summary>
+    '''  Obtengo las patentes de la flia
+    ''' Las recorro y si es valida la requerida devuelvo True
+    ''' Si termina el bucle devuelve False
+    ''' </summary>
+    ''' <param name="ctrl">permiso a validar</param>
+    ''' <param name="flia_code">familia del usuario</param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function tieneAcceso(ByVal ctrl As String, ByVal flia_code As String) As Boolean
+
+        Dim retorno As Boolean = False
+        Dim oFlia As BE.BEFamilia = New BE.BEFamilia
+        oFlia.codigo = flia_code
+        Dim oFliaInfra As Infra.Familia = New Infra.Familia
+        Dim patentes As List(Of BE.BEPatenteBasica) = New List(Of BE.BEPatenteBasica)
+        patentes = oFliaInfra.getPatentesFromFlia(oFlia)
+        For Each flia As BE.BEPatenteBasica In patentes
+            If flia.Validar(ctrl) Then
+                Return True
+            End If
+        Next
+
+        'If permisos.IndexOf(ctrl) < 0 Then
+        '    retorno = False
+        'End If
+        Return retorno
+    End Function
+
 
     '    Public Sub tienePermiso(ByVal f As Form)
     '        'permisos

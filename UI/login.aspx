@@ -31,7 +31,12 @@
         <div  id="aler_div_error" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
             <% =translate("login_error_acceso",1) %>
         </div>  
-        <%    End If %>
+        <%  ElseIf Session("_msg_dv_err") <> "" Then%>
+        <div  id="Div1" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
+            <% =Session("_msg_dv_err")%>
+        </div>  
+
+        <%  End If %>
    
         <div  id="alert_div_complete" class="alert alert-error hide"><a class="close" data-dismiss="alert">×</a>
             <% =translate("login_error_complete", 1) %>            

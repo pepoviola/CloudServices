@@ -19,13 +19,19 @@ Public Class generate_dv
             ' only allow post
             If context.Request.HttpMethod = "POST" Then
                 Try
-                    Dim infra As Infra.helper_dv = New Infra.helper_dv
+                    Dim infra_helper As Infra.helper_dv = New Infra.helper_dv
                     Dim res As String
-                    res = infra.generate_dvh_for_table(context.Request.Form.Get("table_name"))
+                    res = infra_helper.generate_dvh_for_table(context.Request.Form.Get("table_name"))
+                    resp.Add("status", "200")
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("generate_ok", context.Session("lang")))
                 Catch ex As Exception
+                    resp.Add("status", "500")
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("generate_err", context.Session("lang")))
 
                 End Try
 
+                Dim oRes = jss.Serialize(resp)
+                context.Response.Write(oRes)
             End If
         End If
 

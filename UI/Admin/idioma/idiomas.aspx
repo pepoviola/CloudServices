@@ -60,13 +60,13 @@
         <div class="modal-body">
           
             <div class="control-group">
-                <label class="control-label" for="idioma_code"><% =translate("idioma_code")%></label>
+                <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
                         <input type="text" name="idioma_code" id="idioma_code" placeholder="<% =Session("lang_code")%>" />
                 </div>
              </div>
             <div class="control-group">
-                <label class="control-label" for="idioma_descripcion"><% =translate("idioma_descripcion")%></label>
+                <label class="control-label" for="idioma_descripcion"><% =translate("lbl_idioma_descripcion")%></label>
                 <div class="controls">
                         <input type="text" name="idioma_descripcion" id="idioma_descripcion" placeholder="" />
                 </div>
@@ -84,7 +84,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
             <button type="submit" class="btn btn-primary" data-action="create" id="idioma_create">save</button>
         </div>
     <!-- end form -->            
@@ -127,7 +127,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
             <button type="submit" class="btn btn-primary" data-action="edit" id="edit_idioma_save" >save</button>
         </div>
     <!-- end form -->            
