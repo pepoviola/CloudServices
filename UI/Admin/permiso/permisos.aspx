@@ -10,7 +10,8 @@
         .ul_root, .li_item { width:100% ; padding-left: 5px;   }
         .expand_p { width:15px;height:15px; }    
         .collapse_p { width:15px;height:15px;display:none }
-    </style>
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
         <div class="row-fluid">
@@ -127,32 +128,39 @@
                 }
             });
         }
-       
+       
+
         //binding actions
         
         // DELETE
         $('.patente_delete').click(function (ev) {
             ev.preventDefault();
             var flia_code = $(this).data('codpat');
-            $.post('/Admin/permiso/del_flias.ashx', { flia_code: flia_code }, function (res) {
-                // if the session expired reload the page to go to login form
-                if (res.status == undefined) location.reload();
+            $.confirm({
+                text: "<%=translate("confirme_accion")%>",
+                confirmButton: "<%=translate("Si")%>",
+                cancelButton: "<%=translate("Cancelar")%>",
+                confirm: function () {
+                    $.post('/Admin/permiso/del_flias.ashx', { flia_code: flia_code }, function (res) {
+                        // if the session expired reload the page to go to login form
+                        if (res.status == undefined) location.reload();
 
-                var alert_type = (res.status == 200) ? "info" : "error";
-                var div_alert = '<div class="alert alert-' + alert_type + '">'
-                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+                        var alert_type = (res.status == 200) ? "info" : "error";
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                if (res.status == 200) {
-                    // remove row                        
-                    $('#codpat-' + flia_code).remove();
+                        if (res.status == 200) {
+                            // remove row                        
+                            $('#codpat-' + flia_code).remove();
+                        }
+                        //remove if there any
+                        $('.alert').remove();
+                        $('section').prepend(div_alert);
+                    });
                 }
-                //remove if there any
-                $('.alert').remove();
-                $('section').prepend(div_alert);
-            } );
+            });
         });
-
 
         // GENERATE CREATE MODAL
         $('#open_create_modal').click(function (ev) {

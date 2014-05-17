@@ -26,9 +26,9 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>File</th>
-                                <th>Fecha</th>
-                                <th>Restore</th>                                
+                                <th><%=translate("th_archivo")%></th>
+                                <th><%=translate("th_fecha")%></th>
+                                <th><%=translate("th_restore")%></th>                                
                             </tr>
                         </thead>
                         <tbody>
@@ -52,64 +52,71 @@
     <script>
         $('#make_bkp').click(function (ev) {
             ev.preventDefault();
-            // insert backdrop
-            $('<div class="modal-backdrop"></div>').appendTo(document.body);
-            //make!
-            $.get('/Admin/resguardo/make_bkp.ashx', function (res) {
-                // remove backdrop
-                $(".modal-backdrop").remove();
-                if (res.status == undefined) location.reload();
+            $.confirm({
+                text: "<%=translate("confirme_accion")%>",
+                confirmButton: "<%=translate("Si")%>",
+                cancelButton: "<%=translate("Cancelar")%>",
+                confirm: function () {
+                    // insert backdrop
+                    $('<div class="modal-backdrop"></div>').appendTo(document.body);
+                    //make!
+                    $.get('/Admin/resguardo/make_bkp.ashx', function (res) {
+                        // remove backdrop
+                        $(".modal-backdrop").remove();
+                        if (res.status == undefined) location.reload();
 
-                
-              
-                    var alert_type = (res.status == 200) ? "info" : "error";
-                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                        var alert_type = (res.status == 200) ? "info" : "error";
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
                             + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                             + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                    //remove if there any
-                    $('.alert').remove();
-                    $('section').prepend(div_alert);
+                        //remove if there any
+                        $('.alert').remove();
+                        $('section').prepend(div_alert);
 
-                // continue
-                    if (res.status == "200") {
-                        // it's new so reload the page 1 second after
-                        setTimeout(function () { location.reload() }, 1000);;
-                    }
+                        // continue
+                        if (res.status == "200") {
+                            // it's new so reload the page 1 second after
+                            setTimeout(function () { location.reload() }, 1000);;
+                        }
+                    });
+                }
             });
         });
 
         // restore
         $('.restore').click(function (ev) {
             ev.preventDefault();
-            // insert backdrop
-            $('<div class="modal-backdrop"></div>').appendTo(document.body);
-            //make!
             var bkp_name = $(this).data('file');
-            $.post('/Admin/resguardo/restore.ashx',{bkp_name:bkp_name}, function (res) {
-                // remove backdrop
-                $(".modal-backdrop").remove();
-                if (res.status == undefined) location.reload();
+            $.confirm({
+                text: "<%=translate("confirme_accion")%>",
+                confirmButton: "<%=translate("Si")%>",
+                cancelButton: "<%=translate("Cancelar")%>",
+                confirm: function () {
+                    // insert backdrop
+                    $('<div class="modal-backdrop"></div>').appendTo(document.body);
+                    //make!
 
-                // continue
-                //if (res.status == "200") {
-                    // it's new so reload the page
-                 //   location.reload();
-                //}
-                //else {
-                    var alert_type = (res.status == 200) ? "info" : "error";
-                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                    $.post('/Admin/resguardo/restore.ashx', { bkp_name: bkp_name }, function (res) {
+                        // remove backdrop
+                        $(".modal-backdrop").remove();
+                        if (res.status == undefined) location.reload();
+
+                        var alert_type = (res.status == 200) ? "info" : "error";
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
                             + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                             + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                    //remove if there any
-                    $('.alert').remove();
-                    $('section').prepend(div_alert);
-                //}
-                  if (res.status == "200") {
-                        // it's new so reload the page 1 second after
-                        setTimeout(function () { location.reload() }, 1000);;
-                    }
+                        //remove if there any
+                        $('.alert').remove();
+                        $('section').prepend(div_alert);
+
+                        if (res.status == "200") {
+                            // it's new so reload the page 1 second after
+                            setTimeout(function () { location.reload() }, 1000);;
+                        }
+                    });
+                }
             });
         });
     </script>

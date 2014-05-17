@@ -27,9 +27,9 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Codigo</th>
-                                <th>descripcion</th>
-                                <th>acciones</th>
+                                <th><%=translate("th_codigo")%></th>
+                                <th><%=translate("descripcion")%></th>
+                                <th><%=translate("th_acciones")%></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,6 +137,7 @@
 
 </asp:Content>
 <asp:Content runat="server" ID="js" ContentPlaceHolderID="js_block">
+   
     <script>
         $(document).ready(function () {
             //binding actions
@@ -162,18 +163,18 @@
                 else {
                     alert("<%=translate("complete_campos")%>");
                 }
-                
-            } );
+
+            });
             // edit idioma
             $('.idioma_edit').click(function (ev) {
                 ev.preventDefault();
                 //set id /code/ descripcion the DRY way
-                var ids = [ 'code', 'descripcion'];
+                var ids = ['code', 'descripcion'];
                 $.each(ids, function (k, v) {
                     //console.log($(ev.target).data(v + 'lang'));
-                    $('#edit_idioma_' + v).val($(ev.target).data(v+'lang'));
+                    $('#edit_idioma_' + v).val($(ev.target).data(v + 'lang'));
                 });
-                
+
                 //get the tags and fill the form
                 $.get('/Admin/idioma/tags.ashx?codelang=' + $(this).data("codelang"), function (data) {
                     //console.log(data);
@@ -208,28 +209,34 @@
             // delete idioma
             $('.idioma_delete').click(function (ev) {
                 ev.preventDefault();
-                
-                // make post
-                $.post('/Admin/idioma/del_idioma.ashx', { idlang: $(this).data("idlang"), codelang: $(this).data("codelang") },
-                   function (data) {
-                       console.log(data);
-                       var alert_type = (data.status == 200) ? "info" : "error";
-                    var div_alert = '<div class="alert alert-' + alert_type + '">'
-                            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                            + '<div class="alert-msg">' + data.msg + '</div></div>';
+                var _this = this;
+                $.confirm({
+                    text: "<%=translate("confirme_accion")%>",
+                    confirmButton : "<%=translate("Si")%>" ,
+                    cancelButton: "<%=translate("Cancelar")%>",
+                    confirm: function () {
+                        // make post
+                        $.post('/Admin/idioma/del_idioma.ashx', { idlang: $(_this).data("idlang"), codelang: $(_this).data("codelang") },
+                           function (data) {
+                               console.log(data);
+                               var alert_type = (data.status == 200) ? "info" : "error";
+                               var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                       + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                       + '<div class="alert-msg">' + data.msg + '</div></div>';
 
-                    if (data.status == 200) {
-                        // remove row                        
-                        $('#idlang-' + data.idlang).remove();
-                    }
-                        //remove if there any
-                        $('.alert').remove();
-                        $('section').prepend(div_alert);
+                               if (data.status == 200) {
+                                   // remove row                        
+                                   $('#idlang-' + data.idlang).remove();
+                               }
+                               //remove if there any
+                               $('.alert').remove();
+                               $('section').prepend(div_alert);
+                           });
+                    }// del confirm
                 });
-
             });
 
-        });
+    }); // document ready
 
     </script>
 </asp:Content>

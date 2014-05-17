@@ -32,11 +32,11 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Acciones</th>                                                                
+                                <th><%=translate("th_username")%></th>
+                                <th><%=translate("th_nombre")%></th>
+                                <th><%=translate("th_apellido")%></th>
+                                <th><%=translate("th_email")%></th>
+                                <th><%=translate("th_acciones")%></th>                                                                
                             </tr>
                         </thead>
                         <tbody>
@@ -368,25 +368,31 @@
             ev.preventDefault();
             var uid = $(this).data('uid');
             var uname = $(this).data('username');
-            $.post('/Admin/usuario/del_usuario.ashx', {uid:uid}, function (res) {
-                // if the session expired reload the page to go to login form
-                if (res.status == undefined) location.reload();
+            $.confirm({
+                text: "<%=translate("confirme_accion")%>",
+                confirmButton: "<%=translate("Si")%>",
+                cancelButton: "<%=translate("Cancelar")%>",
+                confirm: function () {
+                    $.post('/Admin/usuario/del_usuario.ashx', { uid: uid }, function (res) {
+                        // if the session expired reload the page to go to login form
+                        if (res.status == undefined) location.reload();
 
-                var alert_type = (res.status == 200) ? "info" : "error";
-                var div_alert = '<div class="alert alert-' + alert_type + '">'
-                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+                        var alert_type = (res.status == 200) ? "info" : "error";
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                //remove if there any
-                $('.alert').remove();
-                $('section').prepend(div_alert);
+                        //remove if there any
+                        $('.alert').remove();
+                        $('section').prepend(div_alert);
 
-                if (res.status == "200") {
-                    // remove the row
-                    $('#uid-' + uid).remove();
+                        if (res.status == "200") {
+                            // remove the row
+                            $('#uid-' + uid).remove();
+                        }
+                    });
                 }
-                
-            });
+            }); // confirm
         });
 
         // EDIT
