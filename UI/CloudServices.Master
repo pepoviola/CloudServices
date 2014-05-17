@@ -54,11 +54,11 @@
                                   <% End If%>
 
                                    <% If Me.tieneAcceso("dv_mgr") Then%>
-                                  <li><a href="/Admin/dvManager/dvs.aspx" id="menu_dv"><% =translate("menu_dv")%></a></li>
+                                  <li><a href="/Admin/dvManager/dvs.aspx" id="menu_dvs"><% =translate("menu_dv")%></a></li>
                                   <% End If%>
 
                                   <% If Me.tieneAcceso("bkp") Or Me.tieneAcceso("restore") Then%>
-                                  <li><a href="/Admin/resguardo/resguardos.aspx" ><% =translate("menu_resguardo")%></a></li>
+                                  <li><a href="/Admin/resguardo/resguardos.aspx" id="menu_resguardo" ><% =translate("menu_resguardo")%></a></li>
                                   <% End If%>
 
                                   <% If Me.tieneAcceso("helper") Then%>

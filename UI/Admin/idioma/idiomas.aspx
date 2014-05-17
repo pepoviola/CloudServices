@@ -52,10 +52,10 @@
     
     <!-- modal create -->
     <div id="modal_idioma" class="modal hide fade">
-        <form class="form-horizontal" action="add_idioma.aspx" method="post">
+        <form class="form-horizontal" id="form_create_idioma" action="add_idioma.aspx" method="post">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Agregar Idioma</h3>
+            <h3><%=translate("h3_agregar_idioma")%></h3>
         </div>
         <div class="modal-body">
           
@@ -97,7 +97,7 @@
         <form class="form-horizontal" id="edit_idioma_form" >
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Editar Idioma</h3>
+            <h3><%=translate("h3_editar_idioma") %></h3>
         </div>
         <div class="modal-body">
           
@@ -141,6 +141,29 @@
         $(document).ready(function () {
             //binding actions
 
+            // create idioma
+            $('#idioma_create').click(function (ev) {
+                ev.preventDefault();
+                valid = true;
+                $.each($('#form_create_idioma input'), function (k, v) {
+                    if ($(v).val().trim() == "") {
+                        // not valid
+                        valid = false;
+                        $(v).css("border-color", "red");
+                    }
+                });
+
+                // si es valido hago el submit
+                // de otra forma aviso que complete
+                //
+                if (valid) {
+                    $('#form_create_idioma input').submit();
+                }
+                else {
+                    alert("<%=translate("complete_campos")%>");
+                }
+                
+            } );
             // edit idioma
             $('.idioma_edit').click(function (ev) {
                 ev.preventDefault();
