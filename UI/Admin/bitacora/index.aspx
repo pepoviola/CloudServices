@@ -35,14 +35,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% For Each entrada As BE.Bitacora In lista_bita%>
+                   <%--         <% For Each entrada As BE.Bitacora In lista_bita%>
                                 <tr class="bita_row" id="<% =entrada.Id %>">
                                     <td><% =entrada.Usuario.Username%></td>
                                     <td><% =entrada.Categoria%></td>
                                     <td><% =entrada.Fecha%></td>
                                     <td><% =entrada.Descripcion%></td>
                                 </tr>                            
-                            <% Next%>                            
+                            <% Next%>                         --%>   
                         </tbody>                    
                     </table>
                 </div>
@@ -56,7 +56,73 @@
     // make active Admin tab
         $('.active').removeClass('active');
         $('.menu_admin').addClass('active');
+
+        var prittifyTime = function (digit) {
+            return (parseInt(digit,10) < 10 ) ? "0"+digit : digit
+        };
+        // Extends Date prototype
+        Date.prototype.myCustomFormat = function (format) {
+            // formatos aceptados
+            // dd/mm/yyyy HH:MM:SS
+            // mm/dd/yyyy HH:MM:SS
+            var day = prittifyTime(this.getDate());
+            var month = prittifyTime(this.getMonth());
+            var fullyear = prittifyTime(this.getFullYear());
+
+            var hr = prittifyTime(this.getHours());
+            var mins = prittifyTime(this.getMinutes());
+            var secs = prittifyTime(this.getSeconds());
+
+            var fulldate = "";
+            if (format == "mm/dd/yyyy") {
+                fulldate += month + "/" + day + "/" + fullyear
+            }
+            else {
+                fulldate += day + "/" + month + "/" + fullyear
+            }
+
+            fulldate += " " + hr + ":" + mins + ":" + secs;
+            return fulldate
+        };
+        // fill the table
+        var fillTable = function (data) {
+            $.each(data.rows, function (k, v) {
+                //console.log(v);
+                var tr = $('<tr>').addClass('bita_row').attr("id", v.Id);
+                var td = $('<td>').html(v.Usuario.Username);
+                tr.append(td)
+                tr.append($('<td>').html(v.Categoria))
+                tr.append($('<td>').html(new Date(parseInt(v.Fecha.match("[0-9]+")[0])).myCustomFormat( data.date_format ) ) );
+                tr.append($('<td>').html(v.Descripcion));
+                $('tbody').append(tr);
+
+            });
+        };
+
         $(document).ready(function () {
+            // load without search terms
+            postdata = {
+                bita_filtro_usuario: $('#bita_filtro_usuario').val(),
+                bita_filtro_categoria: $('#bita_filtro_categoria').val()
+            }
+            $.post('/Admin/bitacora/filtrar.ashx', postdata, function (res) {
+                if (res.status == 500) {
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                    + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                    + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                    //remove if there any
+                    $('.alert').remove();
+                    $('section').prepend(div_alert);
+                }
+                else {
+                    //borro la tabla
+                    $('.bita_row').remove();
+                    fillTable(res);
+                }
+            });
+
+            // actions
             $('#filtrar').click(function (ev) {
                 ev.preventDefault();
                 // post to filter
@@ -64,20 +130,26 @@
                     bita_filtro_usuario : $('#bita_filtro_usuario').val(),
                     bita_filtro_categoria : $('#bita_filtro_categoria').val()
                 }
-                $.post('/Admin/bitacora/filtrar.ashx', postdata, function (data) {
-                    //borro la tabla
-                    $('.bita_row').remove();
-                    $.each(data.rows, function (k, v) {
-                        //console.log(v);
-                        var tr = $('<tr>').addClass('bita_row').attr("id", v.Id);
-                        var td = $('<td>').html(v.Usuario.Username);
-                            tr.append(td)
-                            tr.append($('<td>').html(v.Categoria))
-                            tr.append($('<td>').html(new Date(parseInt(v.Fecha.match("[0-9]+")[0]))))
-                            tr.append($('<td>').html(v.Descripcion));
-                        $('tbody').append(tr);
+                $.post('/Admin/bitacora/filtrar.ashx', postdata, function (res) {
+                    // if the session expired reload the page to go to login form
+                    if (res.status == undefined) location.reload();
 
-                    });
+                    if (res.status == 500) {
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
+                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                        //remove if there any
+                        $('.alert').remove();                        
+                        
+                        $('section').prepend(div_alert);
+                    }
+                    else {
+                        //borro la tabla
+                        $('.bita_row').remove();
+                        fillTable(res);
+                    }
+                                        
                 } );
             });
         });

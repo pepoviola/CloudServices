@@ -40,13 +40,19 @@ Public Class filtrar
             lista = oInfra.filtrar(oBita)
             resp.Add("status", "200")
             resp.Add("rows", lista)
-            oRes = jss.Serialize(resp)
-
+            If context.Session("lang_code") = "en" Then
+                resp.Add("date_format", "mm/dd/yyyy")
+            Else
+                resp.Add("date_format", "dd/mm/yyyy")
+            End If
 
         Catch ex As ExceptionsPersonales.CustomException
             'send el error
+            resp.Add("status", "500")
+            resp.Add("msg", "")
 
         End Try
+        oRes = jss.Serialize(resp)
         context.Response.Write(oRes)
         'End If
 

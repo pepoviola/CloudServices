@@ -46,14 +46,15 @@
                 Exit Sub
             End If
 
-            Try
-                ' obtengo la bitacora
-                Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
-                _lista_bita = oInfraBita.filtrar(New BE.Bitacora())
+            ' make it with ajax
+            'Try
+            ' obtengo la bitacora
+            'Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
+            '_lista_bita = oInfraBita.filtrar(New BE.Bitacora())
 
-            Catch ex As ExceptionsPersonales.CustomException
-                ' redirect to error page
-            End Try
+            'Catch ex As ExceptionsPersonales.CustomException
+            ' redirect to error page
+            'End Try
 
         End If
 

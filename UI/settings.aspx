@@ -16,37 +16,37 @@
         </div>
         <div class="modal-body">
             <div class="control-group">
-                <label class="control-label" for="username"><% =translate("password")%></label>
+                <label class="control-label" for="username"><%=translate("password")%></label>
                 <div class="controls">
-                        <input type="password" name="password" id="Text2" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="edit_password" maxlength="50" pattern=".{6,50}"  title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="password" name="repeat_password" id="Text3" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="edit_repeat_password" maxlength="50" pattern=".{6,50}"  title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="nombre"><% =translate("nombre")%></label>
                 <div class="controls">
-                        <input type="text" name="nombre" id="Text4" value="<%=user_session.Nombre%>" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="text" name="nombre" id="edit_nombre" value="<%=user_session.Nombre%>" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="apellido"><% =translate("apellido")%></label>
                 <div class="controls">
-                        <input type="text" name="apellido" id="Text5" value="<% =user_session.Apellido%>" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="text" name="apellido" id="edit_apellido" value="<% =user_session.Apellido%>" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
           
             <div class="control-group">
                 <label class="control-label" for="email"><% =translate("email")%></label>
                 <div class="controls">
-                        <input type="text" name="email" value="<%=user_session.Email %>" id="Text6" placeholder="" maxlength="150" />
+                        <input type="text" name="email" value="<%=user_session.Email %>" id="edit_email" placeholder="" maxlength="150" />
                 </div>
             </div>
 
@@ -56,9 +56,9 @@
                     <select name="idioma">
                 <% For Each i As BE.Idioma In lista_idioma %>
                         <%If i.Id = Session("lang") Then%>
-                            <option value="<% =i.Id%>" selected="selected"><% =i.Codigo%></option>              
+                            <option value="<%=i.Id%>" selected="selected"><%=i.Codigo%></option>              
                         <%Else %>
-                            <option value="<% =i.Id%>"><% =i.Codigo%></option>
+                            <option value="<%=i.Id%>"><%=i.Codigo%></option>
                       <% 
                       End If
                   Next
@@ -77,35 +77,76 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+
+        // mensajes
+        var messages = {
+            username: {
+                required: "<%=translate("campo_requerido")%>",
+                    minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                    maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                },
+            password: {
+                required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+            repeat_password: {
+                required: "<%=translate("campo_requerido")%>",
+                        equalTo: "<%=translate("las_claves_deben_coincidir")%>"
+                    },
+            nombre: {
+                required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+            apellido: {
+                required: "<%=translate("campo_requerido")%>",
+                        minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                        maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+                    },
+            email: {
+                required: "<%=translate("campo_requerido")%>",
+                        email: "<%=translate("debe_ser_email_valido")%>"
+                    }
+        }
+
+        var validate_edit = function () {
+            $("#form_edit_user").validate({
+                debug: true,
+                rules: {
+                    repeat_password: {
+                        equalTo: "#edit_password",
+                    },
+                    nombre: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    apellido: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: messages
+            });
+
+        };
+
         // SAVE EDITED USER
         $('#save_edited_user').click(function (ev) {
             ev.preventDefault();
             // validar el form
-            $('#form_edit_user').submit();
-
-            //console.log($('#form_edit_user').serialize());
-            //$.post('/Admin/usuario/mod_usuario.ashx', $('#form_edit_user').serialize(), function (res) {
-            //    // if the session expired reload the page to go to login form
-            //    if (res.status == undefined) location.reload();
-
-            //    var alert_type = (res.status == 200) ? "info" : "error";
-            //    var div_alert = '<div class="alert alert-' + alert_type + '">'
-            //            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-            //            + '<div class="alert-msg">' + res.msg + '</div></div>';
-
-            //    //remove if there any
-            //    $('.alert').remove();
-            //    //remove modal
-            //    $("#modal_edit_user").modal("hide");
-            //    $('section').prepend(div_alert);
-
-
-            //    // continue
-            //    if (res.status == "200") {
-            //        // it's new so reload the page in 1 sec
-            //        setTimeout(function () { location.reload(); }, 1000);
-            //    }
-            //});
+            validate_edit();
+            if ($("#form_edit_user").valid()) {
+                //submit the form
+                var f = document.getElementById("form_edit_user")
+                f.submit();
+            }          
         });
     </script>
 </asp:Content>
