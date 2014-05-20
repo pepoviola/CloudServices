@@ -11,24 +11,38 @@
                 </div>
             </div>
         <button type="submit" class="btn btn-primary" id="ejecutar_dvh"><%=translate("ejecutar_dvh")%></button>
+        <button type="submit" class="btn btn-primary" id="ejecutar_dvv"><%=translate("ejecutar_dvv")%></button>
     </form>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
         $('#ejecutar_dvh').click(function (ev) {
             ev.preventDefault();
-            $.post('/Admin/dvManager/generate_dv.ashx', { table_name: $("#table_name").val() }, function (res) {
+            $.post('/Admin/dvManager/generate_dv.ashx', { table_name: $("#table_name").val(), type: "dvh" }, function (res) {
                 if (res.status == undefined) location.reload();
                 var alert_type = (res.status == 200) ? "info" : "error";
                 var div_alert = '<div class="alert alert-' + alert_type + '">'
                     + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                     + '<div class="alert-msg">' + res.msg + '</div></div>';
-
                 //remove if there any
                 $('.alert').remove();
-
                 $('.container-fluid').prepend(div_alert);
             }, "json");
             });
+
+        $('#ejecutar_dvv').click(function (ev) {
+            ev.preventDefault();
+            $.post('/Admin/dvManager/generate_dv.ashx', { table_name: $("#table_name").val(), type: "dvv" }, function (res) {
+                if (res.status == undefined) location.reload();
+                var alert_type = (res.status == 200) ? "info" : "error";
+                var div_alert = '<div class="alert alert-' + alert_type + '">'
+                    + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                    + '<div class="alert-msg">' + res.msg + '</div></div>';
+                //remove if there any
+                $('.alert').remove();
+                $('.container-fluid').prepend(div_alert);
+            }, "json");
+        });
+
     </script>
 </asp:Content>

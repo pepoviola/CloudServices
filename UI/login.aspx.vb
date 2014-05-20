@@ -61,23 +61,24 @@ Public Class login
                 Session("lang_code") = oUsuario.Idioma.Codigo
                 Session("flia") = oUsuario.Patente.codigo
                 Session("flia_desc") = oUsuario.Patente.descripcion
-                Dim oInfraDV As Infra.DVV = New Infra.DVV
+                Dim oInfraDVV As Infra.DVV = New Infra.DVV
                 Dim oInfraDVH As Infra.DVH = New Infra.DVH
-                Dim l As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-                Dim l2 As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
+                    listaErrs.AddRange(oInfraDVH.check(tabla))
+                    listaErrs.AddRange(oInfraDVV.check(tabla))
+                Next
 
-                l = oInfraDV.check("Bitacora")
-                l2 = oInfraDVH.check("Bitacora")
                 Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
-                Session("dvvErrs") = jss.Serialize(l)
-                Session("dvhErrs") = jss.Serialize(l2)
+                Session("dvErrs") = jss.Serialize(listaErrs)
 
-                Dim a As String = Session("dvhErrs")
+
+                Dim a As String = Session("dvErrs")
 
                 ' if l is bigger than 0
                 ' we have an issue with the dvs
 
-                If l2.Count > 0 Or l.Count > 0 Then
+                If listaErrs.Count > 0 Then
                     ' errores de validacion
                     ' si el usuario tiene el permiso lo redirecciono
                     ' sino cierro la session y lo mando a login 

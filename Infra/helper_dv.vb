@@ -17,14 +17,8 @@
                 id = "IdUsuario"
             ElseIf table = "Bitacora" Then
                 id = "idBitacora"
-            ElseIf table = "Tag" Then
-                id = "IdTag"
             ElseIf table = "Familia" Then
                 id = "IdFamilia"
-            ElseIf table = "Locacion" Then
-                id = "IdLocacion"
-            ElseIf table = "Evento" Then
-                id = "IdEvento"
             End If
             cmd.CommandText = "update " + table + " set DVH = '"
             cmd.CommandText += n
@@ -49,4 +43,29 @@
         Return res
     End Function
 
+    Public Function generate_dvv_for_table(ByVal table As String) As Boolean
+        Dim conn As IDbConnection = DAL.dbManager.getConnection
+        Dim res As Boolean = True
+
+        Try
+            'get md5 from tables
+            Dim dvv As String = Criptografia.Crypto.getCrypto.generarMD5(DAL.DVManager.getTableDVHs(table))
+            'now save them
+
+            Dim cmd As IDbCommand = DAL.dbManager.getCmd
+            cmd.Connection = conn
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "update DVV set DVV= '" + dvv + "' where Tabla = '" + table + "'"
+            conn.Open()
+            Dim ret As Integer = cmd.ExecuteNonQuery()
+            If ret <> 1 Then
+                res = False
+            
+            End If
+
+        Catch ex As Exception
+            res = False
+        End Try
+        Return res
+    End Function
 End Class

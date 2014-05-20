@@ -3,6 +3,11 @@
 
         Dim lista As New Dictionary(Of Integer, Dictionary(Of String, String))
         Dim conn As IDbConnection = dbManager.getConnection()
+        Dim inicio As Integer = 1
+        If tabla = "PermisoRel" Then
+            inicio = 0
+        End If
+
         Try
             Dim cmd As IDbCommand = dbManager.getCmd("getAllTabla")
 
@@ -14,7 +19,7 @@
             While (lector.Read())
                 Dim q As Integer = lector.FieldCount
                 Dim campo As String = String.Empty
-                For i As Integer = 1 To (q - 2)
+                For i As Integer = inicio To (q - 2)
                     If Not lector.GetName(i) = "Fecha" Then
                         campo += Convert.ToString(lector(i))
                     End If

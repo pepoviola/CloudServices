@@ -47,24 +47,12 @@ Public Class Idioma
     Public Function Agregar(ByVal idioma As BE.Idioma) As Boolean
         Dim ret As Boolean
         Try
-            Dim idiomaDal As DAL.IdiomaDAL = DAL.IdiomaDAL.getIdiomaDAL
+            Dim idiomaDal As DAL.IdiomaDAL = DAL.IdiomaDAL.getIdiomaDAL            
+            ' generate dvh
+            Dim idioma_string As String = String.Empty
             ret = idiomaDal.Agregar(idioma)
 
-            ' esto lo tengo que pasar a la ui 
-            ' para tener acceso al objeto session
 
-
-            'If ret Then
-            '    'log in bitacora
-            '    Dim oBita As New BE.Bitacora("Idiomas", "Se creo ok el idioma: " + idioma.Descripcion)
-            '    Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-            '    oInfraBita.Log(oBita)
-            'Else
-            '    'log in bitacora
-            '    Dim oBita As New BE.Bitacora("Idiomas", "Error al crear el idioma: " + idioma.Descripcion)
-            '    Dim oInfraBita As Infra.Bitacora = Bitacora.getInfraBitacora()
-            '    oInfraBita.Log(oBita)
-            'End If
         Catch exCus As ExceptionsPersonales.CustomException
             Throw exCus
         Catch ex As Exception

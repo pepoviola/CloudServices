@@ -36,7 +36,7 @@ Public Class IdiomaDAL
                 cmd.Transaction = trans
                 dbManager.addParam(cmd, "@Codigo", t.Codigo)
                 dbManager.addParam(cmd, "@Descrip", t.Descripcion)
-                dbManager.addParam(cmd, "@DVH", "todo")
+
                 Dim idParam As SqlParameter = CType(dbManager.addParam(cmd, "@id"), SqlParameter)
                 idParam.Direction = ParameterDirection.Output
                 cmd.ExecuteNonQuery()

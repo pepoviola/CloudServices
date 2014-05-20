@@ -27,14 +27,7 @@ Public Class Tag
 
 
     Private _dvh As String
-    Public Property DVH() As String
-        Get
-            Return _dvh
-        End Get
-        Set(ByVal value As String)
-            _dvh = value
-        End Set
-    End Property
+   
 
 
     Private _codIdioma As String

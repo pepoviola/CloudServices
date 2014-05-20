@@ -69,7 +69,7 @@ Public Class Familia
             flia.DVH = Criptografia.Crypto.getCrypto().generarMD5(flia.descripcion + Convert.ToString(flia.Nativo))
             retorno = oFliaDAL.Save(flia, dictDVH)
             If retorno Then
-                If Not DVV.Actualizar("Familia") Then
+                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
             End If
@@ -87,7 +87,7 @@ Public Class Familia
         Try
             registros = oFliaDAL.Delete(flia)
             If registros Then
-                If Not DVV.Actualizar("Familia") Then
+                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
             End If
@@ -116,11 +116,7 @@ Public Class Familia
             Next
 
             If oFliaDAL.Modify(oFlia, permisos) Then
-                'bitacora
-                'Dim obita As New BE.Bitacora("Familia", String.Format("se modificó la familia {0} con éxito", oFlia.descripcion))
-                'Dim infraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
-                'infraBita.Log(obita)
-                If Not DVV.Actualizar("Familia") Then
+                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
                 Return True

@@ -11,8 +11,10 @@ Public Class DVV
             'now we have to compare with dvv table
             Dim dvvInTable As String = DAL.DVManager.getDVV(tabla)
             If Not dvv.Equals(dvvInTable) Then
-                lista.Add(New Dictionary(Of String, String) From {{String.Format("Err DVV "), _
-                                                                   String.Format("Tabla: {0}", tabla)}})
+                'lista.Add(New Dictionary(Of String, String) From {{String.Format("Err DVV "), _
+                '                                                   String.Format("Tabla: {0}", tabla)}})
+                lista.Add(New Dictionary(Of String, String) From {{String.Format("DVV "), _
+                                                                   String.Format("{0}", tabla)}})
             End If
 
         Catch ex As Exception

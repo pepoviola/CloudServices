@@ -13,7 +13,7 @@
                 <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th><%=translate("th_tipo")%></th>
+                                <%--<th><%=translate("th_tipo")%></th>--%>
                                 <th><%=translate("th_tabla")%></th>
                                 <th>ID</th>                                
                             </tr>
@@ -30,15 +30,15 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
-        var dvhErrs = <%= Session("dvhErrs")%>
-        ;var dvvErrs = <%= Session("dvvErrs")%>
+        var dvErrs = <%= Session("dvErrs")%>
+        
 
         $(document).ready(function(){
             // primero dvh
-            $.each(dvhErrs, function( k, v){ 
+            $.each(dvErrs, function( k, v){ 
                 // genero la tabla
                 var tr = $('<tr>');
-                tr.append( $('<td>').html("DVH") );
+                //tr.append( $('<td>').html("DVH") );
                 tr.append( $('<td>').html( Object.keys(v)[0] ) );
                 tr.append( $('<td>').html( v[ Object.keys(v)[0] ] ) );
                 $('tbody').append(tr);
