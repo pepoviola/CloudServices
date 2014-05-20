@@ -77,7 +77,6 @@ Public Class login
 
                 ' if l is bigger than 0
                 ' we have an issue with the dvs
-
                 If listaErrs.Count > 0 Then
                     ' errores de validacion
                     ' si el usuario tiene el permiso lo redirecciono
