@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <!-- Bootstrap core CSS -->
     <link href="/content/css/bootstrap.css" rel="stylesheet"/>
     <link href="/content/css/bootstrap-responsive.css" rel="stylesheet"/>
@@ -13,6 +14,11 @@
     <style>
         body {
             padding-top:60px; /* make the content go after menu*/
+        }
+        @media (max-width: 980px) {
+             body {
+                padding-top: 0;
+            }
         }
     </style>
     <!--[if lt IE 9]>

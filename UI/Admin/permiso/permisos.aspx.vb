@@ -48,7 +48,13 @@
 
             'obtengo todas las patentes
             Dim oInfraFlia As Infra.Familia = New Infra.Familia()
-            _listaPatentes = oInfraFlia.getListaCompleta()
+            Try
+                _listaPatentes = oInfraFlia.getListaCompleta()
+            Catch ex As ExceptionsPersonales.CustomException
+                MsgBox(ex.codigo)
+
+            End Try
+
             End If
     End Sub
 

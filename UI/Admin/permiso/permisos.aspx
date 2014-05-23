@@ -237,12 +237,63 @@
                     var hidden = $("<input>").attr({ type: "hidden", name: "codpat", value: flia_to });
                     $('#form_modify').prepend(hidden);
 
-                    // check the flia
-                    var root = $('.modify.modal-body').find('#chbox-' + flia_to);
-                    $('.modify.modal-body').find('#flia_code').val(flia_des).attr("readonly", true);
-                    $(root).parent().parent().find("input[type='checkbox']").each(function () {
-                        $(this).prop("checked", true);
+                    // don't allow circular refs
+                    $('.toproot li').each(function (i, li) {
+                        var nodo = $(li).find("#chbox-" + flia_to);
+                        if (nodo.length > 0) {
+                            if ($(nodo).parent().parent().parent().attr("class") === "ul_root") {
+                                $(li).find("input[type='checkbox']").each(function (i, node_to) {
+                                    $(node_to).attr("disabled", "true")
+                                });
+                            }
+                            else {
+                                $(li).find("input[type='checkbox']").each(function (i, node_to) {
+                                    $(node_to).prop("checked", true);
+                                });
+                            }
+                        }
+
                     });
+
+                    // old code implement
+
+                    // check the flia
+                    //var root = $('.modify.modal-body').find('#chbox-' + flia_to);
+                    //var root2 = $('input[name="' + flia_to + '"]');
+                    //$(root2).each(function (k, v) {
+                    //    //console.log($(v).parent().parent().parent().attr("class"));
+                    //    if ($(v).parent().parent().parent().attr("class") === "ul_root") {
+                    //        var li_parent = $(v).parent().parent().parent().parent();
+                    //        //console.log(li_parent);
+                    //        $(li_parent).find("input[type='checkbox']").each(function (i, node_to) {
+                    //            //console.log(node_to);
+                    //            $(node_to).attr("disabled", "true")
+                    //        })
+                    //    }
+                    //    else {
+                    //        // must be checked
+                    //        $(v).parent().parent().find("input[type='checkbox']").each(function () {
+                    //            $(this).prop("checked", true);
+                    //        });
+                    //    }
+                    //});
+                    // root can be an array, if it's an array we have to disable 
+                    // those familys that have this family inside
+                    //root2.each(function (k, v) {
+                    //    if ($(v).parent().parent().parent().attr("class") === "ul_root") {
+                    //        $(v).parent().parent().find("input[type='checkbox']").each(function () {
+                    //            $(this).prop("disable", true);
+                    //        });
+                    //    }
+                    //});
+
+
+                    //$(root).parent().parent().find("input[type='checkbox']").each(function () {
+                    //    $(this).prop("checked", true);
+                    //});
+
+                    $('.modify.modal-body').find('#flia_code').val(flia_des).attr("readonly", true);
+                    
                     $('#mod_modal').modal("show");
                 }
             }, "json");
