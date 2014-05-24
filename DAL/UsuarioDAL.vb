@@ -4,7 +4,7 @@ Public Class UsuarioDAL
     Implements ICRUD(Of BE.BEUsuario)
 
 
-    Public Function validarCredenciales(ByRef oUser As BE.BEUsuario) As Boolean
+    Public Function validarCredenciales(ByRef oUser As BE.BEUsuarioBase) As Boolean
 
         Dim conn As IDbConnection = dbManager.getConnection
         Try
@@ -42,7 +42,7 @@ Public Class UsuarioDAL
     End Function
 
 
-    Public Function getProfile(ByRef oUser As BE.BEUsuario) As Boolean
+    Public Function getProfile(ByRef oUser As BE.BEUsuarioBase) As Boolean
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             conn.Open()
@@ -64,8 +64,8 @@ Public Class UsuarioDAL
                     Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
                     oFlia.Patentes = oFliaDAL.getPatentes(oFlia)
                     With oUser
-                        .Apellido = Convert.ToString(drsql("Apellido"))
-                        .Nombre = Convert.ToString(drsql("Nombre"))
+                        '.Apellido = Convert.ToString(drsql("Apellido"))
+                        '.Nombre = Convert.ToString(drsql("Nombre"))
                         .Estado = Convert.ToString(drsql("Estado"))
                         .Idioma = New BE.Idioma(Convert.ToInt32(drsql("IdIdioma")), Convert.ToString(drsql("codigo")), Convert.ToString(drsql("Descrip")))
 
@@ -233,7 +233,7 @@ Public Class UsuarioDAL
             dbManager.addParam(cmd, "@email", t.Email)
             dbManager.addParam(cmd, "@IdIdioma", t.Idioma.Id)
             dbManager.addParam(cmd, "@IdPatente", t.Patente.codigo)
-            dbManager.addParam(cmd, "@DVH", t.DVH)
+            dbManager.addParam(cmd, "@DVH", t.Dvh)
             'open
             conn.Open()
             cmd.Connection = conn
@@ -308,7 +308,7 @@ Public Class UsuarioDAL
                 oUser.Username = Convert.ToString(lector("Username"))
                 oUser.Passwd = Convert.ToString(lector("Password"))
                 oUser.Email = Convert.ToString(lector("Email"))
-                oUser.DVH = Convert.ToString(lector("DVH"))
+                oUser.Dvh = Convert.ToString(lector("DVH"))
                 oUser.Estado = Convert.ToString(lector("Estado"))
                 oUser.Idioma = New BE.Idioma(Convert.ToInt32(lector("IdIdioma")), _
                                              Convert.ToString(lector("codigo")),
