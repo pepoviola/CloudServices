@@ -45,4 +45,5 @@ Public Class BEUsuario
     End Property
 
 
+
 End Class ' BEUsuario

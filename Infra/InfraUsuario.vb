@@ -193,4 +193,8 @@ Public Class InfraUsuario
         Return ret
 
     End Function
+
+    Public Sub RecuperarClave(ByVal oUser As BE.BEUsuario)
+        ' not implemented yet
+    End Sub
 End Class

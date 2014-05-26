@@ -18,7 +18,7 @@ Public Class BEFamilia
     Public Sub New()
 
     End Sub
-    Public Sub New(ByVal cod, ByVal descrip)
+    Public Sub New(ByVal cod As Integer, ByVal descrip As String)
         Me.codigo = cod
         Me.descripcion = descrip
     End Sub
