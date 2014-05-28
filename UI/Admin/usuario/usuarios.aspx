@@ -38,6 +38,8 @@
                                 <th><%=translate("th_nombre")%></th>
                                 <th><%=translate("th_apellido")%></th>
                                 <th><%=translate("th_email")%></th>
+                                <th><%=translate("th_patente")%></th>
+                                <th><%=translate("th_idioma")%></th>
                                 <%If writeAccess Then%>
                                 <th><%=translate("th_acciones")%></th>                                                                
                                 <%End If%>
@@ -50,6 +52,8 @@
                                     <td><% =user.Nombre%></td>
                                     <td><% =user.Apellido%></td>
                                     <td><% =user.Email%></td>
+                                    <td><%=user.Patente.descripcion %></td>
+                                    <td><%=user.Idioma.Codigo %></td>
                                     <%If writeAccess Then%>
                                     <td>                                        
                                       <a href="#" class="btn btn-primary user_edit" data-uid="<% =user.Id%>" data-username="<% =user.Username%>">  <i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
@@ -382,7 +386,7 @@
                 confirmButton: "<%=translate("Si")%>",
                 cancelButton: "<%=translate("Cancelar")%>",
                 confirm: function () {
-                    $.post('/Admin/usuario/del_usuario.ashx', { uid: uid }, function (res) {
+                    $.post('/Admin/usuario/del_usuario.ashx', { uid: uid, username:uname }, function (res) {
                         // if the session expired reload the page to go to login form
                         if (res.status == undefined) location.reload();
 

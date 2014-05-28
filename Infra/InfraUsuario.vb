@@ -143,8 +143,19 @@ Public Class InfraUsuario
     Public Function Eliminar(ByVal user As BE.BEUsuario) As Boolean
         Dim retorno As Boolean
         Try
-            Dim dal As New DAL.UsuarioDAL
-            retorno = dal.Eliminar(user)
+            '
+            Dim temp_list As List(Of BE.BEUsuario) = New List(Of BE.BEUsuario)
+            temp_list = Filtrar(user)
+            Dim temp_user As BE.BEUsuario = New BE.BEUsuario
+            temp_user = temp_list.First()
+            temp_user.Passwd = ""
+            temp_user.Idioma.Id = 1
+            temp_user.Patente.codigo = 6
+            temp_user.Estado = 2
+
+            'Dim dal As New DAL.UsuarioDAL
+            'retorno = dal.Eliminar(user)
+            retorno = Modificar(temp_user)
             If retorno Then
                 'update dvv
                 If Not DVV.Actualizar("Usuario") Then
