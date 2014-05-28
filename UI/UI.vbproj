@@ -104,6 +104,8 @@
     <Content Include="content\dataTables\js\jquery.dataTables.js" />
     <Content Include="content\dataTables\js\jquery.dataTables.min.js" />
     <Content Include="content\dataTables\js\jquery.js" />
+    <Content Include="recuperar.aspx" />
+    <Content Include="regenerate.aspx" />
     <Content Include="dvsErr.aspx" />
     <Content Include="Admin\idioma\add_idioma.aspx" />
     <Content Include="Admin\idioma\idiomas.aspx" />
@@ -206,6 +208,20 @@
     <Compile Include="Admin\dvManager\dvs.aspx.vb">
       <DependentUpon>dvs.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="recuperar.aspx.designer.vb">
+      <DependentUpon>recuperar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="recuperar.aspx.vb">
+      <DependentUpon>recuperar.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="regenerate.aspx.designer.vb">
+      <DependentUpon>regenerate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="regenerate.aspx.vb">
+      <DependentUpon>regenerate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="dvsErr.aspx.designer.vb">
       <DependentUpon>dvsErr.aspx</DependentUpon>

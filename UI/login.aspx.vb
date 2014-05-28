@@ -23,8 +23,48 @@ Public Class login
         End Get
     End Property
 
+    Private _lista_idiomas As List(Of BE.Idioma) = New List(Of BE.Idioma)
+    Public ReadOnly Property lista_idioma As List(Of BE.Idioma)
+        Get
+            Return _lista_idiomas
+        End Get
+    End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+
+        Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma
+        _lista_idiomas = oInfraIdioma.Filtrar(New BE.Idioma())
+
+
+        ' lang by querystring
+        If Not (String.IsNullOrEmpty(Request.QueryString("lang"))) Then
+            ' cheque si existe el idioma
+            For Each i As BE.Idioma In lista_idioma
+                If i.Id = Request.QueryString("lang") Then
+                    Session("lang") = i.Id
+                    'Dim cookie As HttpCookie = New HttpCookie("lang", i.Id)
+
+
+                    Exit For
+                End If
+            Next
+
+            'Else
+            '    If (String.IsNullOrEmpty(Session("lang"))) Then
+            '        Session("lang") = 1
+            '        'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
+            '    End If
+        End If
+
+        If (String.IsNullOrEmpty(Session("lang"))) Then
+            '    ' default
+            Session("lang") = 1
+            '    'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
+        End If
+
+        ''Response.Cookies.Add(cookie)
+
 
         If Request.RequestType = "POST" Then
             ' make login
@@ -124,6 +164,10 @@ Public Class login
         End Try
 
     End Sub
+
+    Public Function translate(ByVal ctrl_id As String)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Session("lang"))
+    End Function
 
     Public Function translate(ByVal ctrl_id As String, lang As Integer)
         Return Infra.TraductorMgr.TraducirControl(ctrl_id, lang)

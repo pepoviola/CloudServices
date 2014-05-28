@@ -52,6 +52,13 @@ Public Class InfraUsuario
         Try
             'objeto dal
             Dim oUserDal As New DAL.UsuarioDAL
+
+            'hash pass
+            oUser.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oUser.Passwd)
+
+            'encrypt mail
+            oUser.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oUser.Email, frase, True)
+
             'get dvh 
             Dim dvhString As String
 
@@ -59,11 +66,7 @@ Public Class InfraUsuario
             dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
             oUser.Dvh = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
 
-            'hash pass
-            oUser.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oUser.Passwd)
 
-            'encrypt mail
-            oUser.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oUser.Email, frase, True)
 
             ret = (oUserDal.Agregar(oUser))
             If ret Then
@@ -142,6 +145,13 @@ Public Class InfraUsuario
         Try
             Dim dal As New DAL.UsuarioDAL
             retorno = dal.Eliminar(user)
+            If retorno Then
+                'update dvv
+                If Not DVV.Actualizar("Usuario") Then
+                    Throw New ExceptionsPersonales.CustomException("ErrDVV")
+                End If
+
+            End If
 
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrEliminarUsers")

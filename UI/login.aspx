@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Login</title>
+    <title>CloudServices</title>
     <!-- Bootstrap core CSS -->
     <link href="content/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="content/css/login/login.css" rel="stylesheet"/>
@@ -29,7 +29,7 @@
     <div class="row" id="alertas">
         <% If Session("_login_err") > 0 Then %>
         <div  id="aler_div_error" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
-            <% =translate("login_error_acceso",1) %>
+            <% =translate("login_error_acceso")%>
         </div>  
         <%  ElseIf Session("_msg_dv_err") <> "" Then%>
         <div  id="Div1" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
@@ -39,20 +39,38 @@
         <%  End If %>
    
         <div  id="alert_div_complete" class="alert alert-error hide"><a class="close" data-dismiss="alert">×</a>
-            <% =translate("login_error_complete", 1) %>            
+            <% =translate("login_error_complete")%>            
         </div>
         
        
+    </div>
+    <div class="row">
+             <div class="control-group pull-right">
+                <!--<label class="control-label" for="idioma"><% =translate("idioma")%></label>-->
+                <div class="controls">
+                    <select name="idioma" id="cambia_idioma">
+                <% For Each i As BE.Idioma In lista_idioma %>
+                        <%If i.Id = Session("lang") Then%>
+                            <option value="<%=i.Id%>" selected="selected"><%=i.Codigo%></option>              
+                        <%Else %>
+                            <option value="<%=i.Id%>"><%=i.Codigo%></option>
+                      <% 
+                      End If
+                  Next
+                  %>
+                    </select>                        
+                </div>
+            </div>
     </div>
     <div class="row">
         <div class="span6 offset3" id="form-login">
             <form class="form-horizontal well" runat="server">
                 <%--<asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="isEmpty" ControlToValidate="txt_login_username"></asp:CustomValidator>--%>
                 <fieldset>
-                    <legend> <%  =translate("login_form_header", 1)%> <%--<asp:label runat="server" ID="login_form_header"></asp:label>--%>   </legend>
+                    <legend> <%  =translate("login_form_header")%> <%--<asp:label runat="server" ID="login_form_header"></asp:label>--%>   </legend>
                     <div class="control-group">
                         <div class="control-label">
-                            <label><%  =translate("login_form_username", 1)%><%--<asp:label runat="server" id="login_form_username"></asp:Label>--%></label>
+                            <label><%  =translate("login_form_username")%><%--<asp:label runat="server" id="login_form_username"></asp:Label>--%></label>
                         </div>
                         <div class="controls">
                             <%--<input type="text" name="username" id="username"  class="input-large" />--%>
@@ -65,7 +83,7 @@
                         <div class="control-label">
                             <label>
                                 <%--<asp:Label runat="server" ID="login_form_password"></asp:Label>--%>
-                                <% =translate("login_form_password",1) %>
+                                <% =translate("login_form_password")%>
                             </label>
                         </div>
                         <div class="controls">
@@ -79,8 +97,8 @@
                         <div class="controls" style="margin-left:25%">
 
                             <%--<asp:Button runat="server" id="login_submit" CssClass="btn btn-primary button-loading"/>--%>
-                            <button type="submit" id="login_submit" name="login_submit" class="btn btn-primary" ><% =translate("login_submit",1) %></button>
-                            <a href="/regenerate.aspx"  id="lost_passwd"  class="btn btn-warning" ><% =translate("lost_passwd",1) %></a>
+                            <button type="submit" id="login_submit" name="login_submit" class="btn btn-primary" ><% =translate("login_submit")%></button>
+                            <a href="/recuperar.aspx"  id="lost_passwd"  class="btn btn-warning" ><% =translate("lost_passwd")%></a>
                            <%--<button type="submit" id="submit" class="btn btn-primary button-loading" data-loading-text="Loading...">Sign in</button>--%>
 
                         <%--<button type="button" id="olvido" class="btn btn-secondary button-loading" data-loading-text="Loading...">Olvidó la clave...</button>--%>
@@ -91,7 +109,8 @@
             </form>
         </div>
     </div>
-        Idioma detectado: <%=HttpContext.Current.Request.UserLanguages(0) %>
+      
+        <%=translate("idioma_detectado")%>: <%=HttpContext.Current.Request.UserLanguages(0) %>
 </div>
         
     </div>
@@ -99,9 +118,17 @@
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/login/login.js"></script>
     <script>
-        //function isEmpty(src, arguments) {
-        //    alert('pepo')
-        //}
+        var idioma_actual;
+        $(document).ready(function () {
+            idioma_actual = $('#cambia_idioma').val();
+            $('#cambia_idioma').change(function (ev) {
+                //alert($(this).val());
+                var nuevo_idioma = $(this).val();
+                if (idioma_actual != nuevo_idioma) {
+                    location.href = "http://localhost:49399/login.aspx?lang=" + nuevo_idioma;
+                }
+            });
+        });
     </script>
 </body>
 </html>
