@@ -251,7 +251,7 @@ Public Class UsuarioDAL
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             'get cmd
-            Dim cmd As IDbCommand = dbManager.getCmd("DeleteUsuario")
+            Dim cmd As IDbCommand = dbManager.getCmd("DeleteUsuario2")
             'agrego los params
             dbManager.addParam(cmd, "@IdUsuario", t.Id)
             'open

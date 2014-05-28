@@ -132,7 +132,7 @@ Public Class login
                         ' corto la session y mando el mensaje en una nueva
                         ' Session.Abandon()
                         Session("auth") = Nothing
-                        Session("_msg_dv_err") = "errores en dvs"
+                        Session("_msg_dv_err") = translate("errores_en_dvs")
                         Response.Redirect("/login.aspx", False)
                         ' control with exit sub
                         ' http://msdn.microsoft.com/en-us/library/a8wa7sdt.aspx

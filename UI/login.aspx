@@ -6,8 +6,9 @@
 <head runat="server">
     <title>CloudServices</title>
     <!-- Bootstrap core CSS -->
-    <link href="content/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="content/css/login/login.css" rel="stylesheet"/>
+    <link href="/content/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/content/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="/content/css/login/login.css" rel="stylesheet"/>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

@@ -42,7 +42,17 @@
                 tr.append( $('<td>').html( Object.keys(v)[0] ) );
                 tr.append( $('<td>').html( v[ Object.keys(v)[0] ] ) );
                 $('tbody').append(tr);
-            } );
+            });
+
+            // escondo las opciones del menu
+            // que no deberia usar
+
+            //DRY way to do stuff like this
+            var no_mostrar = ['usuarios', 'idiomas', 'patentes', 'bitacora'];
+            for (var i = 0; i < no_mostrar.length; i++) {
+                var id_to = '#menu_'+no_mostrar[i];
+                $(id_to).parent().remove();
+            }
         });
     </script>
     
