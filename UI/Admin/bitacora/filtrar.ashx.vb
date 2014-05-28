@@ -1,6 +1,7 @@
 ﻿Imports System.Web
 Imports System.Web.Services
 Imports System.Web.Script.Serialization
+Imports System.Globalization
 
 Public Class filtrar
     Implements System.Web.IHttpHandler, IReadOnlySessionState
@@ -35,6 +36,12 @@ Public Class filtrar
                 oBita.Categoria = context.Request.Form.Get("bita_filtro_categoria")
             End If
 
+            If Not String.IsNullOrEmpty(context.Request.Form.Get("bita_filtro_fecha")) Then
+                Dim provider As CultureInfo = CultureInfo.InvariantCulture
+                oBita.Fecha = DateTime.ParseExact(context.Request.Form.Get("bita_filtro_fecha"), "d", provider)
+
+            End If
+
             Dim oInfra As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
             Dim lista As List(Of BE.Bitacora) = New List(Of BE.Bitacora)
             lista = oInfra.filtrar(oBita)
@@ -49,7 +56,7 @@ Public Class filtrar
         Catch ex As ExceptionsPersonales.CustomException
             'send el error
             resp.Add("status", "500")
-            resp.Add("msg", "")
+            resp.Add("msg", Infra.TraductorMgr.TraducirControl(ex.codigo, context.Session("lang")))
 
         End Try
         oRes = jss.Serialize(resp)

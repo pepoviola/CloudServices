@@ -22,11 +22,13 @@
                      </div>
                   <%End If%>
                 <div>
+                    <%If writeAccess Then%>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_new_user" data-action="add">
                             <i class="icon-user icon-white"></i> <% =translate("btn_new")%>
                         </a>
                     </div>
+                    <%End If%>
                     <br />
                     <br />
                     <table class="table table-bordered table-hover">
@@ -36,7 +38,9 @@
                                 <th><%=translate("th_nombre")%></th>
                                 <th><%=translate("th_apellido")%></th>
                                 <th><%=translate("th_email")%></th>
+                                <%If writeAccess Then%>
                                 <th><%=translate("th_acciones")%></th>                                                                
+                                <%End If%>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,10 +50,12 @@
                                     <td><% =user.Nombre%></td>
                                     <td><% =user.Apellido%></td>
                                     <td><% =user.Email%></td>
+                                    <%If writeAccess Then%>
                                     <td>                                        
                                       <a href="#" class="btn btn-primary user_edit" data-uid="<% =user.Id%>" data-username="<% =user.Username%>">  <i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
                                       <a href="#" class="btn btn-danger user_delete" data-uid="<% =user.Id%>" data-username="<% =user.Username%>">  <i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>                                                
                                     </td>
+                                    <%End If%>
                                 </tr>                            
                             <% Next%>                            
                         </tbody>                    
@@ -232,6 +238,9 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+        // make active Admin tab
+        $('.active').removeClass('active');
+        $('.menu_admin').addClass('active');
 
         // mensajes
         var messages =  {                   

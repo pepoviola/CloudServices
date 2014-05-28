@@ -2,6 +2,8 @@
 <%@ MasterType VirtualPath="~/CloudServices.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="/content/dataTables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="/content/css/datepicker/datepicker.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
         <div class="row-fluid">
@@ -20,7 +22,12 @@
 
 					        <label  for="bita_filer_by_user"><% =translate("bita_filtro_categoria")%>
                                 <input type="text" class="input-medium search-query" name="bita_filtro_categoria" id="bita_filtro_categoria"  placeholder="<% =translate("categoria")%>" />
-					        </label>							    
+					        </label>
+                            <label for="bita_filtro_fecha"><%=translate("bita_filtro_fecha")%>
+                                <div class="input-append date">
+                                    <input type="text" class="input-medium" name="bita_filtro_fecha" id="bita_filtro_fecha"/><span class="add-on"><i class="icon-th"></i></span>
+                                 </div>
+                            </label>							    
                             <button type="button" id="filtrar" class="btn"><i class=" icon-search"></i> <% =translate("filtrar") %></button> 
 					</div>
                     <br />
@@ -52,7 +59,11 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script src="/scripts/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/scripts/datepicker/locales/bootstrap-datepicker.es.js"></script>
+    <script src="/content/dataTables/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
+        var table_to = undefined;
     // make active Admin tab
         $('.active').removeClass('active');
         $('.menu_admin').addClass('active');
@@ -84,6 +95,20 @@
             fulldate += " " + hr + ":" + mins + ":" + secs;
             return fulldate
         };
+
+        // paginate table
+        var paginate_table = function () {
+           
+            table_to = $('.table').DataTable({
+                searching: false,
+                ordering: false,
+                pageLength: 30,
+                info: false,
+                lengthChange: false,
+                language: { paginate: { next: ">>", previous: "<<" } },
+                destroy:true
+            });
+        };
         // fill the table
         var fillTable = function (data) {
             $.each(data.rows, function (k, v) {
@@ -97,9 +122,20 @@
                 $('tbody').append(tr);
 
             });
+            //la pagino
+            paginate_table();
         };
 
         $(document).ready(function () {
+
+            // initiate datepicker
+            $('.input-append.date').datepicker({
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                language: "es"
+            });
+
+
             // load without search terms
             postdata = {
                 bita_filtro_usuario: $('#bita_filtro_usuario').val(),
@@ -117,25 +153,29 @@
                 }
                 else {
                     //borro la tabla
+                    if (table_to) table_to.destroy();
                     $('.bita_row').remove();
                     fillTable(res);
+                    
                 }
             });
 
             // actions
             $('#filtrar').click(function (ev) {
                 ev.preventDefault();
+                //var fecha_to = $('#bita_filtro_fecha').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3") ? $('#bita_filtro_fecha').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3") : "";
                 // post to filter
                 postdata = {
                     bita_filtro_usuario : $('#bita_filtro_usuario').val(),
-                    bita_filtro_categoria : $('#bita_filtro_categoria').val()
+                    bita_filtro_categoria: $('#bita_filtro_categoria').val(),
+                    bita_filtro_fecha: $('#bita_filtro_fecha').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3")
                 }
                 $.post('/Admin/bitacora/filtrar.ashx', postdata, function (res) {
                     // if the session expired reload the page to go to login form
                     if (res.status == undefined) location.reload();
 
                     if (res.status == 500) {
-                        var div_alert = '<div class="alert alert-' + alert_type + '">'
+                        var div_alert = '<div class="alert alert-error">'
                         + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                         + '<div class="alert-msg">' + res.msg + '</div></div>';
 
@@ -146,6 +186,7 @@
                     }
                     else {
                         //borro la tabla
+                        if (table_to) table_to.destroy();
                         $('.bita_row').remove();
                         fillTable(res);
                     }

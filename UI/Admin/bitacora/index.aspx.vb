@@ -35,7 +35,7 @@
         Else
             '' verifico si tiene acceso
 
-            ' old implementation
+
             '_read = Utilidades.getUtilidades().tieneAcceso("bitacora", Master.user_permisos)
             _read = Utilidades.getUtilidades().tieneAcceso("bitacora", Session("flia"))
 

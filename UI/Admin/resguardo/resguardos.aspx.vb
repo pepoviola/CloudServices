@@ -1,16 +1,16 @@
 ﻿Public Class resguardos
     Inherits System.Web.UI.Page
 
-    Private _read As Boolean
-    Public ReadOnly Property read
+    Private _bkpAccess As Boolean
+    Public ReadOnly Property bkpAccess
         Get
-            Return _read
+            Return _bkpAccess
         End Get
     End Property
-    Private _write As Boolean
-    Public ReadOnly Property write
+    Private _restoreAccess As Boolean
+    Public ReadOnly Property restoreAccess
         Get
-            Return _write
+            Return _restoreAccess
         End Get
     End Property
 
@@ -28,12 +28,16 @@
         Else
             '' verifico si tiene acceso
 
-            _read = Utilidades.getUtilidades().tieneAcceso("bkp", Master.user_permisos)
-            _write = Utilidades.getUtilidades().tieneAcceso("restore", Master.user_permisos)
+            _bkpAccess = Utilidades.getUtilidades().tieneAcceso("backup", Session("flia"))
+            _restoreAccess = Utilidades.getUtilidades().tieneAcceso("restore", Session("flia"))
+
+            '_bkpAccess = Utilidades.getUtilidades().tieneAcceso("bkp", Master.user_permisos)
+            '_restoreAccess = Utilidades.getUtilidades().tieneAcceso("restore", Master.user_permisos)
 
             '' si no tiene acceso
-            If Not _read And Not _write Then
-                Response.Redirect("/")
+            If Not _restoreAccess And Not _bkpAccess Then
+                Response.Redirect("/", False)
+                Exit Sub
             End If
 
             Dim oInfraBkp As Infra.Backup = Infra.Backup.getBkp()

@@ -27,30 +27,36 @@
                      </div>
                   <%End If%>
                 <div>
+                    <%If writeAccess Then%>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success"  id="open_create_modal" data-action="add">
                             <i class="icon-plus icon-white"></i> <% =translate("btn_new")%>
                         </a>
                     </div>
+                    <%End If%>
                     <br />
                     <br />
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th><%=translate("th_flia")%></th>
+                                <%If writeAccess Then%>
                                 <th><%=translate("th_actions")%></th>
+                                <%End If%>
                             </tr>
                         </thead>
                         <tbody>
                             <% For Each patente As BE.BEPatenteBasica In listaPatentes %>
                                 <tr id="codpat-<% =patente.codigo%>">
                                     <td><% =patente.descripcion%></td>
+                                    <%If writeAccess Then%>
                                     <td>
                                         <% If patente.Nativo = 1 Then %>
                                             <a href="#" class="btn btn-primary patente_edit" data-codpat="<% =patente.codigo%>" data-despat="<% =patente.descripcion%>"> <i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
                                             <a href="#" class="btn btn-danger patente_delete" data-codpat="<% =patente.codigo%>">  <i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>        
                                         <%End If%>
                                     </td>
+                                    <%End If%>
                                 </tr>
                             <%Next%>
 
@@ -102,6 +108,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+        // make active Admin tab
+        $('.active').removeClass('active');
+        $('.menu_admin').addClass('active');
+
         // manage checkbox
         function biddinchecks() {
             $(".expand_p").click(function () {

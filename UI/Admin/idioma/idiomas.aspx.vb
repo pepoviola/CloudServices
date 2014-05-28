@@ -2,13 +2,13 @@
     Inherits System.Web.UI.Page
 
     Private _read As Boolean
-    Public ReadOnly Property read
+    Public ReadOnly Property readAccess
         Get
             Return _read
         End Get
     End Property
     Private _write As Boolean
-    Public ReadOnly Property write
+    Public ReadOnly Property writeAccess
         Get
             Return _write
         End Get
@@ -36,13 +36,20 @@
             'ElseIf 
         Else
             '' verifico si tiene acceso
-            _read = Utilidades.getUtilidades().tieneAcceso("idioma_read", Master.user_permisos)
-            _write = Utilidades.getUtilidades().tieneAcceso("idioma_write", Master.user_permisos)
+            _read = Utilidades.getUtilidades().tieneAcceso("idioma_read", Session("flia"))
+            _write = Utilidades.getUtilidades().tieneAcceso("idioma_write", Session("flia"))
 
-            '' si no tiene acceso
-            If Not _read And Not _write Then
-                Response.Redirect("/")
+            '_read = Utilidades.getUtilidades().tieneAcceso("idioma_read", Master.user_permisos)
+            '_write = Utilidades.getUtilidades().tieneAcceso("idioma_write", Master.user_permisos)
+
+            ' si no tiene acceso
+            If Not _write Then
+                If Not _read Then
+                    Response.Redirect("/", False)
+                    Exit Sub
+                End If
             End If
+
 
             Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma()
             _langs = oInfraIdioma.Filtrar(New BE.Idioma())
@@ -52,7 +59,7 @@
             tag_for_filter.CodIdioma = Session("lang_code")
             _tags = oInfraTag.filtrar(tag_for_filter)
 
-        End If
+            End If
     End Sub
 
 

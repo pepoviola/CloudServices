@@ -17,13 +17,13 @@
     End Property
 
     Private _read As Boolean
-    Public ReadOnly Property read
+    Public ReadOnly Property readAccess
         Get
             Return _read
         End Get
     End Property
     Private _write As Boolean
-    Public ReadOnly Property write
+    Public ReadOnly Property writeAccess
         Get
             Return _write
         End Get
@@ -38,12 +38,19 @@
 
             '' verifico si tiene acceso
 
-            _read = Utilidades.getUtilidades().tieneAcceso("patente_read", Master.user_permisos)
-            _write = Utilidades.getUtilidades().tieneAcceso("patente_write", Master.user_permisos)
+            _read = Utilidades.getUtilidades().tieneAcceso("permiso_read", Session("flia"))
+            _write = Utilidades.getUtilidades().tieneAcceso("permiso_write", Session("flia"))
+
+            '_read = Utilidades.getUtilidades().tieneAcceso("permiso_read", Master.user_permisos)
+            '_write = Utilidades.getUtilidades().tieneAcceso("permiso_write", Master.user_permisos)
 
             '' si no tiene acceso
-            If Not _read And Not _write Then
-                Response.Redirect("/")
+            If Not _write Then
+                If Not _read Then
+                    Response.Redirect("/", False)
+                    Exit Sub
+                End If
+
             End If
 
             'obtengo todas las patentes

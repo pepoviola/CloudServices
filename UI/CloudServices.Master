@@ -40,31 +40,31 @@
                                 <div class="nav-collapse collapse">
                      <ul class="nav">
                           <li class="active menu_home"><a href="/"><% =translate("menu_home")%></a></li>
-                          <li class="menu_about"><a href="#"><% =translate("menu_about")%></a></li>
+                          <!--<li class="menu_about"><a href="#"><% =translate("menu_about")%></a></li>-->
                           <li class="dropdown menu_admin"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
                               <ul class="dropdown-menu">
                                   <% If Me.tieneAcceso("usuario_read") Or Me.tieneAcceso("usuario_write") Then %>
-                                    <li><a href="/Admin/usuario/usuarios.aspx" id="menu_usuarios"><% =translate("menu_usuarios")%></a></li>        
+                                    <li><a href="/Admin/usuario/usuarios.aspx" id="menu_usuarios"><i class="icon-user"></i>  <% =translate("menu_usuarios")%></a></li>        
                                   <%End If%>
                                   
                                   <% If Me.tieneAcceso("idioma_read") Or Me.tieneAcceso("idioma_write") Then%>
-                                  <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><% =translate("menu_idiomas")%></a></li>
+                                  <li><a href="/Admin/idioma/idiomas.aspx" id="menu_idiomas"><i class="icon-flag"></i>  <% =translate("menu_idiomas")%></a></li>
                                   <% End If%>
 
-                                  <% If Me.tieneAcceso("patente_read") Or Me.tieneAcceso("patente_write") Then%>
-                                  <li><a href="/Admin/permiso/permisos.aspx" id="menu_patentes"><% =translate("menu_patentes")%></a></li>
+                                  <% If Me.tieneAcceso("permiso_read") Or Me.tieneAcceso("permiso_write") Then%>
+                                  <li><a href="/Admin/permiso/permisos.aspx" id="menu_patentes"><i class="icon-th-list"></i>  <% =translate("menu_patentes")%></a></li>
                                   <%End If%>
                                   
                                    <% If Me.tieneAcceso("bitacora") Then%>
-                                  <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><% =translate("menu_bitacora")%></a></li>
+                                  <li><a href="/Admin/bitacora/index.aspx" id="menu_bitacora"><i class="icon-tag"></i>  <% =translate("menu_bitacora")%></a></li>
                                   <% End If%>
 
                                    <% If Me.tieneAcceso("dv_mgr") Then%>
-                                  <li><a href="/Admin/dvManager/dvs.aspx" id="menu_dvs"><% =translate("menu_dv")%></a></li>
+                                  <li><a href="/Admin/dvManager/dvs.aspx" id="menu_dvs"><i class="icon-eye-open"></i> <% =translate("menu_dv")%></a></li>
                                   <% End If%>
 
-                                  <% If Me.tieneAcceso("bkp") Or Me.tieneAcceso("restore") Then%>
-                                  <li><a href="/Admin/resguardo/resguardos.aspx" id="menu_resguardo" ><% =translate("menu_resguardo")%></a></li>
+                                  <% If Me.tieneAcceso("backup") Or Me.tieneAcceso("restore") Then%>
+                                  <li><a href="/Admin/resguardo/resguardos.aspx" id="menu_resguardo" ><i class="icon-briefcase"></i>  <% =translate("menu_resguardo")%></a></li>
                                   <% End If%>
 
                                   <% If Me.tieneAcceso("helper") Then%>
@@ -82,8 +82,8 @@
                             </a>
                         <ul class="dropdown-menu">
                         <li>  
-                              <a href="/settings.aspx"  id="menu_settings"><% =translate("menu_settings")%></a>  
-                              <a href="/logout.aspx"  id="menu_logout"><% =translate("menu_logout")%></a>
+                              <a href="/settings.aspx"  id="menu_settings"><i class="icon-wrench"></i>  <% =translate("menu_settings")%></a>  
+                              <a href="/logout.aspx"  id="menu_logout"><i class="icon-off"></i>  <% =translate("menu_logout")%></a>
                         </li>
                         </ul>
                     </li>

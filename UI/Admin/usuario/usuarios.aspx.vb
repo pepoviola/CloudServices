@@ -29,13 +29,13 @@
         End Get
     End Property
     Private _read As Boolean
-    Public ReadOnly Property read
+    Public ReadOnly Property readAccess
         Get
             Return _read
         End Get
     End Property
     Private _write As Boolean
-    Public ReadOnly Property write
+    Public ReadOnly Property writeAccess
         Get
             Return _write
         End Get
@@ -60,10 +60,13 @@
             _write = Utilidades.getUtilidades().tieneAcceso("usuario_write", Session("flia"))
 
             ' si no tiene acceso
-            If Not _read And Not _write Then
-                Response.Redirect("/", False)
-                Exit Sub
+            If Not _write Then
+                If Not _read Then
+                    Response.Redirect("/", False)
+                    Exit Sub
+                End If
             End If
+
 
             Try
                 Dim oInfraUser As Infra.InfraUsuario = New Infra.InfraUsuario()

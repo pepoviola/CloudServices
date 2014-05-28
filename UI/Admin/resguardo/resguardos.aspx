@@ -16,11 +16,13 @@
                      </div>
                   <%End If%>
                 <div>
+                    <%If bkpAccess Then%>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" id="make_bkp" data-action="add">
                             <i class="icon-lock icon-white"></i> <% =translate("btn_bkp")%>
                         </a>
                     </div>
+                    <%End If%>
                     <br />
                     <br />
                     <table class="table table-bordered table-hover">
@@ -28,7 +30,9 @@
                             <tr>
                                 <th><%=translate("th_archivo")%></th>
                                 <th><%=translate("th_fecha")%></th>
-                                <th><%=translate("th_restore")%></th>                                
+                                <% If restoreAccess Then%>
+                                <th><%=translate("th_restore")%></th>
+                                <%End If%>                                
                             </tr>
                         </thead>
                         <tbody>
@@ -36,9 +40,11 @@
                                 <tr id="idlang-<% =b.Id%>">
                                     <td><% =b.Filename%></td>
                                     <td><% =b.Fecha%></td>
+                                    <%If restoreAccess Then%>
                                     <td>                                        
                                         <a href="#" class="btn btn-danger restore" data-idbkp="<% =b.Id%>"  data-file="<%=b.Filename%>"><i class="icon-file icon-white"></i> <% =translate("btn_restore")%></a>
                                     </td>
+                                    <%End If%>
                                 </tr>                            
                             <% Next%>                            
                         </tbody>                    
@@ -50,6 +56,10 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+        // make active Admin tab
+        $('.active').removeClass('active');
+        $('.menu_admin').addClass('active');
+
         $('#make_bkp').click(function (ev) {
             ev.preventDefault();
             $.confirm({

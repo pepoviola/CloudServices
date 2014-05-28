@@ -17,11 +17,13 @@
                      </div>
                   <%End If%>
                 <div>
+                    <% If writeAccess Then %>                                                    
                     <div class="pull-right">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#modal_idioma" data-action="add">
                             <i class="icon-flag icon-white"></i> <% =translate("btn_new")%>
                         </a>
                     </div>
+                    <%End If%>
                     <br />
                     <br />
                     <table class="table table-bordered table-hover">
@@ -29,7 +31,9 @@
                             <tr>
                                 <th><%=translate("th_codigo")%></th>
                                 <th><%=translate("descripcion")%></th>
+                                <% If writeAccess Then %>  
                                 <th><%=translate("th_acciones")%></th>
+                                <% End if %>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,10 +41,12 @@
                                 <tr id="idlang-<% =l.Id%>">
                                     <td><% =l.Codigo %></td>
                                     <td><% =l.Descripcion %></td>
+                                    <% If writeAccess Then %>  
                                     <td>
                                         <a href="#" class="btn btn-primary idioma_edit" data-idlang="<% =l.Id %>" data-codelang="<%=l.Codigo%>" data-descripcionlang="<% =l.Descripcion %>"><i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%></a>
                                         <a href="#" class="btn btn-danger idioma_delete" data-idlang="<% =l.Id %>"  data-codelang="<%=l.Codigo%>"><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>
                                     </td>
+                                    <% End If %>
                                 </tr>                            
                             <% Next%>                            
                         </tbody>                    
@@ -139,7 +145,13 @@
 <asp:Content runat="server" ID="js" ContentPlaceHolderID="js_block">
    
     <script>
+        
+
         $(document).ready(function () {
+            // make active Admin tab
+            $('.active').removeClass('active');
+            $('.menu_admin').addClass('active');
+
             //binding actions
 
             // create idioma
@@ -196,6 +208,9 @@
                 $.post('/Admin/idioma/tags.ashx', $('#edit_idioma_form').serialize(), function (data) {
                     //console.log(data);
                     $('#modal_idioma_edit').modal("hide");
+                    // if the session expired reload the page to go to login form
+                    if (data.status == undefined) location.reload();
+
                     var alert_type = (data.status == 200) ? "info" : "error";
                     var div_alert = '<div class="alert alert-' + alert_type + '">'
                             + '<button type="button" class="close" data-dismiss="alert">&times;</button>'

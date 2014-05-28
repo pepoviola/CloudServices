@@ -76,10 +76,11 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="controls">
+                        <div class="controls" style="margin-left:25%">
 
                             <%--<asp:Button runat="server" id="login_submit" CssClass="btn btn-primary button-loading"/>--%>
                             <button type="submit" id="login_submit" name="login_submit" class="btn btn-primary" ><% =translate("login_submit",1) %></button>
+                            <a href="/regenerate.aspx"  id="lost_passwd"  class="btn btn-warning" ><% =translate("lost_passwd",1) %></a>
                            <%--<button type="submit" id="submit" class="btn btn-primary button-loading" data-loading-text="Loading...">Sign in</button>--%>
 
                         <%--<button type="button" id="olvido" class="btn btn-secondary button-loading" data-loading-text="Loading...">Olvidó la clave...</button>--%>
@@ -98,9 +99,9 @@
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/login/login.js"></script>
     <script>
-        function isEmpty(src, arguments) {
-            alert('pepo')
-        }
+        //function isEmpty(src, arguments) {
+        //    alert('pepo')
+        //}
     </script>
 </body>
 </html>
