@@ -112,6 +112,10 @@
       <Project>{366e560e-e9d2-4a7f-9d14-ded9a7bb7702}</Project>
       <Name>BE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Criptografia\Criptografia.vbproj">
+      <Project>{96fb8e77-1a8b-41fc-8c2c-26b19bd6c40a}</Project>
+      <Name>Criptografia</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

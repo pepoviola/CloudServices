@@ -36,7 +36,8 @@ Public Class mod_usuario
                     Dim oBita As New BE.Bitacora
                     Dim oBitaUser As New BE.BEUsuario
                     oBitaUser.Id = context.Session("user_id")
-                    oBita.DVH = "todo"
+                    ' se pasa a la dal esta logica
+                    'oBita.DVH = "todo"
                     oBita.Fecha = Date.Now
                     oBita.Usuario = oBitaUser
                     oBita.Categoria = "Usuarios"

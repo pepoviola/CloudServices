@@ -61,15 +61,15 @@ Public Class Bitacora
     End Property
 
 
-    Private _dvh As String
-    Public Property DVH() As String
-        Get
-            Return _dvh
-        End Get
-        Set(ByVal value As String)
-            _dvh = value
-        End Set
-    End Property
+    'Private _dvh As String
+    'Public Property DVH() As String
+    '    Get
+    '        Return _dvh
+    '    End Get
+    '    Set(ByVal value As String)
+    '        _dvh = value
+    '    End Set
+    'End Property
 
 
 
@@ -86,7 +86,8 @@ Public Class Bitacora
         Me.Usuario = oUser
         Me.Categoria = categoria
         Me.Descripcion = descrip
-        Me.DVH = "todo"
+        ' se pasa a la dal esta logica
+        'Me.DVH = "todo"
 
     End Sub
 

@@ -104,6 +104,7 @@
     <Content Include="content\dataTables\js\jquery.dataTables.js" />
     <Content Include="content\dataTables\js\jquery.dataTables.min.js" />
     <Content Include="content\dataTables\js\jquery.js" />
+    <Content Include="Global.asax" />
     <Content Include="recuperar.aspx" />
     <Content Include="regenerate.aspx" />
     <Content Include="dvsErr.aspx" />
@@ -208,6 +209,9 @@
     <Compile Include="Admin\dvManager\dvs.aspx.vb">
       <DependentUpon>dvs.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="recuperar.aspx.designer.vb">
       <DependentUpon>recuperar.aspx</DependentUpon>
@@ -392,6 +396,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\PublishProfiles\cloudservices.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

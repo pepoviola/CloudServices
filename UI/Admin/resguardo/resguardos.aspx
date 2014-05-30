@@ -110,20 +110,23 @@
                     $.post('/Admin/resguardo/restore.ashx', { bkp_name: bkp_name }, function (res) {
                         // remove backdrop
                         $(".modal-backdrop").remove();
-                        if (res.status == undefined) location.reload();
+                        if (res.status == undefined) {
+                            location.reload();
+                        }
+                        else {
+                            var alert_type = (res.status == 200) ? "info" : "error";
+                            var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">' + res.msg + '</div></div>';
 
-                        var alert_type = (res.status == 200) ? "info" : "error";
-                        var div_alert = '<div class="alert alert-' + alert_type + '">'
-                            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                            + '<div class="alert-msg">' + res.msg + '</div></div>';
+                            //remove if there any
+                            $('.alert').remove();
+                            $('section').prepend(div_alert);
 
-                        //remove if there any
-                        $('.alert').remove();
-                        $('section').prepend(div_alert);
-
-                        if (res.status == "200") {
-                            // it's new so reload the page 1 second after
-                            setTimeout(function () { location.reload() }, 1000);;
+                            if (res.status == "200") {
+                                // it's new so reload the page 1 second after
+                                setTimeout(function () { location.reload() }, 1000);;
+                            }
                         }
                     });
                 }

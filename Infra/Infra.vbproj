@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +73,7 @@
     <Compile Include="helper_dv.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="InfraUsuario.vb" />
+    <Compile Include="ManageIIS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

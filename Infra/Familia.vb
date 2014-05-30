@@ -57,6 +57,7 @@ Public Class Familia
         'agrego la familia y luego las relaciones en la tabla de permisos
         Dim retorno As Boolean
         Try
+            ' esto no se utiliza mas
             'recorro la lista de permisos y armo el dic
             Dim dictDVH As New Dictionary(Of Integer, String)
             For Each i As Integer In permisos
@@ -65,11 +66,12 @@ Public Class Familia
             Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
             'if we add a flia it's not native one
             flia.Nativo = 1
+            ' este calculo pasa a la dal
             'get the dvh
-            flia.DVH = Criptografia.Crypto.getCrypto().generarMD5(flia.descripcion + Convert.ToString(flia.Nativo))
+            'flia.DVH = Criptografia.Crypto.getCrypto().generarMD5(flia.descripcion + Convert.ToString(flia.Nativo))
             retorno = oFliaDAL.Save(flia, dictDVH)
             If retorno Then
-                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
+                If Not DVV.Actualizar("Familia") Then 'Or Not DVV.Actualizar("PermisoRel") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
             End If
@@ -87,7 +89,7 @@ Public Class Familia
         Try
             registros = oFliaDAL.Delete(flia)
             If registros Then
-                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
+                If Not DVV.Actualizar("Familia") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
             End If
@@ -109,14 +111,14 @@ Public Class Familia
         Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
         Try
             'recorro la lista de permisos y armo el dic
-            Dim dictDVH As New Dictionary(Of Integer, String)
-            For Each i As BE.BEPatenteBasica In permisos
-                '    dictDVH.Add(i.codigo, Crypto.getCrypto.generarMD5(Convert.ToString(oFlia.codigo) + Convert.ToString(i.codigo)))
-                i.DVH = Criptografia.Crypto.getCrypto.generarMD5(Convert.ToString(oFlia.codigo) + Convert.ToString(i.codigo))
-            Next
+            'Dim dictDVH As New Dictionary(Of Integer, String)
+            'For Each i As BE.BEPatenteBasica In permisos
+            '    dictDVH.Add(i.codigo, Crypto.getCrypto.generarMD5(Convert.ToString(oFlia.codigo) + Convert.ToString(i.codigo)))
+            'i.DVH = Criptografia.Crypto.getCrypto.generarMD5(Convert.ToString(oFlia.codigo) + Convert.ToString(i.codigo))
+            'Next
 
             If oFliaDAL.Modify(oFlia, permisos) Then
-                If Not DVV.Actualizar("Familia") Or Not DVV.Actualizar("PermisoRel") Then
+                If Not DVV.Actualizar("Familia") Then ' Or Not DVV.Actualizar("PermisoRel") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
                 Return True

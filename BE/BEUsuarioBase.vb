@@ -20,7 +20,7 @@ Public MustInherit Class BEUsuarioBase
 
 
 
-    Private _dvh As String
+    ' Private _dvh As String
     Private _email As String
     Private _estado As String
     Private _id As Integer
@@ -29,15 +29,15 @@ Public MustInherit Class BEUsuarioBase
     Private _patente As BEFamilia
     Private _username As String
 
-    <ScriptIgnore()> _
-        Public Property Dvh() As String
-        Get
-            Return _dvh
-        End Get
-        Set(ByVal Value As String)
-            _dvh = Value
-        End Set
-    End Property
+    '<ScriptIgnore()> _
+    '    Public Property Dvh() As String
+    '    Get
+    '        Return _dvh
+    '    End Get
+    '    Set(ByVal Value As String)
+    '        _dvh = Value
+    '    End Set
+    'End Property
 
     Public Property Email() As String
         Get

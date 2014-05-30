@@ -42,12 +42,14 @@ Public Class Bitacora
         Try
             'objeto dal
             Dim oDalBita As DAL.BitacoraDAL = DAL.BitacoraDAL.getBitacoraDal()
-            'genero el DVH
-            Dim bitaString As String = String.Empty
-            
-            bitaString += bita.Descripcion + bita.Categoria _
-                       + Convert.ToString(bita.Usuario.Id)
-            bita.DVH = Criptografia.Crypto.getCrypto().generarMD5(bitaString)
+            ' lo paso a la DAL
+            ' para que el objeto no tenga que tener una propiedad dvh
+            ''genero el DVH
+            'Dim bitaString As String = String.Empty
+
+            'bitaString += bita.Descripcion + bita.Categoria _
+            '           + Convert.ToString(bita.Usuario.Id)
+            'bita.DVH = Criptografia.Crypto.getCrypto().generarMD5(bitaString)
             retorno = oDalBita.Log(bita)
             If retorno Then
                 'actualizo dvv

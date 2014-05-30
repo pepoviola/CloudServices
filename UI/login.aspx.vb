@@ -32,7 +32,7 @@ Public Class login
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-
+       
         Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma
         _lista_idiomas = oInfraIdioma.Filtrar(New BE.Idioma())
 
@@ -101,14 +101,17 @@ Public Class login
                 Session("lang_code") = oUsuario.Idioma.Codigo
                 Session("flia") = oUsuario.Patente.codigo
                 Session("flia_desc") = oUsuario.Patente.descripcion
-                Dim oInfraDVV As Infra.DVV = New Infra.DVV
-                Dim oInfraDVH As Infra.DVH = New Infra.DVH
-                Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-                For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
-                    listaErrs.AddRange(oInfraDVH.check(tabla))
-                    listaErrs.AddRange(oInfraDVV.check(tabla))
-                Next
+                'Dim oInfraDVV As Infra.DVV = New Infra.DVV
+                'Dim oInfraDVH As Infra.DVH = New Infra.DVH
+                'Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                'For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
+                'listaErrs.AddRange(oInfraDVH.check(tabla))
+                'listaErrs.AddRange(oInfraDVV.check(tabla))
+                'Next
 
+
+                Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                listaErrs = Application("listaErrs")
                 Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
                 Session("dvErrs") = jss.Serialize(listaErrs)
 

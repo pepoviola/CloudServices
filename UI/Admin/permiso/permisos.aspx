@@ -245,8 +245,8 @@
                     $('.modify.modal-body').html(res.modalbody);
                     // make and input hidden of the id
                     var hidden = $("<input>").attr({ type: "hidden", name: "codpat", value: flia_to });
-                    $('#form_modify').prepend(hidden);
-
+                    //$('#form_modify').prepend(hidden);
+                    $('.modify.modal-body').prepend(hidden);
                     // don't allow circular refs
                     $('.toproot li').each(function (i, li) {
                         var nodo = $(li).find("#chbox-" + flia_to);

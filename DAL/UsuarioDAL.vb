@@ -71,7 +71,7 @@ Public Class UsuarioDAL
 
                         '.Patente = drsql(8)
                         .Patente = oFlia
-                        .Dvh = drsql(9)
+                        '.Dvh = drsql(9)
                     End With
 
                 End While
@@ -223,6 +223,12 @@ Public Class UsuarioDAL
         Dim registros As Integer
         Dim conn As IDbConnection = dbManager.getConnection
         Try
+
+            Dim dvhString As String
+            dvhString = t.Apellido + t.Nombre + t.Estado + t.Email
+            dvhString += t.Username + t.Passwd + Convert.ToString(t.Idioma.Id) + Convert.ToString(t.Patente.codigo)
+            Dim userDvh As String = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+
             'get cmd
             Dim cmd As IDbCommand = dbManager.getCmd("InsertUsuario")
             'agrego los params
@@ -233,7 +239,7 @@ Public Class UsuarioDAL
             dbManager.addParam(cmd, "@email", t.Email)
             dbManager.addParam(cmd, "@IdIdioma", t.Idioma.Id)
             dbManager.addParam(cmd, "@IdPatente", t.Patente.codigo)
-            dbManager.addParam(cmd, "@DVH", t.Dvh)
+            dbManager.addParam(cmd, "@DVH", userDvh)
             'open
             conn.Open()
             cmd.Connection = conn
@@ -308,7 +314,7 @@ Public Class UsuarioDAL
                 oUser.Username = Convert.ToString(lector("Username"))
                 oUser.Passwd = Convert.ToString(lector("Password"))
                 oUser.Email = Convert.ToString(lector("Email"))
-                oUser.Dvh = Convert.ToString(lector("DVH"))
+                'oUser.Dvh = Convert.ToString(lector("DVH"))
                 oUser.Estado = Convert.ToString(lector("Estado"))
                 oUser.Idioma = New BE.Idioma(Convert.ToInt32(lector("IdIdioma")), _
                                              Convert.ToString(lector("codigo")),
@@ -332,6 +338,12 @@ Public Class UsuarioDAL
         Dim registros As Integer
         Dim conn As IDbConnection = dbManager.getConnection
         Try
+
+            Dim dvhString As String
+            dvhString = t.Apellido + t.Nombre + t.Estado + t.Email
+            dvhString += t.Username + t.Passwd + Convert.ToString(t.Idioma.Id) + Convert.ToString(t.Patente.codigo)
+            Dim userDvh As String = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+
             'get cmd
             Dim cmd As IDbCommand = dbManager.getCmd("UpdateUsuario")
             'agrego los params
@@ -344,7 +356,7 @@ Public Class UsuarioDAL
             dbManager.addParam(cmd, "@Estado", t.Estado)
             dbManager.addParam(cmd, "@IdIdioma", t.Idioma.Id)
             dbManager.addParam(cmd, "@IdPatente", t.Patente.codigo)
-            dbManager.addParam(cmd, "@DVH", t.DVH)
+            dbManager.addParam(cmd, "@DVH", userDvh)
             'open
             conn.Open()
             cmd.Connection = conn

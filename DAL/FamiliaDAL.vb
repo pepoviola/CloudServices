@@ -188,6 +188,7 @@ Public Class FamiliaDAL
             conn.Open()
             Dim trans As IDbTransaction = conn.BeginTransaction
             Try
+                Dim fliaDvh As String = Criptografia.Crypto.getCrypto().generarMD5(flia.descripcion + Convert.ToString(flia.Nativo))
                 'inserto la flia
                 Dim cmd As IDbCommand = dbManager.getCmd
                 Dim IdFlia As Integer
@@ -197,7 +198,7 @@ Public Class FamiliaDAL
                 cmd.Transaction = trans
                 cmd.Parameters.Add(New SqlParameter("@descrip", flia.descripcion))
                 cmd.Parameters.Add(New SqlParameter("@nativo", flia.Nativo))
-                cmd.Parameters.Add(New SqlParameter("@dvh", flia.DVH))
+                cmd.Parameters.Add(New SqlParameter("@dvh", fliaDvh))
 
                 'parametro de salida
                 Dim ParametroSalida As New SqlParameter()
@@ -223,7 +224,7 @@ Public Class FamiliaDAL
                     cmdPermiso.Transaction = trans
                     cmdPermiso.Parameters.Add(New SqlParameter("@Flia", IdFlia))
                     cmdPermiso.Parameters.Add(New SqlParameter("@Permiso", pair.Key))
-                    cmdPermiso.Parameters.Add(New SqlParameter("@dvh", pair.Value))
+                    'cmdPermiso.Parameters.Add(New SqlParameter("@dvh", pair.Value))
                     cmdPermiso.ExecuteNonQuery()
                 Next
                 trans.Commit()
@@ -265,7 +266,7 @@ Public Class FamiliaDAL
                     cmd2.Transaction = trans
                     dbManager.addParam(cmd2, "@Flia", oFlia.codigo)
                     dbManager.addParam(cmd2, "@Permiso", permiso.codigo)
-                    dbManager.addParam(cmd2, "@dvh", permiso.DVH)
+                    'dbManager.addParam(cmd2, "@dvh", permiso.DVH)
                     cmd2.ExecuteNonQuery()
                 Next
                 trans.Commit()

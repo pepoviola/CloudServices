@@ -56,8 +56,8 @@
 
 
                     'preparo bitacora
-
-                    oBita.DVH = "todo"
+                    ' se pasa a la dal esta logica
+                    'oBita.DVH = "todo"
                     oBita.Fecha = Date.Now
                     oBita.Usuario = _user_session
                     oBita.Categoria = "Usuarios"

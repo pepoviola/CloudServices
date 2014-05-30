@@ -21,6 +21,13 @@ Public Class BitacoraDAL
         Dim conn As IDbConnection = dbManager.getConnection
         Dim registros As Integer
         Try
+            ''genero el DVH
+            Dim bitaString As String = String.Empty
+            Dim bitaDvh As String = String.Empty
+            bitaString += bita.Descripcion + bita.Categoria _
+                       + Convert.ToString(bita.Usuario.Id)
+            bitaDvh = Criptografia.Crypto.getCrypto().generarMD5(bitaString)
+
 
             'obtengo el command
             Dim cmd As IDbCommand = dbManager.getCmd("InsertBitacora")
@@ -31,7 +38,7 @@ Public Class BitacoraDAL
             dbManager.addParam(cmd, "@Categoria", bita.Categoria)
             dbManager.addParam(cmd, "@Fecha", bita.Fecha)
             dbManager.addParam(cmd, "@IdUsuario", bita.Usuario.Id)
-            dbManager.addParam(cmd, "@DVH", bita.DVH)
+            dbManager.addParam(cmd, "@DVH", bitaDvh)
             'abro cx
             conn.Open()
             registros = cmd.ExecuteNonQuery()

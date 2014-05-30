@@ -30,7 +30,8 @@ Public Class InfraUsuario
                 oBita.Descripcion = "Ingreso Correcto"
                 oBita.Fecha = Date.Now
                 oBita.Usuario = oUser
-                oBita.DVH = "todo"
+                ' se pasa a la dal esta logica
+                'oBita.DVH = "todo"
 
                 oInfraBita.Log(oBita)
             Else
@@ -59,12 +60,13 @@ Public Class InfraUsuario
             'encrypt mail
             oUser.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oUser.Email, frase, True)
 
+            ' pasa a la dal
             'get dvh 
-            Dim dvhString As String
+            'Dim dvhString As String
 
-            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
-            dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
-            oUser.Dvh = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+            'dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
+            'dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
+            'oUser.Dvh = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
 
 
 
@@ -192,13 +194,13 @@ Public Class InfraUsuario
             End If
 
             
+            ' esta logica pasa a la dal para eliminar la propiedad dvh
+            ''get dvh 
+            'Dim dvhString As String
 
-            'get dvh 
-            Dim dvhString As String
-
-            dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
-            dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
-            oUser.DVH = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
+            'dvhString = oUser.Apellido + oUser.Nombre + oUser.Estado + oUser.Email
+            'dvhString += oUser.Username + oUser.Passwd + Convert.ToString(oUser.Idioma.Id) + Convert.ToString(oUser.Patente.codigo)
+            'oUser.DVH = Criptografia.Crypto.getCrypto.generarMD5(dvhString)
             ret = (oUserDal.Modificar(oUser))
             If ret Then
                 'update dvv
