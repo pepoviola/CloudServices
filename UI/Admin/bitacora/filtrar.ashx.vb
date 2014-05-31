@@ -27,6 +27,7 @@ Public Class filtrar
         Try
             'busco los filtros
             Dim oBita As BE.Bitacora = New BE.Bitacora()
+            Dim oBita_hasta As BE.Bitacora = New BE.Bitacora()
             If Not String.IsNullOrEmpty(context.Request.Form.Get("bita_filtro_usuario")) Then
                 Dim oUser As BE.BEUsuario = New BE.BEUsuario()
                 oUser.Username = context.Request.Form.Get("bita_filtro_usuario")
@@ -39,12 +40,20 @@ Public Class filtrar
             If Not String.IsNullOrEmpty(context.Request.Form.Get("bita_filtro_fecha")) Then
                 Dim provider As CultureInfo = CultureInfo.InvariantCulture
                 oBita.Fecha = DateTime.ParseExact(context.Request.Form.Get("bita_filtro_fecha"), "d", provider)
-
             End If
+
+            'hasta
+            If Not String.IsNullOrEmpty(context.Request.Form.Get("bita_filtro_fecha_hasta")) Then
+                Dim provider As CultureInfo = CultureInfo.InvariantCulture
+                oBita_hasta.Fecha = DateTime.ParseExact(context.Request.Form.Get("bita_filtro_fecha_hasta"), "d", provider)
+                oBita_hasta.Fecha = oBita_hasta.Fecha.AddDays(1)
+            End If
+
+
 
             Dim oInfra As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
             Dim lista As List(Of BE.Bitacora) = New List(Of BE.Bitacora)
-            lista = oInfra.filtrar(oBita)
+            lista = oInfra.filtrar(oBita, oBita_hasta)
             resp.Add("status", "200")
             resp.Add("rows", lista)
             If context.Session("lang_code") = "en" Then

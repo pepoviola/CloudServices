@@ -51,13 +51,14 @@ Public Class BitacoraDAL
 
     End Function
 
-    Public Function getBitacora(ByVal filtro As BE.Bitacora) As List(Of BE.Bitacora)
+    Public Function getBitacora(ByVal filtro As BE.Bitacora, ByVal filtro_hasta As BE.Bitacora) As List(Of BE.Bitacora)
         Dim _lista As New List(Of BE.Bitacora)
         Dim conn As IDbConnection = dbManager.getConnection
         Try
 
             'obtengo el command
-            Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroBitacora")
+            'Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroBitacora")
+            Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroBitacoraFechas")
             'asocio la cx
             cmd.Connection = conn
             'agrego los params [categoria, IdUsuario, Fecha]
@@ -73,10 +74,19 @@ Public Class BitacoraDAL
             End If
 
             If Not filtro Is Nothing AndAlso Not DateTime.MinValue = filtro.Fecha Then
-                dbManager.addParam(cmd, "@Fecha", filtro.Fecha)
+                dbManager.addParam(cmd, "@Fecha_desde", filtro.Fecha)
             Else
-                dbManager.addParam(cmd, "@Fecha", DBNull.Value)
+                dbManager.addParam(cmd, "@Fecha_desde", DBNull.Value)
             End If
+
+
+            'hasta
+            If Not filtro_hasta Is Nothing AndAlso Not DateTime.MinValue = filtro_hasta.Fecha Then
+                dbManager.addParam(cmd, "@Fecha_hasta", filtro_hasta.Fecha)
+            Else
+                dbManager.addParam(cmd, "@Fecha_hasta", DBNull.Value)
+            End If
+
 
             'abro cx
             conn.Open()

@@ -22,13 +22,13 @@ Public Class Bitacora
     'Metodos publicos
     '
     ' filtrar : devuelve una coleccion de bitacoras
-    Public Function filtrar(ByVal filtro As BE.Bitacora) As List(Of BE.Bitacora)
+    Public Function filtrar(ByVal filtro As BE.Bitacora, ByVal filtro_hasta As BE.Bitacora) As List(Of BE.Bitacora)
         Dim _lista As New List(Of BE.Bitacora)
         Try
 
             'objeto dal
             Dim oDalBita As DAL.BitacoraDAL = DAL.BitacoraDAL.getBitacoraDal()
-            _lista = oDalBita.getBitacora(filtro)
+            _lista = oDalBita.getBitacora(filtro, filtro_hasta)
         Catch ex As Exception
             'Lanzar ex personalizada
             Throw New ExceptionsPersonales.CustomException("ErrFiltrarBita")

@@ -4,6 +4,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/content/dataTables/css/jquery.dataTables.css" rel="stylesheet" />
     <link href="/content/css/datepicker/datepicker.css" rel="stylesheet" />
+    <style>
+        .labeled-inline {
+            margin-right: 10px;
+        }
+        .form-fechas {
+            margin-top: 10px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
         <div class="row-fluid">
@@ -16,18 +24,26 @@
                 <div>
                     <div class="form-inline">
 
-					        <label for="bita_filer_by_user"><% =translate("bita_filtro_usuario")%>
+					        <label class="labeled-inline" for="bita_filer_by_user"><% =translate("bita_filtro_usuario")%>
                                 <input type="text" class="input-medium search-query" name="bita_filtro_usuario" id="bita_filtro_usuario"  placeholder="<% =translate("username")%>" />
 					        </label>
 
-					        <label  for="bita_filer_by_user"><% =translate("bita_filtro_categoria")%>
+					        <label  class="labeled-inline" for="bita_filer_by_user"><% =translate("bita_filtro_categoria")%>
                                 <input type="text" class="input-medium search-query" name="bita_filtro_categoria" id="bita_filtro_categoria"  placeholder="<% =translate("categoria")%>" />
 					        </label>
-                            <label for="bita_filtro_fecha"><%=translate("bita_filtro_fecha")%>
-                                <div class="input-append date">
+                        </div>
+                    <div class="form-inline form-fechas">
+                            <label class="labeled-inline" for="bita_filtro_fecha"><%=translate("bita_filtro_fecha")%>
+                                <div class="input-append date" id="dt_desde">
                                     <input type="text" class="input-medium" name="bita_filtro_fecha" id="bita_filtro_fecha"/><span class="add-on"><i class="icon-th"></i></span>
                                  </div>
                             </label>							    
+                            <label class="labeled-inline" for="bita_filtro_fecha"><%=translate("bita_filtro_fecha")%>
+                                <div class="input-append date" id="dt_hasta">
+                                    <input type="text" class="input-medium" name="bita_filtro_fecha_hasta" id="bita_filtro_fecha_hasta"/><span class="add-on"><i class="icon-th"></i></span>
+                                 </div>
+                            </label>							    
+
                             <button type="button" id="filtrar" class="btn"><i class=" icon-search"></i> <% =translate("filtrar") %></button> 
 					</div>
                     <br />
@@ -128,12 +144,21 @@
 
         $(document).ready(function () {
 
-            // initiate datepicker
-            $('.input-append.date').datepicker({
-                format: "dd/mm/yyyy",
-                todayBtn: "linked",
-                language: "es"
+            // DRY way
+            dts = ["#dt_desde", "#dt_hasta"];
+            $.each(dts, function (k, dt) {
+                $(dt).datepicker({
+                    format: "dd/mm/yyyy",
+                    language: "es"
+                } );
+
             });
+            // initiate datepicker
+            //$('.input-append.date').datepicker({
+            //    format: "dd/mm/yyyy",
+            //    //todayBtn: "linked",
+            //    language: "es"
+            //});
 
 
             // load without search terms
@@ -168,7 +193,8 @@
                 postdata = {
                     bita_filtro_usuario : $('#bita_filtro_usuario').val(),
                     bita_filtro_categoria: $('#bita_filtro_categoria').val(),
-                    bita_filtro_fecha: $('#bita_filtro_fecha').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3")
+                    bita_filtro_fecha: $('#bita_filtro_fecha').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"),
+                    bita_filtro_fecha_hasta: $('#bita_filtro_fecha_hasta').val().replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3")
                 }
                 $.post('/Admin/bitacora/filtrar.ashx', postdata, function (res) {
                     // if the session expired reload the page to go to login form
