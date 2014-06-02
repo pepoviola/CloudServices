@@ -158,7 +158,11 @@
             $('#idioma_create').click(function (ev) {
                 ev.preventDefault();
                 valid = true;
-                $.each($('#form_create_idioma input'), function (k, v) {
+                //DRY
+                ctrls = ["#idioma_code", "#idioma_descripcion"];
+                // old
+                //$.each($('#form_create_idioma input'), function (k, v) {
+                $.each(ctrls, function (k, v) {
                     if ($(v).val().trim() == "") {
                         // not valid
                         valid = false;
@@ -169,12 +173,17 @@
                 // si es valido hago el submit
                 // de otra forma aviso que complete
                 //
-                if (valid) {
-                    $('#form_create_idioma input').submit();
-                }
-                else {
-                    alert("<%=translate("complete_campos")%>");
-                }
+
+                // permitimos crear el idioma sin traducciones
+
+                //if (valid) {
+                $('#form_create_idioma').submit();
+
+
+                //}
+                //else {
+                //    alert("<%=translate("complete_campos")%>");
+                //}
 
             });
             // edit idioma

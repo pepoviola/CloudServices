@@ -96,7 +96,9 @@
 
 
     Public Function getTagValue(ByVal tag As String, ByVal idioma As Integer) As String
-        Dim ret As String = String.Format("No existe el código {0} en el idioma {1}", tag, idioma)
+        ' habilitar en forma develop para ver los tags
+        'Dim ret As String = String.Format("No existe el código {0} en el idioma {1}", tag, idioma)
+        Dim ret As String = ""
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             Dim cmd As IDbCommand = dbManager.getCmd("SelectLeyenda")
@@ -109,6 +111,15 @@
             Do While (lector.Read())
                 ret = Convert.ToString(lector("Leyenda"))
             Loop
+
+            ' implementacion de idioma default
+            ' español - 1
+
+            If ret = "" Then
+                ' busco en el default
+                ret = getTagValue(tag, 1)
+            End If
+
         Catch ex As Exception
             Throw ex
         Finally

@@ -64,11 +64,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BEBackup.vb" />
+    <Compile Include="BEBackupService.vb" />
+    <Compile Include="BECliente.vb" />
+    <Compile Include="BECloudServer.vb" />
+    <Compile Include="BEDireccion.vb" />
+    <Compile Include="BEEmpresa.vb" />
     <Compile Include="BEFamilia.vb" />
     <Compile Include="BEPatenteBasica.vb" />
     <Compile Include="BEPermiso.vb" />
+    <Compile Include="BEServicioAdicional.vb" />
+    <Compile Include="BEServicioBase.vb" />
+    <Compile Include="BESnapshot.vb" />
     <Compile Include="BEUsuario.vb" />
     <Compile Include="BEUsuarioBase.vb" />
+    <Compile Include="BEvFW.vb" />
     <Compile Include="Bitacora.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

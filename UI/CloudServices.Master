@@ -41,7 +41,8 @@
                      <ul class="nav">
                           <li class="active menu_home"><a href="/"><% =translate("menu_home")%></a></li>
                           <!--<li class="menu_about"><a href="#"><% =translate("menu_about")%></a></li>-->
-                          <li class="dropdown menu_admin"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
+                         <% If Not Session("flia_desc") = "cliente" Then%> 
+                         <li class="dropdown menu_admin"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><% =translate("menu_admin")%></a>
                               <ul class="dropdown-menu">
                                   <% If Me.tieneAcceso("usuario_read") Or Me.tieneAcceso("usuario_write") Then %>
                                     <li><a href="/Admin/usuario/usuarios.aspx" id="menu_usuarios"><i class="icon-user"></i>  <% =translate("menu_usuarios")%></a></li>        
@@ -72,6 +73,7 @@
                                   <% End If%>
                               </ul>
                           </li>
+                         <%End If%>
                     </ul>
                     
                     <ul class="nav pull-right">

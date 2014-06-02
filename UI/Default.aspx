@@ -2,7 +2,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
     <div>
-    
+    <%=Session("flia")%>
+        <br />
+        <%=Session("flia_desc")%>
+
     </div>
   
 

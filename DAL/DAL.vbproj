@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="BackupDAL.vb" />
     <Compile Include="BitacoraDAL.vb" />
+    <Compile Include="DALCliente.vb" />
     <Compile Include="dbManager.vb" />
     <Compile Include="DVManager.vb" />
     <Compile Include="FamiliaDAL.vb" />
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\Criptografia\Criptografia.vbproj">
       <Project>{96fb8e77-1a8b-41fc-8c2c-26b19bd6c40a}</Project>
       <Name>Criptografia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionsPersonales\ExceptionsPersonales.vbproj">
+      <Project>{e402e6ff-587a-40da-8bcf-596f685a9259}</Project>
+      <Name>ExceptionsPersonales</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

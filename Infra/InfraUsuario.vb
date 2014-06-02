@@ -46,7 +46,7 @@ Public Class InfraUsuario
     End Function
 
 
-    Public Function Agregar(ByVal oUser As BE.BEUsuario) As Boolean
+    Public Function Agregar(ByVal oUser As BE.BEUsuarioBase) As Boolean
         Dim ret As Boolean
 
 
@@ -76,7 +76,7 @@ Public Class InfraUsuario
                 If Not DVV.Actualizar("Usuario") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
-               
+
             End If
         Catch exCus As ExceptionsPersonales.CustomException
             Throw exCus
@@ -87,6 +87,7 @@ Public Class InfraUsuario
         Return ret
 
     End Function
+
 
     'Public Function login(ByVal oUser As InfraEntidades.InfraEnUsuario) As Boolean
     '    'objeto crypto para password

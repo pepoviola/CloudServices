@@ -19,7 +19,7 @@ Imports System.Web.Script.Serialization
 
 <Serializable()> _
 Public Class BEUsuario
-    Inherits BE.BEUsuarioBase
+    Inherits BEUsuarioBase
 
 
     Private _apellido As String

@@ -47,6 +47,7 @@
                         </thead>
                         <tbody>
                             <% For Each user As BE.BEUsuario In lista_usuarios%>
+                            <% If Not user.Patente.codigo = 47 Then%>
                                 <tr id="uid-<% =user.Id%>">
                                     <td><% =user.Username%></td>
                                     <td><% =user.Nombre%></td>
@@ -60,7 +61,8 @@
                                       <a href="#" class="btn btn-danger user_delete" data-uid="<% =user.Id%>" data-username="<% =user.Username%>">  <i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>                                                
                                     </td>
                                     <%End If%>
-                                </tr>                            
+                                </tr> 
+                            <%End If%>                           
                             <% Next%>                            
                         </tbody>                    
                     </table>
@@ -426,8 +428,10 @@
                     $('#form_edit_user input[name="nombre"]').val(parsed_user.Nombre);
                     $('#form_edit_user input[name="apellido"]').val(parsed_user.Apellido);
                     $('#form_edit_user input[name="email"]').val(parsed_user.Email);
-                    $('#form_edit_user select[name="idioma"] option[value="'+parsed_user.Idioma.Id+'"]').attr("selected", true)
-                    $('#form_edit_user select[name="flia"] option[value="'+parsed_user.Patente.codigo+'"]').attr("selected", true)
+                    $('#form_edit_user select[name="idioma"] option[value="' + parsed_user.Idioma.Id + '"]').attr("selected", true)
+                         
+                    $('#form_edit_user select[name="flia"] option[value="' + parsed_user.Patente.codigo + '"]').attr("selected", true)
+                    
                     // show the form
                     $('#modal_edit_user').modal("show");
 

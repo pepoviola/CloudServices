@@ -60,7 +60,7 @@ Public Class UsuarioDAL
                     'relleno el usuario
 
                     'patentes
-                    Dim oFlia As New BE.BEFamilia(Convert.ToInt32(drsql("IdFamilia")), Convert.ToString(drsql("Descrip")))
+                    Dim oFlia As New BE.BEFamilia(Convert.ToInt32(drsql("IdFamilia")), Convert.ToString(drsql("Descrip_flia")))
                     Dim oFliaDAL As DAL.FamiliaDAL = DAL.FamiliaDAL.getFliaDal()
                     oFlia.Patentes = oFliaDAL.getPatentes(oFlia)
                     With oUser
@@ -245,7 +245,12 @@ Public Class UsuarioDAL
             cmd.Connection = conn
             registros = cmd.ExecuteNonQuery()
 
+        Catch ex As SqlException
+            If ex.ErrorCode = 2601 Then
+                Throw New ExceptionsPersonales.CustomException("username_en_uso")
+            End If
         Catch ex As Exception
+
         Finally
             conn.Close()
         End Try
@@ -265,7 +270,7 @@ Public Class UsuarioDAL
             cmd.Connection = conn
             registros = cmd.ExecuteNonQuery()
         Catch ex As Exception
-            Throw ex
+
         Finally
             conn.Close()
         End Try
