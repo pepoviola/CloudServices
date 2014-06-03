@@ -18,22 +18,13 @@
 Public MustInherit Class BEServicioBase
 
 
-    Private _cliente As BECliente
+
     Private _codigo As String
     Private _descripcion As String
     Private _id As Integer
+    Private _nombre As String
     Private _precio As Double
-    Public m_BECliente As BECliente
-
-    Public Property Cliente() As BECliente
-        Get
-            Return _cliente
-        End Get
-        Set(ByVal Value As BECliente)
-            _cliente = Value
-        End Set
-    End Property
-
+    
     Public Property Codigo() As String
         Get
             Return _codigo
@@ -67,6 +58,16 @@ Public MustInherit Class BEServicioBase
         End Get
         Set(ByVal Value As Double)
             _precio = Value
+        End Set
+    End Property
+
+
+    Public Property Nombre() As String
+        Get
+            Return _nombre
+        End Get
+        Set(ByVal value As String)
+            _nombre = value
         End Set
     End Property
 

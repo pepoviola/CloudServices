@@ -19,7 +19,7 @@ Public Class BEvFW
 
 
     Private _servers As List(Of BECloudServer)
-    Public m_BECloudServer As BECloudServer
+
 
     Public Property Servers() As List(Of BECloudServer)
         Get

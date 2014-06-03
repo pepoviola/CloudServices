@@ -66,6 +66,9 @@
     <Compile Include="BackupDAL.vb" />
     <Compile Include="BitacoraDAL.vb" />
     <Compile Include="DALCliente.vb" />
+    <Compile Include="DALCloudServer.vb" />
+    <Compile Include="DALServicios.vb" />
+    <Compile Include="DALServiciosAdicionales.vb" />
     <Compile Include="dbManager.vb" />
     <Compile Include="DVManager.vb" />
     <Compile Include="FamiliaDAL.vb" />

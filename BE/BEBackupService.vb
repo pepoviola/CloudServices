@@ -20,14 +20,7 @@ Public Class BEBackupService
 
     
 
-    Public Overrides Function isBkp() As Boolean
-        isBkp = True
-    End Function
-
-    Public Overrides Function isSnap() As Boolean
-        isSnap = False
-    End Function
-
+    
     
 
 End Class ' BEBackupService

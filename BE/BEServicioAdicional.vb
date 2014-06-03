@@ -16,16 +16,20 @@
 
 
 
-Public MustInherit Class BEServicioAdicional
+Public Class BEServicioAdicional
     Inherits BEServicioBase
 
 
 
 
-    Public MustOverride Function isBkp() As Boolean
+    Public Function isBkp() As Boolean
+        Return (Me.Codigo = "cloud-addon-bkp")
+    End Function
 
-    Public MustOverride Function isSnap() As Boolean
+    Public Function isSnap() As Boolean
+        Return (Me.Codigo = "cloud-addon-snap")
+    End Function
 
-    
+
 
 End Class ' BEServicioAdicional

@@ -112,14 +112,6 @@
                 ret = Convert.ToString(lector("Leyenda"))
             Loop
 
-            ' implementacion de idioma default
-            ' español - 1
-
-            If ret = "" Then
-                ' busco en el default
-                ret = getTagValue(tag, 1)
-            End If
-
         Catch ex As Exception
             Throw ex
         Finally

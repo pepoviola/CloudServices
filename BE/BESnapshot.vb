@@ -19,13 +19,7 @@ Public Class BESnapshot
 
 
    
-    Public Overrides Function isBkp() As Boolean
-        isBkp = False
-    End Function
-
-    Public Overrides Function isSnap() As Boolean
-        isSnap = True
-    End Function
+  
 
 
 

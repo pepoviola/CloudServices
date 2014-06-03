@@ -19,7 +19,7 @@ Public Class BECloudServer
 
 
     Private _srv_adicionales As List(Of BEServicioAdicional)
-    Public m_BEServicioAdicional As BEServicioAdicional
+
 
     Public Property Srv_adicionales() As List(Of BEServicioAdicional)
         Get

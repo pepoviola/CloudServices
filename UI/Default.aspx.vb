@@ -8,6 +8,11 @@
 
         If String.IsNullOrEmpty(Session("auth")) Then
             FormsAuthentication.RedirectToLoginPage()
+        ElseIf Session("flia_desc") = "cliente" Then
+            ' lo mando al home de cliente
+            Response.Redirect("/cloud/home.aspx", False)
+            Exit Sub
+
         End If
 
         'fill fields

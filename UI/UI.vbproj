@@ -84,6 +84,13 @@
     <Content Include="Admin\bitacora\index.aspx" />
     <Content Include="Admin\clientes.aspx" />
     <Content Include="Admin\dvManager\dvs.aspx" />
+    <Content Include="cloud\add_services.aspx" />
+    <Content Include="cloud\generar_entorno.aspx" />
+    <Content Include="cloud\home.aspx" />
+    <Content Include="content\css\whhg-font\css\whhg.css" />
+    <Content Include="content\css\whhg-font\custom.js" />
+    <Content Include="content\css\whhg-font\example.html" />
+    <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.svg" />
     <Content Include="registro.aspx" />
     <Content Include="content\css\datepicker\datepicker.css" />
     <Content Include="content\css\datepicker\datepicker3.css" />
@@ -220,6 +227,27 @@
     </Compile>
     <Compile Include="Admin\dvManager\dvs.aspx.vb">
       <DependentUpon>dvs.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="cloud\add_services.aspx.designer.vb">
+      <DependentUpon>add_services.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\add_services.aspx.vb">
+      <DependentUpon>add_services.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="cloud\generar_entorno.aspx.designer.vb">
+      <DependentUpon>generar_entorno.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\generar_entorno.aspx.vb">
+      <DependentUpon>generar_entorno.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="cloud\home.aspx.designer.vb">
+      <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\home.aspx.vb">
+      <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="registro.aspx.designer.vb">
@@ -412,6 +440,8 @@
     <Content Include="Admin\dvManager\generate_dv.ashx" />
     <Content Include="content\dataTables\images\Sorting icons.psd" />
     <Content Include="Admin\clientes\add_cliente.ashx" />
+    <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.eot" />
+    <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.ttf" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
