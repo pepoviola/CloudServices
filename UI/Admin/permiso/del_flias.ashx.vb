@@ -34,7 +34,7 @@ Public Class del_flias
                     If oInfraFlia.delFamilia(oFlia) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("flia_del_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se elimino con exito la familia " + oFlia.descripcion
+                        oBita.Descripcion = "Se eliminó con éxito la familia " + oFlia.descripcion
                     Else
                         resp.Add("status", "400")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("flia_del_err", context.Session("lang")))

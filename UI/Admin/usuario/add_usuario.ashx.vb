@@ -45,7 +45,7 @@ Public Class add_usuario
                     If oInfra.Agregar(oUser) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_add_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se creo con exito el usuario " + oUser.Username
+                        oBita.Descripcion = "Se creó con éxito el usuario " + oUser.Username
 
                     Else
                         resp.Add("status", "400")

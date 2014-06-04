@@ -71,7 +71,7 @@
                      </table>
                 </div>
                     <br />
-                <button class="btn btn-success">Generar</button>
+                <button class="btn btn-success" id="generar_ov">Generar</button>
             </section>
          </div>
     </div>
@@ -84,6 +84,17 @@
         //
         total_ov = 0;
         var line = 0;
+
+        var Servicio = function (id, codigo, precio) {
+            this.Id = id;
+            this.Codigo = codigo;
+            this.Precio = precio;
+            this.Srv_adicionales = [];
+        }
+
+        var generar_ov = function () {
+
+        };
 
         var actualizar_total = function () {
             $('#costo_total').html(total_ov);
@@ -109,11 +120,12 @@
         //
         var agregar_a_ov = function (srv ) {
             var tr = $("<tr class='line-" + line + "'>");
-            var td = $("<td>").attr("data-codigo", srv.Codigo).attr("data-id", srv.Id).html(srv.Nombre);
+            var td = $("<td>").append($("<input>").attr({"type":"hidden","data-codigo": srv.Codigo,"data-srvid": srv.Id, "data-precio": srv.Precio}));
+                td.append(srv.Nombre);
             tr.append(td);
             var inline_form = '<div class="form-inline">';
             $.each(addons, function (k, addon) {
-                inline_form += '<label class="checkbox inline"><input type="checkbox" onChange="procesar(this)" id="'+line+'-'+addon.Codigo+'" data-line="'+line+'" data-codigo="'+ addon.Codigo +'"data-precio="' + addon.Precio + '"/>' + addon.Nombre + ' </label>';
+                inline_form += '<label class="checkbox inline"><input type="checkbox" onChange="procesar(this)" id="'+line+'-'+addon.Codigo+'" data-srvid="'+addon.Id+'" data-line="'+line+'" data-codigo="'+ addon.Codigo +'"data-precio="' + addon.Precio + '"/>' + addon.Nombre + ' </label>';
             });
             inline_form += "</div>";
             tr.append( $("<td>").html( inline_form ));
@@ -130,9 +142,33 @@
                 $('#srv-' + obj.Id).click(function (ev) {
                     agregar_a_ov(obj);
                 });
+               
+            });
 
-                
+            $('#generar_ov').click(function (ev) {
+                // validate and make a post
+                var trs = $('tbody tr');
+                var servicios = []
+                $.each(trs, function (k, tr) {
+                    // recorro los trs y voy creando los servicios
 
+                    // encuentro el server y creo el objeto contenedor
+                    var srv_temp = $(tr).find("input[type='hidden']");
+                    var Srv = new Servicio($(srv_temp).data("srvid"), $(srv_temp).data("codigo"), $(srv_temp).data("precio"))
+                    // busco si tiene adicionales
+                    $.each($(tr).find("input[type='checkbox']"), function (k, chbox) {
+                        if ($(chbox).prop("checked")) {
+                            // genero el adicional y se lo agrego a Srv
+                            var addSrv = new Servicio($(chbox).data("srvid"), $(chbox).data("codigo"), $(chbox).data("precio"))
+                            Srv.Srv_adicionales.push(addSrv)
+                        }
+                    } );
+                    servicios.push( Srv );
+                });
+                $.post('/cloud/add_ov.ashx', { ov: JSON.stringify(servicios) }, function (res) {
+                    console.log(res);
+                });
+                console.log(JSON.stringify(servicios))
             });
 
             actualizar_total();

@@ -77,7 +77,7 @@ Public Class tags
                     If oInfra.modificarVarios(tags) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("idioma_mod_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se modifico con exito el idioma: " + context.Request.Form.Get("idioma_code")
+                        oBita.Descripcion = "Se modificó con éxito el idioma: " + context.Request.Form.Get("idioma_code")
                     Else
                         ' log the error
                         resp.Add("status", "500")

@@ -46,7 +46,7 @@ Public Class mod_usuario
                     If oInfra.Modificar(oUser) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_mod_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se modifcó con exito el usuario " + oUser.Username
+                        oBita.Descripcion = "Se modifcó con éxito el usuario " + oUser.Username
 
                     Else
                         resp.Add("status", "400")

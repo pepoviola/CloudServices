@@ -229,6 +229,9 @@
       <DependentUpon>dvs.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="cloud\add_ov.ashx.vb">
+      <DependentUpon>add_ov.ashx</DependentUpon>
+    </Compile>
     <Compile Include="cloud\add_services.aspx.designer.vb">
       <DependentUpon>add_services.aspx</DependentUpon>
     </Compile>
@@ -442,6 +445,7 @@
     <Content Include="Admin\clientes\add_cliente.ashx" />
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.eot" />
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.ttf" />
+    <Content Include="cloud\add_ov.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

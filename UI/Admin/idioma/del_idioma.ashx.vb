@@ -42,7 +42,7 @@ Public Class del_idioma
                         resp.Add("status", "200")
                         resp.Add("idlang", oIdioma.Id.ToString())
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("idioma_delete_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se eliminio con exito el idioma: " + context.Request.Form.Get("codelang")
+                        oBita.Descripcion = "Se eliminió con éxito el idioma: " + context.Request.Form.Get("codelang")
                     Else
                         ' deberia escribir en la bitacora
                         ' envio el error

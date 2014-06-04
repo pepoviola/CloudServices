@@ -32,31 +32,31 @@ Public Class add_cliente
                 oCli.Direccion.Numero = context.Request.Form.Get("numero")
                 oCli.Direccion.Localidad = context.Request.Form.Get("localidad")
 
+                'preparo bitacora
+                Dim oBita As New BE.Bitacora
+                Dim oBitaUser As New BE.BEUsuario
+                oBitaUser.Id = 1 ' system context.Session("user_id")
 
+                oBita.Fecha = Date.Now
+                oBita.Usuario = oBitaUser
+                oBita.Categoria = "Clientes"
 
                 Dim oInfra As BLL.BLLCliente = New BLL.BLLCliente
                 If oInfra.Agregar(oCli) Then
-                    'preparo bitacora
-                    Dim oBita As New BE.Bitacora
-                    Dim oBitaUser As New BE.BEUsuario
-                    oBitaUser.Id = 1 ' system context.Session("user_id")
-
-                    oBita.Fecha = Date.Now
-                    oBita.Usuario = oBitaUser
-                    oBita.Categoria = "Clientes"
+                   
                     resp.Add("status", "200")
                     resp.Add("msg", Infra.TraductorMgr.TraducirControl("cli_add_ok", context.Session("lang")))
                     oBita.Descripcion = "Se creó con éxito el cliente " + oCli.Username
-                    'guardo en bitacora
-                    Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
-                    oInfraBita.Log(oBita)
+                   
 
                 Else
                     resp.Add("status", "400")
                     resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_add_err", context.Session("lang")))
-                    'oBita.Descripcion = "Error al crear el usuario " + oCli.Username
+                    oBita.Descripcion = "Error al crear el usuario " + oCli.Username
                 End If
-
+                'guardo en bitacora
+                Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
+                oInfraBita.Log(oBita)
 
 
             Catch ex As ExceptionsPersonales.CustomException

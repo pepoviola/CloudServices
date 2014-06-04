@@ -48,7 +48,7 @@ Public Class add_flia
                     If oInfraFlia.addFamilia(oFlia, permisos) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("flia_add_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se creo con exito la familia " + oFlia.descripcion
+                        oBita.Descripcion = "Se creó con éxito la familia " + oFlia.descripcion
 
                     Else
                         resp.Add("status", "400")

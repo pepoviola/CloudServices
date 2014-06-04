@@ -36,7 +36,7 @@ Public Class del_usuario
                     If oInfra.Eliminar(oUser) Then
                         resp.Add("status", "200")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_del_ok", context.Session("lang")))
-                        oBita.Descripcion = "Se eliminó con exito el usuario " + oUser.Username
+                        oBita.Descripcion = "Se eliminó con éxito el usuario " + oUser.Username
 
                     Else
                         resp.Add("status", "400")
