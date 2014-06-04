@@ -118,6 +118,52 @@ Public Class DALCliente
 
     Public Function Filtrar(t As BE.BECliente) As List(Of BE.BECliente) Implements ICRUD(Of BE.BECliente).Filtrar
         Dim list As List(Of BE.BECliente) = New List(Of BE.BECliente)
+        Dim conn As IDbConnection = dbManager.getConnection
+        Try
+            'get cmd
+            Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroCliente")
+            cmd.Connection = conn
+
+            'agrego los params [categoria, IdUsuario, Fecha]
+            If Not t Is Nothing AndAlso Not String.IsNullOrEmpty(t.Nombre) Then
+                dbManager.addParam(cmd, "@Nombre", t.Nombre)
+            Else
+                dbManager.addParam(cmd, "@Nombre", DBNull.Value)
+            End If
+            If Not t Is Nothing AndAlso Not t.Apellido Is Nothing Then
+                dbManager.addParam(cmd, "@Apellido", t.Apellido)
+            Else
+                dbManager.addParam(cmd, "@Apellido", DBNull.Value)
+            End If
+
+            If Not t Is Nothing AndAlso Not t.Username Is Nothing Then
+                dbManager.addParam(cmd, "@Username", t.Username)
+            Else
+                dbManager.addParam(cmd, "@Username", DBNull.Value)
+            End If
+
+            If Not t Is Nothing AndAlso Not t.Id > 0 Then
+                dbManager.addParam(cmd, "@IdUsuario", t.Id)
+            Else
+                dbManager.addParam(cmd, "@IdUsuario", DBNull.Value)
+            End If
+
+            'abro cx
+            conn.Open()
+            'ejecuto y obtengo el reader
+            Dim lector As IDataReader = cmd.ExecuteReader()
+            Do While lector.Read()
+                Dim oCli As BE.BECliente = New BE.BECliente
+                oCli.Nombre = Convert.ToString(lector("Nombre"))
+                oCli.Apellido = Convert.ToString(lector("Apellido"))
+                oCli.ClienteId = Convert.ToString(lector("Id_Cliente"))
+
+                list.Add(oCli)
+            Loop
+
+        Catch ex As Exception
+            Throw ex
+        End Try
         Return list
     End Function
 

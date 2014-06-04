@@ -11,6 +11,17 @@
         End Set
     End Property
 
+    Private _id_cliente As Integer
+    Public Property ClienteId() As Integer
+        Get
+            Return _id_cliente
+        End Get
+        Set(ByVal value As Integer)
+            _id_cliente = value
+        End Set
+    End Property
+
+
 
 
 End Class
