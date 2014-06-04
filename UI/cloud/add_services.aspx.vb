@@ -36,6 +36,14 @@ Public Class add_services
     End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' protect the page
+        If String.IsNullOrEmpty(Session("auth")) Then
+            FormsAuthentication.RedirectToLoginPage()
+        ElseIf Not Session("flia_desc") = "cliente" Then
+            Response.Redirect("/", False)
+            Exit Sub
+        End If
+
         _lista_srv = BLL.BLServicesFacade.getServicesFacade().ServiciosDisponibles()
         _lista_addon = BLL.BLServicesFacade.getServicesFacade().AdicionalesDisponibles()
         Dim jss As JavaScriptSerializer = New JavaScriptSerializer()

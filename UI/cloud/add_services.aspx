@@ -15,7 +15,7 @@
     <div class="row-fluid">
         <div class="span10 offset1">
             <header>
-                <div class="well"><% =translate("welcome_mesg_cliente_servicios")%></div>
+                <div class="well"><% =translate("indicaciones_seleccione")%></div>
             </header>
             <section>
                 <div class="row-fluid">
@@ -25,7 +25,7 @@
                         <p><%=p.Descripcion%></p>
                         <span class="precio">$ <%=p.Precio%></span>
                         <div class="pull-right">
-                            <button class="btn btn-success" data-codigo="<%=p.Codigo %>" id="srv-<%=p.Id%>">Agregar</button>                                                        
+                            <button class="btn btn-success" data-codigo="<%=p.Codigo %>" id="srv-<%=p.Id%>"><%=translate("agregar") %></button>                                                        
                         </div>
                     </div>
                  
@@ -53,9 +53,9 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Servicio</th>
-                                <th>Adicionales</th>
-                                <th>Costo Mensual</th>
+                                <th><%=translate("th_servicio")%></th>
+                                <th><%=translate("th_adicionales")%></th>
+                                <th><%=translate("th_costo_mensual") %></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,16 +63,15 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>Total</td>
+                                <td><%=translate("td_total")%></td>
                                 <td></td>
                                 <td ><span>$ &nbsp;&nbsp;</span><span class="pull-right" id="costo_total"></span></td>
                             </tr>
                         </tfoot>
                      </table>
                 </div>
-                    
                     <br />
-                    <br />
+                <button class="btn btn-success">Generar</button>
             </section>
          </div>
     </div>
@@ -109,8 +108,9 @@
         };
         //
         var agregar_a_ov = function (srv ) {
-            var tr = $("<tr class='line-"+line+"'>");
-            tr.append($("<td>").html(srv.Nombre));
+            var tr = $("<tr class='line-" + line + "'>");
+            var td = $("<td>").attr("data-codigo", srv.Codigo).attr("data-id", srv.Id).html(srv.Nombre);
+            tr.append(td);
             var inline_form = '<div class="form-inline">';
             $.each(addons, function (k, addon) {
                 inline_form += '<label class="checkbox inline"><input type="checkbox" onChange="procesar(this)" id="'+line+'-'+addon.Codigo+'" data-line="'+line+'" data-codigo="'+ addon.Codigo +'"data-precio="' + addon.Precio + '"/>' + addon.Nombre + ' </label>';
