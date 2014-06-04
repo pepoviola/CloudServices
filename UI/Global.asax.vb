@@ -9,15 +9,18 @@ Public Class Global_asax
         ' Fires when the application is started
 
         ' chequeo de digitos verificadores
-        Dim oInfraDVV As Infra.DVV = New Infra.DVV
-        Dim oInfraDVH As Infra.DVH = New Infra.DVH
+        'Dim oInfraDVV As Infra.DVV = New Infra.DVV
+        'Dim oInfraDVH As Infra.DVH = New Infra.DVH
+        'Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+        'For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
+        '    listaErrs.AddRange(oInfraDVH.check(tabla))
+        '    listaErrs.AddRange(oInfraDVV.check(tabla))
+        'Next
         Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-        For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
-            listaErrs.AddRange(oInfraDVH.check(tabla))
-            listaErrs.AddRange(oInfraDVV.check(tabla))
-        Next
+        listaErrs = Infra.DigitoVerificador.verificarDigitos()
 
         Application.Set("listaErrs", listaErrs)
+        Application.Set("demo", 1)
 
 
     End Sub

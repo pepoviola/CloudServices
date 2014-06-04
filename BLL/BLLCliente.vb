@@ -35,14 +35,20 @@
     End Function
 
     Public Function obtenerCliente(ByVal oUser As BE.BEUsuario) As BE.BECliente
-        Dim oCli As BE.BECliente = DirectCast(oUser, BE.BECliente)
+        Dim oCli As BE.BECliente = New BE.BECliente
+        Dim oFiltro As BE.BECliente = New BE.BECliente
+        oFiltro.Id = oUser.Id
+        oFiltro.Nombre = oUser.Nombre
+        oFiltro.Apellido = oUser.Apellido
+        oFiltro.Username = oUser.Username
+
 
 
         Dim lista As List(Of BE.BECliente) = New List(Of BE.BECliente)
         Try
             'objeto dal
             Dim oCliDal As New DAL.DALCliente
-            lista = oCliDal.Filtrar(oCli)
+            lista = oCliDal.Filtrar(oFiltro)
             'retorno siempre el primero
             oCli = lista.First()
 

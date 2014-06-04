@@ -165,9 +165,38 @@
                     } );
                     servicios.push( Srv );
                 });
-                $.post('/cloud/add_ov.ashx', { ov: JSON.stringify(servicios) }, function (res) {
-                    console.log(res);
-                });
+                // not make empty post
+                if (servicios.length > 0) {
+                    $.post('/cloud/add_ov.ashx', { ov: JSON.stringify(servicios) }, function (res) {
+                        console.log(res);
+
+                        // if the session expired reload the page to go to login form
+                        if (res.status == undefined) {
+                            location.reload();
+                        }
+                        else {
+
+                            var alert_type = (res.status == 200) ? "info" : "error";
+                            var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                            //remove if there any
+                            $('.alert').remove();
+                                                        
+                            $('section').prepend(div_alert);
+
+
+                            // continue
+                            if (res.status == "200") {
+                                // it's new so reload the page in 2 sec
+                                setTimeout(function () { location.href = "/cloud/home.aspx"; }, 2000);
+                            }
+                        }
+                        
+                    });
+                }
+                
                 console.log(JSON.stringify(servicios))
             });
 

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -200,6 +201,7 @@
     <Content Include="scripts\login\login.js" />
     <Content Include="settings.aspx" />
     <Content Include="Web.config" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\bitacora\filtrar.ashx.vb">
@@ -253,6 +255,7 @@
       <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="ManageIIS.vb" />
     <Compile Include="registro.aspx.designer.vb">
       <DependentUpon>registro.aspx</DependentUpon>
     </Compile>
@@ -417,6 +420,13 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Utilidades.vb" />
+    <Compile Include="WebForm1.aspx.designer.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

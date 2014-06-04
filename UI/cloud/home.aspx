@@ -40,16 +40,28 @@
                         -->
                     </div>
                     <br /><br />
+                    <%=Servicios_contratados.Count %>
+                    <br />
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-
+                                <th><%=translate("th_servicio")%></th>
+                                <th><%=translate("th_adicionales")%></th>
+                                <th><%=translate("th_costo_mensual") %></th>
                             </tr>
                         </thead>
                         <tbody>
+                        <% For Each s As BE.BECloudServer In Servicios_contratados %>
                             <tr>
-
-                            </tr>
+                                <td><%=s.Nombre%></td>
+                                <td>
+                                    <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
+                                    <span class="addon-srv"> <%=a.Nombre%></span>
+                                    <% Next%>
+                                </td>
+                                <td></td>
+                            </tr>    
+                        <%Next%>
                         </tbody>
                      </table>
                 </div>

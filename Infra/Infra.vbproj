@@ -73,7 +73,6 @@
     <Compile Include="helper_dv.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="InfraUsuario.vb" />
-    <Compile Include="ManageIIS.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

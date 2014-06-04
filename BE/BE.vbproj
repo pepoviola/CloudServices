@@ -70,6 +70,7 @@
     <Compile Include="BEDireccion.vb" />
     <Compile Include="BEEmpresa.vb" />
     <Compile Include="BEFamilia.vb" />
+    <Compile Include="BEOrdenVenta.vb" />
     <Compile Include="BEPatenteBasica.vb" />
     <Compile Include="BEPermiso.vb" />
     <Compile Include="BEServicioAdicional.vb" />

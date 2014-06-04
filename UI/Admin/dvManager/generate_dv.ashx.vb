@@ -52,6 +52,8 @@ Public Class generate_dv
 
                 Dim oRes = jss.Serialize(resp)
                 context.Response.Write(oRes)
+                'HttpRuntime.UnloadAppDomain()
+
             End If
         End If
 

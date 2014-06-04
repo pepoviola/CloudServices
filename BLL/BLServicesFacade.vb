@@ -66,4 +66,15 @@
 
 
 
+    Public Function obtenerServiciosDeCliente(ByVal oCli As BE.BECliente) As List(Of BE.BEServicioBase)
+        Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
+        Try
+            Dim dal As DAL.DALServicios = New DAL.DALServicios()
+            lista = dal.obtenerServiciosDeCliente(oCli)
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("ErrObtenerServiciosCli")
+        End Try
+        Return lista
+    End Function
+
 End Class
