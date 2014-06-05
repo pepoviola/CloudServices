@@ -70,7 +70,8 @@
                     // insert backdrop
                     $('<div class="modal-backdrop"></div>').appendTo(document.body);
                     //make!
-                    $.get('/Admin/resguardo/make_bkp.ashx', function (res) {
+                    var ie_fix = new Date();
+                    $.get('/Admin/resguardo/make_bkp.ashx',{"ie_fix":ie_fix}, function (res) {
                         // remove backdrop
                         $(".modal-backdrop").remove();
                         if (res.status == undefined) location.reload();

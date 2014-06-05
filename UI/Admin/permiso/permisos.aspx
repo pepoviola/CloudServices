@@ -176,7 +176,8 @@
         $('#open_create_modal').click(function (ev) {
             ev.preventDefault();
             // get the body
-            $.get('/Admin/permiso/flias.ashx?new=on', function (res) {
+            var ie_fix = new Date();
+            $.get('/Admin/permiso/flias.ashx?new=on', {"ie_fix" : ie_fix}, function (res) {
                 if (res.status == undefined) { location.reload(); }
                 else{
                     $('.create.modal-body').html(res.modalbody);
@@ -239,7 +240,8 @@
             ev.preventDefault();
             var flia_to = $(this).data('codpat');
             var flia_des = $(this).data('despat');
-            $.get('/Admin/permiso/flias.ashx', function (res) {
+            var ie_fix = new Date();
+            $.get('/Admin/permiso/flias.ashx',{"ie_fix" : ie_fix}, function (res) {
                 if (res.status == undefined) { location.reload(); }
                 else{
                     $('.modify.modal-body').html(res.modalbody);

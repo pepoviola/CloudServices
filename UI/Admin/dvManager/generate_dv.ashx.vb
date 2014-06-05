@@ -21,24 +21,28 @@ Public Class generate_dv
                 Try
                     'If (context.Request.Form.Get("type") = "dvh") Then
                     Dim infra_helper As Infra.helper_dv = New Infra.helper_dv
-                    Dim res As String
-                    res = infra_helper.generate_dvh_for_table(context.Request.Form.Get("table_name"))
+                    'Dim res As String
+                    For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
+                        infra_helper.generate_dvh_for_table(tabla)
+                        infra_helper.generate_dvv_for_table(tabla)
+                    Next
+                    'res = infra_helper.generate_dvh_for_table(context.Request.Form.Get("table_name"))
                     'Else
                     'Dim infra_helper As Infra.helper_dv = New Infra.helper_dv
                     'Dim res As String
-                    res = infra_helper.generate_dvv_for_table(context.Request.Form.Get("table_name"))
+                    'res = infra_helper.generate_dvv_for_table(context.Request.Form.Get("table_name"))
                     'End If
 
                     ' realizo el chequeo una vez mas
                     ' y actualizo la variable de app
-                    Dim oInfraDVV As Infra.DVV = New Infra.DVV
-                    Dim oInfraDVH As Infra.DVH = New Infra.DVH
-                    Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-                    For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
-                        listaErrs.AddRange(oInfraDVH.check(tabla))
-                        listaErrs.AddRange(oInfraDVV.check(tabla))
-                    Next
-                    context.Application.Set("listaErrs", listaErrs)
+                    'Dim oInfraDVV As Infra.DVV = New Infra.DVV
+                    'Dim oInfraDVH As Infra.DVH = New Infra.DVH
+                    'Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+                    'For Each tabla As String In New List(Of String) From {"Usuario", "Bitacora", "Familia"}
+                    ' listaErrs.AddRange(oInfraDVH.check(tabla))
+                    'listaErrs.AddRange(oInfraDVV.check(tabla))
+                    'Next
+                    'context.Application.Set("listaErrs", listaErrs)
                     '
                     ' fin de chequeo  y actualizacion
 
@@ -52,7 +56,7 @@ Public Class generate_dv
 
                 Dim oRes = jss.Serialize(resp)
                 context.Response.Write(oRes)
-                'HttpRuntime.UnloadAppDomain()
+                HttpRuntime.UnloadAppDomain()
 
             End If
         End If

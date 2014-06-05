@@ -113,6 +113,11 @@
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/jquery.validate.js"></script>
      <script src="/scripts/jquery.confirm.js"></script>
+    <script>
+        $.ajax({
+            cache: false           
+        });
+    </script>
 
     <asp:ContentPlaceHolder runat="server" ID="js_block"></asp:ContentPlaceHolder>
 </body>

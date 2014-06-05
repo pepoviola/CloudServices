@@ -51,15 +51,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <% For Each s As BE.BECloudServer In Servicios_contratados %>
+                        <% For Each s As BE.BECloudServer In Servicios_contratados
+                                Dim total_linea As Double = s.Precio
+                                
+                         %>
+
                             <tr>
                                 <td><%=s.Nombre%></td>
                                 <td>
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
+                                    <% total_linea += a.Precio%>
                                     <span class="addon-srv"> <%=a.Nombre%></span>
                                     <% Next%>
                                 </td>
-                                <td></td>
+                                <td><span>$ &nbsp;&nbsp;</span><span class="pull-right"><%= total_linea %></span></td>
                             </tr>    
                         <%Next%>
                         </tbody>
