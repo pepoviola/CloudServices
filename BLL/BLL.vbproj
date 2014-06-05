@@ -63,6 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLEntorno.vb" />
     <Compile Include="BLLCliente.vb" />
     <Compile Include="BLOrdenVenta.vb" />
     <Compile Include="BLServicesFacade.vb" />

@@ -189,6 +189,8 @@
 
                             // continue
                             if (res.status == "200") {
+                                // scroll to top to show
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
                                 // it's new so reload the page in 2 sec
                                 setTimeout(function () { location.href = "/cloud/home.aspx"; }, 2000);
                             }

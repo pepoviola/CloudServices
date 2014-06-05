@@ -194,7 +194,10 @@ Public Class InfraUsuario
                 oUser.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oUser.Passwd)
             End If
 
-            
+            ' probar esto!!
+            'encrypt mail
+            oUser.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oUser.Email, frase, True)
+
             ' esta logica pasa a la dal para eliminar la propiedad dvh
             ''get dvh 
             'Dim dvhString As String

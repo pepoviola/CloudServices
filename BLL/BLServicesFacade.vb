@@ -77,4 +77,33 @@
         Return lista
     End Function
 
+    Public Function generarEntorno(ByVal ops As Dictionary(Of String, String)) As List(Of BE.BEServicioBase)
+        Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
+        Try
+
+            lista = BLEntorno.generarEntorno(ops)
+            'recorro la lista y busco la informacion de los servicios
+            Dim oDal As DAL.DALServicios = New DAL.DALServicios
+            For Each s As BE.BECloudServer In lista
+                Dim temp As String = s.Descripcion
+                oDal.getServiceInfo(s)
+                s.Descripcion = temp
+                If Not s.Srv_adicionales Is Nothing Then
+                    For Each addon As BE.BEServicioAdicional In s.Srv_adicionales
+                        Dim temp_addon As String = addon.Descripcion
+                        oDal.getServiceInfo(addon)
+                        addon.Descripcion = temp_addon
+
+                    Next
+
+                End If
+            Next
+
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("ErrGenerarEntorno")
+        End Try
+
+        Return lista
+
+    End Function
 End Class

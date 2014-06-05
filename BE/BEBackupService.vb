@@ -16,6 +16,9 @@
 
 Public Class BEBackupService
     Inherits BEServicioAdicional
+    Sub New()
+        Id = 4
+    End Sub
 
 
     

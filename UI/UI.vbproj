@@ -241,6 +241,9 @@
       <DependentUpon>add_services.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="cloud\generar.ashx.vb">
+      <DependentUpon>generar.ashx</DependentUpon>
+    </Compile>
     <Compile Include="cloud\generar_entorno.aspx.designer.vb">
       <DependentUpon>generar_entorno.aspx</DependentUpon>
     </Compile>
@@ -456,6 +459,7 @@
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.eot" />
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.ttf" />
     <Content Include="cloud\add_ov.ashx" />
+    <Content Include="cloud\generar.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

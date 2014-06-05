@@ -17,6 +17,9 @@
 Public Class BESnapshot
     Inherits BEServicioAdicional
 
+    Sub New()
+        Id = 5
+    End Sub
 
    
   
