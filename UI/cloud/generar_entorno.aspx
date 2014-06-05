@@ -84,7 +84,7 @@
                             </tr>
                         </tfoot>
                      </table>
-
+                        <button class="btn btn-success"  id="cargar_ov"><%=translate("btn_crear")%></button>
                         </div>
                 </div>
             </section>
@@ -95,40 +95,98 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
 
+        // validacion
+        var messages = {
+            visitas: {
+                required: "<%=translate("campo_requerido")%>",
+                number: "<%=translate("solo_numeros")%>",
+                min: $.validator.format("<%=translate("visitas_mayor_que")%> {0}") 
+             }
+        };
+
         var actualizar_total = function (total) {
             $('#costo_total').html(total);
         }
 
+
+        $("#wizard").validate({
+            debug: true,
+            rules: {
+                visitas: {
+                    required: true,
+                    number: true,
+                    min: 1
+                }
+            },
+            messages: messages
+        });
+
+        
+
         var servicios;
         $("#btn_generar").click(function (ev) {
-            $.post('/cloud/generar.ashx', $('form').serialize(), function (res) {
-                $('#ov_table').show(100);
-                servicios = JSON.parse(res.s);
-                $('tbody').children().remove();
-                var costo_total = 0;
-                $.each(servicios, function (k, server) {
-                    // armo la tabla
-                    var costo_linea = 0;
-                    costo_linea += server.Precio;
-                    var tr = $("<tr>");
-                    tr.append($("<td>").html(server.Nombre));
-                    tr.append($("<td>").html(server.Descripcion));
-                    var td_add = $("<td>");
-                    if (server.Srv_adicionales) {
-                        $.each(server.Srv_adicionales, function (k, addon) {
-                            td_add.append($("<span>").html(addon.Nombre));
-                            costo_linea += parseFloat(addon.Precio);
-                        });
-                    }                    
-                    //tr.append(td_add);
-                    tr.append($("<td>").html('<span>$ &nbsp;&nbsp;</span><span class="pull-right" >' + costo_linea + '</span>'));
-                    $('tbody').append(tr);
-                    costo_total += costo_linea;
+            ev.preventDefault();
+            if ($("#wizard").valid()) {      
+                $.post('/cloud/generar.ashx', $('form').serialize(), function (res) {
+                    $('#ov_table').show(100);
+                    servicios = JSON.parse(res.s);
+                    $('tbody').children().remove();
+                    var costo_total = 0;
+                    $.each(servicios, function (k, server) {
+                        // armo la tabla
+                        var costo_linea = 0;
+                        costo_linea += server.Precio;
+                        var tr = $("<tr>");
+                        tr.append($("<td>").html(server.Nombre));
+                        tr.append($("<td>").html(server.Descripcion));
+                        var td_add = $("<td>");
+                        if (server.Srv_adicionales) {
+                            $.each(server.Srv_adicionales, function (k, addon) {
+                                td_add.append($("<span>").html(addon.Nombre));
+                                costo_linea += parseFloat(addon.Precio);
+                            });
+                        }                    
+                        tr.append($("<td>").html('<span>$ &nbsp;&nbsp;</span><span class="pull-right" >' + costo_linea + '</span>'));
+                        $('tbody').append(tr);
+                        costo_total += costo_linea;
                     
+                    });
+                    actualizar_total(costo_total);
                 });
-                actualizar_total(costo_total);
-            });
+            }
         });
+
+        $('#cargar_ov').click(function (ev) {
+            ev.preventDefault();
+            console.log({ ov: JSON.stringify(servicios) });
+            $.post('/cloud/add_ov.ashx', { ov: JSON.stringify(servicios) }, function (res) {
+                // if the session expired reload the page to go to login form
+                if (res.status == undefined) {
+                    location.reload();
+                }
+                else {
+                    var alert_type = (res.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-' + alert_type + '">'
+                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                    //remove if there any
+                    $('.alert').remove();
+
+                    $('section').prepend(div_alert);
+
+
+                    // continue
+                    if (res.status == "200") {
+                        // scroll to top to show
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                        // it's new so reload the page in 2 sec
+                        setTimeout(function () { location.href = "/cloud/home.aspx"; }, 2000);
+                    }
+                }
+            })
+        });
+
     </script>
     
 </asp:Content>

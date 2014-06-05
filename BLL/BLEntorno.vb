@@ -99,19 +99,6 @@
 
             End If
 
-            ' ha web
-            'If ha Then
-            '    If lista.Count = 1 Then
-            '        ' generamos uno igual para ha
-            '        Dim oSrv_ha As New BE.BECloudServer()
-            '        oSrv_ha.Id = lista.Item(0).Id
-            '        oSrv_ha.Descripcion = "web - ha"
-            '        lista.Add(oSrv_ha)
-            '    End If
-            'End If
-
-
-
 
             ' email 
             If email Then
@@ -124,12 +111,6 @@
                 Next
                
 
-                'If ha Then
-                '    Dim oSrv_email_ha As New BE.BECloudServer
-                '    oSrv_email_ha.Id = 1
-                '    oSrv_email_ha.Descripcion = "email"
-                '    lista.Add(oSrv_email_ha)
-                'End If
             End If
 
             ' si tiene snap o backup

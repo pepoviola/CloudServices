@@ -70,40 +70,43 @@ Public Class DALOrdenVenta
                     Dim id_srv_padre As Integer = idParam.Value
 
                     ' los adicionales
-                    For Each addon As BE.BEServicioBase In s.Srv_adicionales
-                        Dim cmd_addon As IDbCommand = dbManager.getCmd("InsertSrvContratadoAndOutputId")
-
-                        'asocio la cx
-                        cmd_addon.Connection = conn
-                        cmd_addon.Transaction = trans
-
-                        ' agrego los params
-                        dbManager.addParam(cmd_addon, "@Id_tipo_srv", addon.Id)
-                        dbManager.addParam(cmd_addon, "@Id_ov", idOV)
-                        dbManager.addParam(cmd_addon, "@Precio", addon.Precio)
-                        dbManager.addParam(cmd_addon, "@Id_server_plataforma", 1)
-
-                        idParam = CType(dbManager.addParam(cmd_addon, "@id"), SqlParameter)
-                        idParam.Direction = ParameterDirection.Output
-
-                        cmd_addon.ExecuteNonQuery()
-
-                        Dim id_srv_hijo As Integer = idParam.Value
-
-                        ' los relaciono
-                        Dim cmd_rel As IDbCommand = dbManager.getCmd("InsertSrvContratadoRelacion")
-                        'asocio la cx
-                        cmd_rel.Connection = conn
-                        cmd_rel.Transaction = trans
-                        ' agrego los params
-                        dbManager.addParam(cmd_rel, "@Id_padre", id_srv_padre)
-                        dbManager.addParam(cmd_rel, "@Id_hijo", id_srv_hijo)
-
-                        cmd_rel.ExecuteNonQuery()
+                    If Not s.Srv_adicionales Is Nothing Then
 
 
-                    Next
+                        For Each addon As BE.BEServicioBase In s.Srv_adicionales
+                            Dim cmd_addon As IDbCommand = dbManager.getCmd("InsertSrvContratadoAndOutputId")
 
+                            'asocio la cx
+                            cmd_addon.Connection = conn
+                            cmd_addon.Transaction = trans
+
+                            ' agrego los params
+                            dbManager.addParam(cmd_addon, "@Id_tipo_srv", addon.Id)
+                            dbManager.addParam(cmd_addon, "@Id_ov", idOV)
+                            dbManager.addParam(cmd_addon, "@Precio", addon.Precio)
+                            dbManager.addParam(cmd_addon, "@Id_server_plataforma", 1)
+
+                            idParam = CType(dbManager.addParam(cmd_addon, "@id"), SqlParameter)
+                            idParam.Direction = ParameterDirection.Output
+
+                            cmd_addon.ExecuteNonQuery()
+
+                            Dim id_srv_hijo As Integer = idParam.Value
+
+                            ' los relaciono
+                            Dim cmd_rel As IDbCommand = dbManager.getCmd("InsertSrvContratadoRelacion")
+                            'asocio la cx
+                            cmd_rel.Connection = conn
+                            cmd_rel.Transaction = trans
+                            ' agrego los params
+                            dbManager.addParam(cmd_rel, "@Id_padre", id_srv_padre)
+                            dbManager.addParam(cmd_rel, "@Id_hijo", id_srv_hijo)
+
+                            cmd_rel.ExecuteNonQuery()
+
+
+                        Next
+                    End If
                 Next
 
                 trans.Commit()
