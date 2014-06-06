@@ -119,8 +119,12 @@
 
                         </div>
                     </div>
+                    
                 </fieldset>
             </form>
+            <div class="registro">
+                <p><%=translate("no_tenes_cuenta_aun")%> <strong><a href="registro.aspx"><%=translate("registrate_ahora")%></a> </strong></p>
+            </div>
         </div>
     </div>
       <%  End If%>

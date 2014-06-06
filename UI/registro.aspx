@@ -10,7 +10,8 @@
     <!-- Bootstrap core CSS -->
     <link href="/content/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/content/css/bootstrap-responsive.min.css" rel="stylesheet" />
-    <link href="content/css/login/login.css" rel="stylesheet" />
+    <link href="/content/css/login/login.css" rel="stylesheet" />
+    <link href="/content/css/customs.css" rel="stylesheet" />
     <style>
         .no-modal-body {
             padding-top:10px;
@@ -27,7 +28,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="#">CloudServices</a>	
+				<a class="brand" href="/">CloudServices</a>	
 
 		    </div>
 		</div>
