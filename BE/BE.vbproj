@@ -73,6 +73,7 @@
     <Compile Include="BEOrdenVenta.vb" />
     <Compile Include="BEPatenteBasica.vb" />
     <Compile Include="BEPermiso.vb" />
+    <Compile Include="BEReporte.vb" />
     <Compile Include="BEServicioAdicional.vb" />
     <Compile Include="BEServicioBase.vb" />
     <Compile Include="BESnapshot.vb" />

@@ -132,6 +132,69 @@ Public Class DALOrdenVenta
         Filtrar = Nothing
     End Function
 
+    Public Function FiltrarMes(ByVal oOV As BE.BEOrdenVenta) As List(Of BE.BEOrdenVenta)
+        Dim lista As List(Of BE.BEOrdenVenta) = New List(Of BE.BEOrdenVenta)
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim server As List(Of Integer) = New List(Of Integer) From {1, 2, 6}
+
+        Try
+            Dim cmd As IDbCommand = dbManager.getCmd("getOVsMes")
+            cmd.Connection = conn
+
+            Dim hasta As Date = oOV.Fecha.AddMonths(+1)
+            'add params
+            dbManager.addParam(cmd, "@desde", oOV.Fecha)
+            dbManager.addParam(cmd, "@hasta", hasta)
+
+            'abro la cx
+            conn.Open()
+
+            'ejecuto
+            Dim lector As IDataReader = cmd.ExecuteReader
+            Do While (lector.Read())
+                ' genero la ov
+                Dim ov As BE.BEOrdenVenta = New BE.BEOrdenVenta
+                ov.Id = Convert.ToInt32(lector("Id"))
+                ov.Estado = Convert.ToString(lector("Estado"))
+                ov.Fecha = Convert.ToDateTime(lector("Fecha"))
+                ov.Servicios = New List(Of BE.BEServicioBase)
+                lista.Add(ov)
+            Loop
+
+            lector.Close()
+
+            For Each l As BE.BEOrdenVenta In lista
+                ' busco los servicios contratados por ov
+                cmd = dbManager.getCmd("getServiciosPorOV")
+                cmd.Connection = conn
+                'add params
+                dbManager.addParam(cmd, "@id_ov", l.Id)
+                lector = cmd.ExecuteReader()
+                Do While (lector.Read())
+                    'genero por tipo
+
+                    If server.Contains(lector("Id_tipo_servicio")) Then
+                        Dim srv As New BE.BECloudServer()
+                        srv.Precio = lector("Precio")
+                        l.Servicios.Add(srv)
+                    Else
+                        Dim addon As New BE.BEServicioAdicional()
+                        addon.Precio = lector("Precio")
+                        l.Servicios.Add(addon)
+                    End If
+                Loop
+                lector.Close()
+            Next
+
+
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+        Return lista
+    End Function
 
 End Class ' DALOrdenVenta
 
