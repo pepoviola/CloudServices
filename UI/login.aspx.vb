@@ -30,6 +30,13 @@ Public Class login
         End Get
     End Property
 
+    Private _sistemaEnError As Boolean
+    Public ReadOnly Property sistemaEnError
+        Get
+            Return _sistemaEnError
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
        
@@ -65,21 +72,18 @@ Public Class login
 
         ''Response.Cookies.Add(cookie)
 
+        Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+        listaErrs = Application("listaErrs")
+        If listaErrs.Count > 0 Then
+            _sistemaEnError = True
+        Else
+            _sistemaEnError = False
+        End If
 
         If Request.RequestType = "POST" Then
             ' make login
             login(Request.Form("txt_login_username"), Request.Form("txt_login_passwd"))
         End If
-
-        ' pasa a client side
-        'Dim utils As Utilidades = Utilidades.getUtilidades()
-        ''TODO: default lang
-        'utils.translatePage(Page, 1)
-        ''escondo el alert_div
-        'alert_div = CType(Page.FindControl("alert_div"), HtmlGenericControl)
-        'If Not alert_div Is Nothing Then
-        '    alert_div.Visible = False
-        'End If
 
 
 

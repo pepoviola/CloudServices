@@ -15,7 +15,7 @@
                 oBita.Usuario = oUser
                 oBita.Fecha = Date.Now
                 oBita.Categoria = "Logout"
-                oBita.Descripcion = "El usuario cerro la session"
+                oBita.Descripcion = "El usuario cerró la sesión"
                 oInfra.Log(oBita)
                 Session.Abandon()
                 Response.Redirect(FormsAuthentication.LoginUrl)

@@ -92,6 +92,7 @@
     <Content Include="content\css\whhg-font\custom.js" />
     <Content Include="content\css\whhg-font\example.html" />
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.svg" />
+    <Content Include="login_sys.aspx" />
     <Content Include="registro.aspx" />
     <Content Include="content\css\datepicker\datepicker.css" />
     <Content Include="content\css\datepicker\datepicker3.css" />
@@ -256,6 +257,13 @@
     </Compile>
     <Compile Include="cloud\home.aspx.vb">
       <DependentUpon>home.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="login_sys.aspx.designer.vb">
+      <DependentUpon>login_sys.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login_sys.aspx.vb">
+      <DependentUpon>login_sys.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ManageIIS.vb" />

@@ -1,10 +1,10 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="login.aspx.vb" Inherits="UI.login" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="login_sys.aspx.vb" Inherits="UI.login_sys" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>CloudServices</title>
+   <title>CloudServices</title>
     <!-- Bootstrap core CSS -->
     <link href="/content/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/content/css/bootstrap-responsive.min.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
         
        
     </div>
-    <div class="row">
+   <%-- <div class="row">
              <div class="control-group pull-right">
                 <!--<label class="control-label" for="idioma"><% =translate("idioma")%></label>-->
                 <div class="controls">
@@ -62,23 +62,12 @@
                     </select>                        
                 </div>
             </div>
-    </div>
-        <%If sistemaEnError Then %>
-    <div class="row">
-        <div class="span6 offset3 well">
-            <div class="modal-header">
-                <h3><%=translate("sistema_mantenimiento")%></h3>
-            </div>
-            <br />
-            <p><%=translate("disculpe_molestias")%></p>
-            
-        </div>
-    </div>                
-          <%Else%>
-    <!-- sistema ok -->
+    </div>--%>
+   
+   
     <div class="row">
         <div class="span6 offset3" id="form-login">
-            <form class="form-horizontal well" runat="server">
+            <form id="Form1" class="form-horizontal well" method="post" action="login.aspx">
                 <%--<asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="isEmpty" ControlToValidate="txt_login_username"></asp:CustomValidator>--%>
                 <fieldset>
                     <legend> <%  =translate("login_form_header")%> <%--<asp:label runat="server" ID="login_form_header"></asp:label>--%>   </legend>
@@ -123,7 +112,7 @@
             </form>
         </div>
     </div>
-      <%  End If%>
+
         <%=translate("idioma_detectado")%>: <%=HttpContext.Current.Request.UserLanguages(0) %>
 </div>
         
