@@ -22,6 +22,10 @@ Public Class del_usuario
                     oUser.Id = context.Request.Form.Get("uid")
                     oUser.Username = context.Request.Form.Get("username")
 
+                    ' el usuario no se puede eliminar a el mismo
+                    If oUser.Id = context.Session("user_id") Then
+                        Throw New ExceptionsPersonales.CustomException("no_te_puedes_eliminar")
+                    End If
                     'preparo bitacora
                     Dim oBita As New BE.Bitacora
                     Dim oBitaUser As New BE.BEUsuario
@@ -50,7 +54,7 @@ Public Class del_usuario
 
                 Catch ex As ExceptionsPersonales.CustomException
                     resp.Add("status", "500")
-                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_del_exception", context.Session("lang")))
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl(ex.codigo, context.Session("lang")))
                 End Try
 
                 Dim oRes = jss.Serialize(resp)

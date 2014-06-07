@@ -196,6 +196,9 @@
     <Content Include="scripts\datepicker\locales\bootstrap-datepicker.vi.js" />
     <Content Include="scripts\datepicker\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="scripts\datepicker\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="scripts\highcharts\highcharts-all.js" />
+    <Content Include="scripts\highcharts\highcharts.js" />
+    <Content Include="scripts\highcharts\highcharts.src.js" />
     <Content Include="scripts\jquery-2.1.0.js" />
     <Content Include="scripts\jquery.confirm.js" />
     <Content Include="scripts\jquery.validate.js" />
@@ -239,6 +242,9 @@
     <Compile Include="Admin\reportes\repos.aspx.vb">
       <DependentUpon>repos.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\reportes\repo_data.ashx.vb">
+      <DependentUpon>repo_data.ashx</DependentUpon>
     </Compile>
     <Compile Include="cloud\add_ov.ashx.vb">
       <DependentUpon>add_ov.ashx</DependentUpon>
@@ -476,6 +482,7 @@
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.ttf" />
     <Content Include="cloud\add_ov.ashx" />
     <Content Include="cloud\generar.ashx" />
+    <Content Include="Admin\reportes\repo_data.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

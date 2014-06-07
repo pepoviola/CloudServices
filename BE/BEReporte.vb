@@ -18,15 +18,15 @@
 Public Class BEReporte
 
 
-    Private _cuerpo As String
+    Private _cuerpo As Dictionary(Of String, Dictionary(Of String, String))
     Private _footer As String
     Private _titulo As String
 
-    Public Property Cuerpo() As String
+    Public Property Cuerpo() As Dictionary(Of String, Dictionary(Of String, String))
         Get
             Return _cuerpo
         End Get
-        Set(ByVal Value As String)
+        Set(ByVal Value As Dictionary(Of String, Dictionary(Of String, String)))
             _cuerpo = Value
         End Set
     End Property
@@ -44,7 +44,7 @@ Public Class BEReporte
 
     End Sub
 
-    Public Property Ttitulo() As String
+    Public Property Titulo() As String
         Get
             Return _titulo
         End Get

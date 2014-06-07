@@ -86,7 +86,7 @@
                         <label class="control-label" for="dir"><% =translate("direccion")%></label>
                         <div class="controls form-inline">
                             <label class="" for="dir"><%=translate("calle")%>
-                                <input type="text" class="input-small" name="calle" id="calle" placeholder="" maxlength="150" />
+                                <input type="text" class="input-large" name="calle" id="calle" placeholder="" maxlength="150" />
                             </label>
                             <label class="" for="dir"><%=translate("numero")%>
                                 <input type="number" class="input-mini" name="numero" id="numero"  maxlength="6" />

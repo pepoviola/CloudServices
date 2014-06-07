@@ -138,7 +138,7 @@ Public Class Utilidades
             ' valido los permisos
             For Each p As String In New List(Of String) From _
                 {"idioma_read", "idioma_write", "permiso_read", "permiso_write", "usuario_read", _
-                 "usuario_write", "bitacora", "dv_mgr", "backup", "restore"}
+                 "usuario_write", "bitacora", "dv_mgr", "backup", "restore", "reportes"}
 
                 For Each flia As BE.BEPatenteBasica In patentes
                     If flia.Validar(p) Then

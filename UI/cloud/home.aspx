@@ -17,18 +17,18 @@
                     <div class="pull-right">
                        <div class="btn-group">
                             <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
-                                <i class="icon-shoppingcartalt icon-white"></i> <% =translate("btn_new")%>
+                                <i class="whhg-icon-shoppingcartalt"></i> <% =translate("btn_new")%>
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li>
                                     <a href="/cloud/add_services.aspx" >
-                                        <i class="icon-addtocart icon-white"></i> <% =translate("seleccion_manual")%>
+                                        <i class="whhg-icon-addtocart"></i> <% =translate("seleccion_manual")%>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/cloud/generar_entorno.aspx">
-                                        <i class="icon-wizardalt icon-white"></i> <% =translate("generar_entorno")%>
+                                        <i class="whhg-icon-wizardalt"></i> <% =translate("generar_entorno")%>
                                     </a>
                                 </li>                                
                             </ul>
