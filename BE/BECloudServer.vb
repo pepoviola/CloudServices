@@ -17,9 +17,7 @@
 Public Class BECloudServer
     Inherits BE.BEServicioBase
 
-
     Private _srv_adicionales As List(Of BEServicioAdicional)
-
 
     Public Property Srv_adicionales() As List(Of BEServicioAdicional)
         Get

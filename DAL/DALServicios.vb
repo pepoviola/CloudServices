@@ -85,8 +85,9 @@
             'ejecuto y obtengo el reader
             Dim lector As IDataReader = cmd.ExecuteReader()
             Do While lector.Read()
-                Dim srv As BE.BECloudServer = New BE.BECloudServer()
-
+                'Dim srv As BE.BECloudServer = New BE.BECloudServer()
+                Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
+                Dim srv As Object = Activator.CreateInstance(t)
                 srv.Id = Convert.ToInt32(lector("Id"))
                 srv.Nombre = Convert.ToString(lector("Nombre"))
                 srv.Precio = Convert.ToDouble(lector("Precio"))
@@ -106,7 +107,10 @@
                 'ejecuto y obtengo el reader
                 Dim lector_addons As IDataReader = cmd_addons.ExecuteReader()
                 Do While lector_addons.Read()
-                    Dim addon As BE.BEServicioAdicional = New BE.BEServicioAdicional()
+
+                    Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector_addons("Codigo"))))
+                    Dim addon As Object = Activator.CreateInstance(t)
+                    'Dim addon As BE.BEServicioAdicional = New BE.BEServicioAdicional()
                     addon.Id = Convert.ToInt32(lector_addons("Id"))
                     addon.Nombre = Convert.ToString(lector_addons("Nombre"))
                     addon.Precio = Convert.ToDouble(lector_addons("Precio"))

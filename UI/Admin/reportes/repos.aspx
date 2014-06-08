@@ -68,7 +68,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Ventas'
+                        text: 'Ventas($)'
                     },
                     labels: {
                         formatter: function () {                            
@@ -108,11 +108,76 @@
 
 
 
+        var repo_q_ventas = function (repo) {
+            var categories = [];
+            var data_real = [];
+            var data_proy = [];
+            $.each(repo.Cuerpo, function (key, obj) {
+                categories.push(key);
+                data_real.push((parseFloat(obj.real)) ? parseFloat(obj.real) : null);
+                data_proy.push((parseFloat(obj.proy)) ? parseFloat(obj.proy) : null);
+            });
+
+            // genero el gráfico
+            $('#container').highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: repo.Titulo
+                },
+                subtitle: {
+                    text: repo.Footer
+                },
+                xAxis: {
+
+                    categories: categories
+                },
+                yAxis: {
+                    title: {
+                        text: 'Cantidad de servicios'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value
+                        }
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Real',
+                    marker: {
+                        symbol: 'square'
+                    },
+                    data: data_real
+                }, {
+                    name: 'Proyectado',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: data_proy
+                }]
+            });
+        };
+
 
 
    
         var typos_handlers = {
-            "pesos": repo_proyeccion
+            "pesos": repo_proyeccion,
+            "q_ventas": repo_q_ventas
         }
 
 

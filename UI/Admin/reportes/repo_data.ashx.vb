@@ -15,18 +15,34 @@ Public Class repo_data
             Try
                 If context.Request.HttpMethod = "POST" Then
                     Dim repo As BE.BEReporte = New BE.BEReporte()
-                    Dim bllRepo As BLL.BLMgrReporte = New BLL.BLMgrReporte()
+                    'Dim bllRepo As BLL.BLMgrReporte = New BLL.BLMgrReporte()
 
                     If context.Request.Form.Get("type") = "pesos" Then
-                        repo = bllRepo.CrearReporteProyeccion()
-                        resp.Add("status", "200")
-                        resp.Add("msg", Infra.TraductorMgr.TraducirControl("repo_generado_ok", context.Session("lang")))
-                        resp.Add("repo", repo)
+                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteProyeccion()
+                       
+
+
+                    ElseIf context.Request.Form.Get("type") = "q_ventas" Then
+                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteVentas()
+                     
+
+                    ElseIf context.Request.Form.Get("type") = "q_ventas_por" Then
+
+                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteVentasPorTipo()
                     Else
+
+
                         resp.Add("status", "400")
                         resp.Add("msg", Infra.TraductorMgr.TraducirControl("repo_generado_err", context.Session("lang")))
 
                     End If
+
+                    repo.Titulo = Infra.TraductorMgr.TraducirControl(repo.Titulo, context.Session("lang"))
+                    repo.Footer = Infra.TraductorMgr.TraducirControl(repo.Footer, context.Session("lang"))
+                    resp.Add("status", "200")
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("repo_generado_ok", context.Session("lang")))
+                    resp.Add("repo", repo)
+
                 End If
             Catch ex As ExceptionsPersonales.CustomException
                 resp.Add("status", "500")

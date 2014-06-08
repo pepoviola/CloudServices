@@ -16,7 +16,7 @@
 
 
 
-Public Class BEServicioAdicional
+Public MustInherit Class BEServicioAdicional
     Inherits BEServicioBase
 
 

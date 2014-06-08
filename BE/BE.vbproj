@@ -67,6 +67,9 @@
     <Compile Include="BEBackupService.vb" />
     <Compile Include="BECliente.vb" />
     <Compile Include="BECloudServer.vb" />
+    <Compile Include="BECloudServerAdvance.vb" />
+    <Compile Include="BECloudServerBasic.vb" />
+    <Compile Include="BECloudServerPro.vb" />
     <Compile Include="BEDireccion.vb" />
     <Compile Include="BEEmpresa.vb" />
     <Compile Include="BEFamilia.vb" />

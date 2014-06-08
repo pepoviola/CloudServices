@@ -12,8 +12,10 @@
             Dim lector As IDataReader = cmd.ExecuteReader()
             Do While lector.Read()
 
+                Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
+                Dim s As Object = Activator.CreateInstance(t)
 
-                Dim s As BE.BEServicioAdicional = New BE.BEServicioAdicional
+                'Dim s As BE.BEServicioAdicional = New BE.BEServicioAdicional
                 s.Codigo = Convert.ToString(lector("Codigo"))
                 s.Descripcion = Convert.ToString(lector("Descripcion"))
                 s.Id = Convert.ToInt32(lector("Id"))

@@ -21,10 +21,6 @@ Public Class BESnapshot
         Id = 5
     End Sub
 
-   
-  
-
-
 
 End Class ' BESnapshot
 
