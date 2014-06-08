@@ -14,7 +14,7 @@
 
 
 
-Public Class BECloudServer
+Public MustInherit Class BECloudServer
     Inherits BE.BEServicioBase
 
     Private _srv_adicionales As List(Of BEServicioAdicional)

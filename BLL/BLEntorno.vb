@@ -30,8 +30,8 @@
                 Dim s As Double = (factor / 20)
                 '
                 For i = 0 To CInt(s) + 1
-                    Dim oSrv As New BE.BECloudServer()
-                    oSrv.Id = 6
+                    Dim oSrv As New BE.BECloudServerPro
+                    'oSrv.Id = 6
                     oSrv.Descripcion = "web"
                     lista.Add(oSrv)
                 Next
@@ -39,8 +39,8 @@
                 ' ha web
                 If ha Then
                     If lista.Count < 2 Then
-                        Dim oSrv As New BE.BECloudServer()
-                        oSrv.Id = 6
+                        Dim oSrv As New BE.BECloudServerPro
+                        'oSrv.Id = 6
                         oSrv.Descripcion = "web"
                         lista.Add(oSrv)
                     End If
@@ -49,8 +49,8 @@
                 If db Then
 
                     For j = 1 To q
-                        Dim oSrv_db As BE.BECloudServer = New BE.BECloudServer()
-                        oSrv_db.Id = 6
+                        Dim oSrv_db As BE.BECloudServer = New BE.BECloudServerPro
+                        'oSrv_db.Id = 6
                         oSrv_db.Descripcion = "db"
                         lista.Add(oSrv_db)
                     Next
@@ -60,8 +60,8 @@
             Else
                 If factor < 2 Then
                     For j = 1 To q
-                        Dim oSrv As New BE.BECloudServer()
-                        oSrv.Id = 1
+                        Dim oSrv As New BE.BECloudServerBasic
+                        'oSrv.Id = 1
                         oSrv.Descripcion = "web"
                         lista.Add(oSrv)
                     Next
@@ -69,8 +69,8 @@
                     If db Then
 
                         For j = 1 To q
-                            Dim oSrv_db As BE.BECloudServer = New BE.BECloudServer()
-                            oSrv_db.Id = 1
+                            Dim oSrv_db As BE.BECloudServer = New BE.BECloudServerBasic
+                            'oSrv_db.Id = 1
                             oSrv_db.Descripcion = "db"
                             lista.Add(oSrv_db)
                         Next
@@ -78,8 +78,8 @@
                     End If
                 Else
                     For j = 1 To q
-                        Dim oSrv As New BE.BECloudServer()
-                        oSrv.Id = 2
+                        Dim oSrv As New BE.BECloudServerAdvance
+                        'oSrv.Id = 2
                         oSrv.Descripcion = "web"
                         lista.Add(oSrv)
                     Next
@@ -88,8 +88,8 @@
                     If db Then
 
                         For j = 1 To q
-                            Dim oSrv_db As BE.BECloudServer = New BE.BECloudServer()
-                            oSrv_db.Id = 2
+                            Dim oSrv_db As BE.BECloudServer = New BE.BECloudServerAdvance
+                            'oSrv_db.Id = 2
                             oSrv_db.Descripcion = "db"
                             lista.Add(oSrv_db)
                         Next
@@ -104,8 +104,8 @@
             If email Then
                 For j = 1 To q
                     ' creo el server de mail chico
-                    Dim oSrv_email As New BE.BECloudServer
-                    oSrv_email.Id = 1
+                    Dim oSrv_email As New BE.BECloudServerBasic
+                    'oSrv_email.Id = 1
                     oSrv_email.Descripcion = "email"
                     lista.Add(oSrv_email)
                 Next

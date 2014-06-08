@@ -12,7 +12,12 @@
             'ejecuto y obtengo el reader
             Dim lector As IDataReader = cmd.ExecuteReader()
             Do While lector.Read()
-                Dim s As BE.BECloudServer = New BE.BECloudServer
+                ' old implementation
+                'Dim s As BE.BECloudServer = New BE.BECloudServer
+
+                Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
+                Dim s As BE.BECloudServer = DirectCast(Activator.CreateInstance(t), BE.BECloudServer)
+
                 s.Codigo = Convert.ToString(lector("Codigo"))
                 s.Descripcion = Convert.ToString(lector("Descripcion"))
                 s.Id = Convert.ToInt32(lector("Id"))
