@@ -174,10 +174,103 @@
 
 
 
+
+        var debug, debug2;
+        var repo_q_ventas_por = function (repo) {
+            debug = repo;
+            var categories = [];
+            var servicios = {
+                BECloudServerBasic: [],
+                BECloudServerAdvance: [],
+                BECloudServerPro: [],
+                BEBackupService: [],
+                BESnapshot: []
+            };
+            debug2 = servicios;
+            $.each(repo.Cuerpo, function (key, obj) {
+                categories.push(key);
+                $.each(servicios, function (key, value) {
+                    servicios[key].push( parseInt(obj[key],10));
+                });
+
+            });
+
+            // genero el gráfico
+            $('#container').highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: repo.Titulo
+                },
+                subtitle: {
+                    text: repo.Footer
+                },
+                xAxis: {
+
+                    categories: categories
+                },
+                yAxis: {
+                    title: {
+                        text: 'Cantidad de servicios'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value
+                        }
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
+                series: [{
+                    name: 'BECloudServerBasic',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: servicios.BECloudServerBasic
+                }, {
+                    name: 'BECloudServerAdvance',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: servicios.BECloudServerAdvance
+                }, {
+                    name: 'BECloudServerPro',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: servicios.BECloudServerPro
+                }, {
+                    name: 'BEBackupService',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: servicios.BEBackupService
+                }, {
+                    name: 'BESnapshot',
+                    marker: {
+                        symbol: 'diamond'
+                    },
+                    data: servicios.BESnapshot
+                }]
+            });
+        };
    
         var typos_handlers = {
             "pesos": repo_proyeccion,
-            "q_ventas": repo_q_ventas
+            "q_ventas": repo_q_ventas,
+            "q_ventas_por": repo_q_ventas_por
         }
 
 
