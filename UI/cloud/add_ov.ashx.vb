@@ -31,13 +31,14 @@ Public Class add_ov
                         Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", oToCast.Item("Codigo")))
                         Dim srv As BE.BECloudServer = Activator.CreateInstance(t)
                         'Dim srv = Convert.ChangeType(oToCast, t) '= DirectCast(oToCast, t)
-                        srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)
+                        'srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)
                         'check id we have addons
                         If Not oToCast.Item("Srv_adicionales") Is Nothing Then
                             For Each oToCastInner As Object In oToCast.Item("Srv_adicionales")
                                 Dim tInner As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", oToCastInner.Item("Codigo")))
                                 Dim addon As BE.BEServicioAdicional = Activator.CreateInstance(tInner)
-                                srv.Srv_adicionales.Add(addon)
+                                'srv.Srv_adicionales.Add(addon)
+                                srv.addAdicional(addon)
                             Next
 
                         End If

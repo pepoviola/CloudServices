@@ -10,8 +10,12 @@
                 <div class="well"><% =translate("welcome_mesg_cliente_servicios")%></div>
             </header>
             <section>
-                <div class="row-fluid">
-                    
+                <% If msg_err <> "" Then%>
+                <div  id="aler_div_error" class="alert alert-error"><a class="close" data-dismiss="alert">×</a>
+                    <% =msg_err%>
+                </div>  
+                <%End If%>
+                <div class="row-fluid">                    
                 </div>
                 <div>                    
                     <div class="pull-right">

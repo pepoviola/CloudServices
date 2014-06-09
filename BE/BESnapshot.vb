@@ -17,10 +17,18 @@
 Public Class BESnapshot
     Inherits BEServicioAdicional
 
+
     Sub New()
         Id = 5
     End Sub
 
 
+    Public Overrides Function isBkp() As Boolean
+        Return False
+    End Function
+
+    Public Overrides Function isSnap() As Boolean
+        Return True
+    End Function
 End Class ' BESnapshot
 

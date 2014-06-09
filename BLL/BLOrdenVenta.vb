@@ -53,5 +53,20 @@ Public Class BLOrdenVenta
     End Function
 
 
+    ''' 
+    ''' <param name="oOV"></param>
+    Public Function Filtrar(ByVal oOV As BE.BEOrdenVenta) As List(Of BE.BEOrdenVenta)
+        Dim lista As List(Of BE.BEOrdenVenta) = New List(Of BE.BEOrdenVenta)
+        Try
+            Dim oDAL As DAL.DALOrdenVenta = New DAL.DALOrdenVenta
+            lista = oDAL.Filtrar(oOV)
+
+        Catch ex As Exception
+            Throw ex
+        End Try
+        Return lista
+    End Function
+
+
 End Class ' BLOrdenVenta
 

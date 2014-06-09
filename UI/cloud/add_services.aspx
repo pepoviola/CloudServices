@@ -71,7 +71,7 @@
                      </table>
                 </div>
                     <br />
-                <button class="btn btn-success" id="generar_ov"><%=translate("btn_generar")%></button>
+                <button class="btn btn-success" id="generar_ov"><%=translate("btn_contratar")%></button>
             </section>
          </div>
     </div>

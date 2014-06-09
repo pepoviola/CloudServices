@@ -22,13 +22,13 @@ Public MustInherit Class BEServicioAdicional
 
 
 
-    Public Function isBkp() As Boolean
-        Return (Me.Codigo = "cloud-addon-bkp")
-    End Function
+    Public MustOverride Function isBkp() As Boolean
+    'Return (Me.Id = 4)
+    'End Function
 
-    Public Function isSnap() As Boolean
-        Return (Me.Codigo = "cloud-addon-snap")
-    End Function
+    Public MustOverride Function isSnap() As Boolean
+    '   Return (Me.Id = 5)
+    'End Function
 
 
 

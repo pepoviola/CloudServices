@@ -16,7 +16,16 @@
 
 Public Class BEBackupService
     Inherits BEServicioAdicional
+
     Sub New()
         Id = 4
     End Sub
+
+    Public Overrides Function isBkp() As Boolean
+        Return True
+    End Function
+
+    Public Overrides Function isSnap() As Boolean
+        Return False
+    End Function
 End Class ' BEBackupService

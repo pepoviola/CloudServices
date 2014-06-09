@@ -116,13 +116,15 @@
             ' si tiene snap o backup
             If snap Or bkp Then
                 For Each serv As BE.BECloudServer In lista
-                    serv.Srv_adicionales = New List(Of BE.BEServicioAdicional)
+                    'serv.Srv_adicionales = New List(Of BE.BEServicioAdicional)
                     If snap Then
-                        serv.Srv_adicionales.Add(New BE.BESnapshot)
+                        'serv.Srv_adicionales.Add(New BE.BESnapshot)
+                        serv.addAdicional(New BE.BESnapshot)
                     End If
 
                     If bkp Then
-                        serv.Srv_adicionales.Add(New BE.BEBackupService)
+                        'serv.Srv_adicionales.Add(New BE.BEBackupService)
+                        serv.addAdicional(New BE.BEBackupService)
                     End If
 
                 Next

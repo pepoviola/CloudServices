@@ -1,5 +1,5 @@
 ﻿Public Class DALServicios
-    Private ReadOnly _servers As List(Of Integer) = New List(Of Integer) From {1, 2, 6}
+    'Private ReadOnly _servers As List(Of Integer) = New List(Of Integer) From {1, 2, 6}
 
     'Public Function filtrar(ByVal filtro As BE.BEServicioBase) As List(Of BE.BEServicioBase)
     '    Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
@@ -91,7 +91,7 @@
                 srv.Id = Convert.ToInt32(lector("Id"))
                 srv.Nombre = Convert.ToString(lector("Nombre"))
                 srv.Precio = Convert.ToDouble(lector("Precio"))
-                srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)        
+                'srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)        
                 lista.Add(srv)
             Loop
 
@@ -115,7 +115,8 @@
                     addon.Nombre = Convert.ToString(lector_addons("Nombre"))
                     addon.Precio = Convert.ToDouble(lector_addons("Precio"))
 
-                    srv.Srv_adicionales.Add(addon)
+                    'srv.Srv_adicionales.Add(addon)
+                    srv.addAdicional(addon)
                 Loop
                 lector_addons.Close()
 

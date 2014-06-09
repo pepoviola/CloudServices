@@ -21,6 +21,16 @@
         End Set
     End Property
 
+    Private _servicios As List(Of BE.BEServicioBase)
+    Public Property servicios() As List(Of BE.BEServicioBase)
+        Get
+            Return _servicios
+        End Get
+        Set(ByVal value As List(Of BE.BEServicioBase))
+            _servicios = value
+        End Set
+    End Property
+
 
 
 

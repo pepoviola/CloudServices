@@ -9,6 +9,13 @@ Public Class home
         End Get
     End Property
 
+    Private _msg_err As String = ""
+    Public ReadOnly Property msg_err As String
+        Get
+            Return _msg_err
+        End Get
+    End Property
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         'Dim a As BE.BECloudServer = New BE.BECloudServerAdvance
@@ -42,10 +49,21 @@ Public Class home
             _servicios_contratados = BLL.BLServicesFacade.getServicesFacade().obtenerServiciosDeCliente(oCli)
 
         Catch ex As ExceptionsPersonales.CustomException
+            ' guardo en la bitacora
+            'preparo bitacora
+            Dim oBita As New BE.Bitacora
+            Dim oBitaUser As New BE.BEUsuario
+            oBitaUser.Id = Context.Session("user_id")
+            oBita.Fecha = Date.Now
+            oBita.Usuario = oBitaUser
+            oBita.Categoria = "Exceptions"
+            oBita.Descripcion = "Error al listar los servicios del cliente"
+            'guardo en bitacora
+            Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
+            oInfraBita.Log(oBita)
 
+            _msg_err = translate(ex.codigo)
         End Try
-
-
 
     End Sub
 

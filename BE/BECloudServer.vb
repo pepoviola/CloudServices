@@ -17,16 +17,18 @@
 Public MustInherit Class BECloudServer
     Inherits BE.BEServicioBase
 
-    Private _srv_adicionales As List(Of BEServicioAdicional)
+    Friend _srv_adicionales As List(Of BEServicioAdicional) = New List(Of BEServicioAdicional)
 
-    Public Property Srv_adicionales() As List(Of BEServicioAdicional)
+    Public ReadOnly Property Srv_adicionales() As List(Of BEServicioAdicional)
         Get
             Return _srv_adicionales
         End Get
-        Set(ByVal Value As List(Of BEServicioAdicional))
-            _srv_adicionales = Value
-        End Set
+        'Set(ByVal Value As List(Of BEServicioAdicional))
+        '    _srv_adicionales = Value
+        'End Set
     End Property
+
+    Public MustOverride Sub addAdicional(ByVal addon As BE.BEServicioAdicional)
 
 
 End Class ' BECloudServer

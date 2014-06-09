@@ -84,7 +84,7 @@
                             </tr>
                         </tfoot>
                      </table>
-                        <button class="btn btn-success"  id="cargar_ov"><%=translate("btn_crear")%></button>
+                        <button class="btn btn-success"  id="cargar_ov"><%=translate("btn_contratar")%></button>
                         </div>
                 </div>
             </section>
