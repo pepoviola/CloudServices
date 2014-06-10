@@ -86,6 +86,7 @@
     <Content Include="Admin\clientes.aspx" />
     <Content Include="Admin\dvManager\dvs.aspx" />
     <Content Include="Admin\reportes\repos.aspx" />
+    <Content Include="cambiar_clave.aspx" />
     <Content Include="cloud\add_services.aspx" />
     <Content Include="cloud\generar_entorno.aspx" />
     <Content Include="cloud\home.aspx" />
@@ -246,6 +247,16 @@
     <Compile Include="Admin\reportes\repo_data.ashx.vb">
       <DependentUpon>repo_data.ashx</DependentUpon>
     </Compile>
+    <Compile Include="cambiar_clave.ashx.vb">
+      <DependentUpon>cambiar_clave.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="cambiar_clave.aspx.designer.vb">
+      <DependentUpon>cambiar_clave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cambiar_clave.aspx.vb">
+      <DependentUpon>cambiar_clave.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="cloud\add_ov.ashx.vb">
       <DependentUpon>add_ov.ashx</DependentUpon>
     </Compile>
@@ -272,6 +283,9 @@
     <Compile Include="cloud\home.aspx.vb">
       <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="generate_url.ashx.vb">
+      <DependentUpon>generate_url.ashx</DependentUpon>
     </Compile>
     <Compile Include="login_sys.aspx.designer.vb">
       <DependentUpon>login_sys.aspx</DependentUpon>
@@ -483,6 +497,8 @@
     <Content Include="cloud\add_ov.ashx" />
     <Content Include="cloud\generar.ashx" />
     <Content Include="Admin\reportes\repo_data.ashx" />
+    <Content Include="generate_url.ashx" />
+    <Content Include="cambiar_clave.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

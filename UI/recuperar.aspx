@@ -10,6 +10,7 @@
     <link href="/content/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/content/css/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="/content/css/login/login.css" rel="stylesheet"/>
+    <link href="/content/css/customs.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,17 +41,35 @@
         <div class="span8 offset1" id="form-regenerate">
 
             <div class="well">
-                <form id="signup" class="form-horizontal">
+                <form id="recuperar" class="form-horizontal">
                     <legend><%=translate("recuperar_passwd")%></legend>
                     <div class="control-group">
                         <label class="control-label"><span id="" class=""><%=translate("email") %></span></label>
                         <div class="controls">
                             <div class="input-prepend">
                                 <span class="add-on"><i class="icon-user"></i></span>
-                                <input type="email" class="input-xlarge" id="email_to" name="email_to"  />
+                                <input type="email" class="input-xlarge" id="email" name="email"  />
                             </div>
                         </div>
                     </div>
+
+            <div class="control-group" id="ctrl-pregunta">
+                <label class="control-label" for="pregunta"><% =translate("PreguntaSecreta")%></label>
+                <div class="controls">
+                    <select name="pregunta" class="input-xlarge">
+                      <% For Each i As BE.BEPreguntaSecreta In lista_pregs%>
+                        <option value="<% =i.Pregunta%>"><% =translate(i.Pregunta)%></option>              
+                      <% Next%>
+                    </select>                        
+                </div>
+            </div>
+
+            <div class="control-group" id="ctrl-respuesta">
+                <label class="control-label" for="respuesta"><% =translate("RespuestaSecreta")%></label>
+                <div class="controls">
+                        <input type="text" class="input-xlarge" name="respuesta" id="respuesta" placeholder="" maxlength="256" pattern=".{2,256}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
 
                     <div class="control-group">
                         <label class="control-label"></label>
@@ -70,6 +89,7 @@
     <script src="scripts/jquery-2.1.0.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/login/login.js"></script>
+    <script src="/scripts/jquery.validate.js"></script>
     <script>
         var _validEmail = function (value) {
 
@@ -80,25 +100,74 @@
             return matches[0];
         };
 
+        var messages = {
+            email: {
+                required: "<%=translate("campo_requerido")%>",
+                 email: "<%=translate("debe_ser_email_valido")%>"
+            },
+            respuesta: {
+                required: "<%=translate("campo_requerido")%>",
+                 minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                 maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+             }
+        };
+
+        var validar = function () {
+            $("#recuperar").validate({
+                debug: true,
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    respuesta: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 256
+                    }
+                },
+                messages: messages
+            });
+        };
+
         $(document).ready(function () {
             $('#regenerar').click(function (ev) {
                 ev.preventDefault();
                 // valido el mail
-                if (_validEmail($('#email_to').val())) {
-                    alert_type = "info";
-                    msg = "<%=translate("se_envio_el_mail")%>";
-                }
-                else {
-                    alert_type = "error";
-                    msg = "<%=translate("el_mail_no_es_valido")%>"
-                }
+                //if (_validEmail($('#email_to').val())) {
+                  //  alert_type = "info";
+                    //msg = "<%=translate("se_envio_el_mail")%>";
+                //}
+                //else {
+                //    alert_type = "error";
+                //   msg = "<%=translate("el_mail_no_es_valido")%>"
+                // msg = "<%=translate("datos_no_validos")%>"
+                //}
 
-                // informo
-                var div_alert = '<div class="alert alert-' + alert_type + '">'
-                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-                        + '<div class="alert-msg">' + msg + '</div></div>';
+                validar()
+                if ($("#recuperar").valid()) { 
 
-                $('.well').prepend(div_alert);
+                    $.post('/generate_url.ashx', $("#recuperar").serialize(), function (res) {
+                        var alert_type = (res.status == 200) ? "info" : "error";
+                        // informo
+                        var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                        $('.alert').remove();
+                        $('.well').prepend(div_alert);
+
+                        if (res.status == 200) {
+                            setTimeout(function () {
+                                location.href = "/"
+                            }, 2000);
+                        }
+                    });
+                    
+                };
+
+
+                
             });
         });
     </script>

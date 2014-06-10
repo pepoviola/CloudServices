@@ -144,12 +144,17 @@ Public Class DALCliente
                 dbManager.addParam(cmd, "@Username", DBNull.Value)
             End If
 
-            If Not t Is Nothing Then
+            If Not t Is Nothing AndAlso Not t.Id = 0 Then
                 dbManager.addParam(cmd, "@IdUsuario", t.Id)
             Else
                 dbManager.addParam(cmd, "@IdUsuario", DBNull.Value)
             End If
 
+            If Not t Is Nothing AndAlso Not t.Email Is Nothing Then
+                dbManager.addParam(cmd, "@email", t.Email)
+            Else
+                dbManager.addParam(cmd, "@email", DBNull.Value)
+            End If
             'abro cx
             conn.Open()
             'ejecuto y obtengo el reader
@@ -170,6 +175,119 @@ Public Class DALCliente
     End Function
 
     Public Function Modificar(t As BE.BECliente) As Boolean Implements ICRUD(Of BE.BECliente).Modificar
+        Return True
+    End Function
+
+    Public Function resetClave(ByVal oCli As BE.BECliente) As String
+        Dim res As String = ""
+        Dim conn As IDbConnection = dbManager.getConnection
+
+        Try
+
+            'get cmd
+            Dim cmd As IDbCommand = dbManager.getCmd("SelectUserByEmailAndRespuesta")
+            cmd.Connection = conn
+
+            dbManager.addParam(cmd, "@email", oCli.Email)
+            dbManager.addParam(cmd, "@pregunta", oCli.PregSecreta.Pregunta)
+            dbManager.addParam(cmd, "@respuesta", oCli.PregSecreta.Respuesta)
+
+            'abro cx
+            conn.Open()
+            'ejecuto y obtengo el reader
+            Dim lector As IDataReader = cmd.ExecuteReader()
+            Dim id_usuario As Integer = 0
+            Do While lector.Read()
+                id_usuario = Convert.ToInt32(lector("Id_usuario"))
+            Loop
+
+            lector.Close()
+            If id_usuario <> 0 Then
+                ' esta ok debo generar la entrada en la db
+                Dim guid As String = System.Guid.NewGuid().ToString()
+                res = guid
+                'guardar en la db
+
+                Dim cmd_url As IDbCommand = dbManager.getCmd("InsertResetPasswordURL")
+                cmd_url.Connection = conn
+                dbManager.addParam(cmd_url, "@id_user", id_usuario)
+                dbManager.addParam(cmd_url, "@url", res)
+                dbManager.addParam(cmd_url, "@ts", DateTime.Now())
+                cmd_url.ExecuteNonQuery()
+
+
+                'modifico el password
+                Dim cmd_update As IDbCommand = dbManager.getCmd("UpdatePasswd")
+                cmd_update.Connection = conn
+                dbManager.addParam(cmd_update, "@id_user", id_usuario)
+                dbManager.addParam(cmd_update, "@passwd", ".!,YThvg<#!><*]+")
+                cmd_update.ExecuteNonQuery()
+
+            End If
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+
+        Return res
+    End Function
+
+
+    Public Shared Function getUserForReset(ByVal url As String) As BE.BECliente
+        Dim oCli As BE.BECliente = New BE.BECliente
+        oCli.Id = 0
+        Dim conn As IDbConnection = dbManager.getConnection
+
+        Try
+            Dim cmd As IDbCommand = dbManager.getCmd("SelectUserByUrl")
+            cmd.Connection = conn
+            dbManager.addParam(cmd, "@url", url)
+            dbManager.addParam(cmd, "@ts", DateTime.Now())
+
+            conn.Open()
+
+            Dim lector As IDataReader = cmd.ExecuteReader()
+            Do While lector.Read()
+                oCli.Id = Convert.ToInt32(lector("Id_user"))
+            Loop
+
+            If oCli.Id = 0 Then
+                Throw New Exception()
+            End If
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+
+        Return oCli
+
+    End Function
+
+    Public Shared Function recuperarClave(ByVal oCli As BE.BECliente) As Boolean
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim afectados As Integer = 0
+        Try
+            Dim cmd_update As IDbCommand = dbManager.getCmd("UpdatePasswdFor")
+            cmd_update.Connection = conn
+
+            cmd_update.Connection = conn
+            dbManager.addParam(cmd_update, "@id_user", oCli.Id)
+            dbManager.addParam(cmd_update, "@passwd", oCli.Passwd)
+
+            conn.Open()
+            afectados = cmd_update.ExecuteNonQuery()
+
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+
+        End Try
+        'Return (afectados = 1)
         Return True
     End Function
 End Class
