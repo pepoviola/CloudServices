@@ -31,6 +31,10 @@ Public Class add_cliente
                 oCli.Direccion.Calle = context.Request.Form.Get("calle")
                 oCli.Direccion.Numero = context.Request.Form.Get("numero")
                 oCli.Direccion.Localidad = context.Request.Form.Get("localidad")
+                oCli.PregSecreta = New BE.BEPreguntaSecreta
+                oCli.PregSecreta.Pregunta = context.Request.Form.Get("pregunta")
+                oCli.PregSecreta.Respuesta = context.Request.Form.Get("respuesta")
+
 
                 'preparo bitacora
                 Dim oBita As New BE.Bitacora

@@ -148,6 +148,24 @@
                 </div>
             </div>
            
+
+            <div class="control-group" id="ctrl-pregunta">
+                <label class="control-label" for="pregunta"><% =translate("PreguntaSecreta")%></label>
+                <div class="controls">
+                    <select name="pregunta" class="input-xlarge">
+                      <% For Each i As BE.BEPreguntaSecreta In lista_pregs%>
+                        <option value="<% =i.Pregunta%>"><% =translate(i.Pregunta)%></option>              
+                      <% Next%>
+                    </select>                        
+                </div>
+            </div>
+
+            <div class="control-group" id="ctrl-respuesta">
+                <label class="control-label" for="respuesta"><% =translate("RespuestaSecreta")%></label>
+                <div class="controls">
+                        <input type="text" name="respuesta" id="respuesta" placeholder="" maxlength="256" pattern=".{2,256}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
+                </div>
+            </div>
           <!--
             <div class="control-group" id="ctrl-razon_social">
                 <label class="control-label" for="razon_socila"><% =translate("razon_social")%></label>
@@ -246,6 +264,11 @@
                 required: "<%=translate("campo_requerido")%>",
                 number: "<%=translate("solo_numeros")%>"
             },
+            respuesta: {
+                required: "<%=translate("campo_requerido")%>",
+                minlength: $.validator.format("<%=translate("al_menos")%> {0} <%=translate("x_caracteres_requeridos")%>"),
+                maxlength: $.validator.format("<%=translate("como_maximo")%> {0} <%=translate("x_caracteres")%>")
+            }
 
 
         };
@@ -291,7 +314,12 @@
                     numero: {
                         required: true,
                         number: true
-                    }
+                    },
+                    respuesta: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 256
+                    },
                 },
                 messages: messages
             });

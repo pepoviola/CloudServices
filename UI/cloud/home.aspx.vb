@@ -42,6 +42,7 @@ Public Class home
             Dim oCli As BE.BECliente = New BE.BECliente
             Dim oFiltro As BE.BEUsuario = New BE.BEUsuario
             oFiltro.Id = Context.Session("user_id")
+            oFiltro.Username = Context.Session("username")
             oCli = blCli.obtenerCliente(oFiltro)
 
             ' busco los servicios de este cliente

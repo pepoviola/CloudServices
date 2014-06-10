@@ -59,6 +59,7 @@ Public Class add_ov
                     Dim oCli As BE.BECliente = New BE.BECliente
                     Dim oFiltro As BE.BEUsuario = New BE.BEUsuario
                     oFiltro.Id = context.Session("user_id")
+                    oFiltro.Username = context.Session("username")
                     oCli = blCli.obtenerCliente(oFiltro)
 
                     ' con el user y el listado genero la ov

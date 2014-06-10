@@ -68,6 +68,7 @@
     <Compile Include="DALCliente.vb" />
     <Compile Include="DALCloudServer.vb" />
     <Compile Include="DALOrdenVenta.vb" />
+    <Compile Include="DALPreguntaSecreta.vb" />
     <Compile Include="DALServicios.vb" />
     <Compile Include="DALServiciosAdicionales.vb" />
     <Compile Include="dbManager.vb" />

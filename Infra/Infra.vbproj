@@ -72,6 +72,7 @@
     <Compile Include="Familia.vb" />
     <Compile Include="helper_dv.vb" />
     <Compile Include="Idioma.vb" />
+    <Compile Include="InfraPreguntaSecreta.vb" />
     <Compile Include="InfraUsuario.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -83,6 +83,8 @@ Public Class DALCliente
 
                 dbManager.addParam(cmd_cli, "@idUser", idUser)
                 dbManager.addParam(cmd_cli, "@idDir", idDir)
+                dbManager.addParam(cmd_cli, "@pregunta", t.PregSecreta.Pregunta)
+                dbManager.addParam(cmd_cli, "@respuesta", t.PregSecreta.Respuesta)
                 cmd_cli.ExecuteNonQuery()
 
                 ' ok
@@ -142,7 +144,7 @@ Public Class DALCliente
                 dbManager.addParam(cmd, "@Username", DBNull.Value)
             End If
 
-            If Not t Is Nothing AndAlso Not t.Id > 0 Then
+            If Not t Is Nothing Then
                 dbManager.addParam(cmd, "@IdUsuario", t.Id)
             Else
                 dbManager.addParam(cmd, "@IdUsuario", DBNull.Value)

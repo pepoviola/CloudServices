@@ -31,6 +31,17 @@
         End Set
     End Property
 
+    Private _preg_secreta As BE.BEPreguntaSecreta
+    Public Property PregSecreta() As BE.BEPreguntaSecreta
+        Get
+            Return _preg_secreta
+        End Get
+        Set(value As BE.BEPreguntaSecreta)
+            _preg_secreta = value
+        End Set
+    End Property
+
+
 
 
 
