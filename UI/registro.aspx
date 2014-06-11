@@ -359,6 +359,7 @@
                         //$("#modal_new_user").modal("hide");
                         $('#alertas').prepend(div_alert);
 
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
                         // continue
                         if (res.status == "200") {
                             // it's new so reload the page in 1 sec
