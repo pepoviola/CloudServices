@@ -90,6 +90,13 @@
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
                 End If
 
+
+                ' send mail
+                Dim subject As String = "CloudServices recupero de password"
+                Dim body As String = String.Format("Haga click en la siguiente url para reestrablecer la clave  http://localhost/cambiar_clave.aspx?ucode={0}", url)
+
+                Infra.MailMgr.sendMail(body, oFiltro.Email, subject)
+
                 Return True
 
             Else
