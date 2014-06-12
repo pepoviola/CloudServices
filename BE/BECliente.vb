@@ -1,5 +1,7 @@
 ﻿Public Class BECliente
     Inherits BEUsuario
+    Implements ICloneable
+
 
     Private _direccion As BE.BEDireccion
     Public Property Direccion() As BE.BEDireccion
@@ -45,4 +47,13 @@
 
 
 
+    Public Function Clone() As Object Implements ICloneable.Clone
+        Dim e As New BE.BECliente
+        e = Me.MemberwiseClone()
+        If Not e.Direccion Is Nothing Then
+            e.Direccion = Me.Direccion.Clone()
+        End If
+        Return e
+
+    End Function
 End Class

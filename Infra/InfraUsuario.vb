@@ -174,7 +174,7 @@ Public Class InfraUsuario
         Return retorno
     End Function
 
-    Public Function Modificar(ByVal oUser As BE.BEUsuario) As Boolean
+    Public Function Modificar(ByVal oUserFiltro As BE.BEUsuario) As Boolean
 
         Dim ret As Boolean
         Try
@@ -183,6 +183,7 @@ Public Class InfraUsuario
             ' si el password esta vacio es porque no se debe cambiar
             ' pero debemos obtener el actual para generar el dvh
 
+            Dim oUser As BE.BEUsuario = oUserFiltro.Clone()
             If oUser.Passwd = "" Then
                 Dim temp_user As BE.BEUsuario = New BE.BEUsuario
                 temp_user.Username = oUser.Username
@@ -210,7 +211,7 @@ Public Class InfraUsuario
                 'update dvv
                 If Not DVV.Actualizar("Usuario") Then
                     Throw New ExceptionsPersonales.CustomException("ErrDVV")
-                End If            
+                End If
 
             End If
         Catch ex As Exception

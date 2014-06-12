@@ -1,7 +1,7 @@
 ﻿
 Public Class BEFamilia
     Inherits BEPatenteBasica
-
+    Implements ICloneable
 
 
     Private _patentes As List(Of BE.BEPatenteBasica)
@@ -32,5 +32,11 @@ Public Class BEFamilia
             End If
         Next
         Return retorno
+    End Function
+
+    Public Function Clone() As Object Implements ICloneable.Clone
+        Dim e As BEFamilia = New BEFamilia
+        e = Me.MemberwiseClone()
+        Return e
     End Function
 End Class

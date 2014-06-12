@@ -107,5 +107,6 @@ Public MustInherit Class BEUsuarioBase
     End Property
 
 
+    
 End Class ' BEUsuarioBase
 

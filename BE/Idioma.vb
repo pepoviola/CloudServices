@@ -2,6 +2,7 @@
 ' BE: Idioma
 
 Public Class Idioma
+    Implements ICloneable
 
 
     Private _Id As Integer
@@ -64,4 +65,9 @@ Public Class Idioma
         Return String.Format("{0}", Me.Codigo)
     End Function
 
+    Public Function Clone() As Object Implements ICloneable.Clone
+        Dim e As New Idioma
+        e = Me.MemberwiseClone()
+        Return e
+    End Function
 End Class

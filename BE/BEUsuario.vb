@@ -20,6 +20,7 @@ Imports System.Web.Script.Serialization
 <Serializable()> _
 Public Class BEUsuario
     Inherits BEUsuarioBase
+    Implements ICloneable
 
 
     Private _apellido As String
@@ -46,4 +47,17 @@ Public Class BEUsuario
 
 
 
+    Public Function Clone() As Object Implements ICloneable.Clone
+        Dim e As New BE.BEUsuario()
+        e = Me.MemberwiseClone()
+        If Not Me.Idioma Is Nothing Then
+            e.Idioma = Me.Idioma.Clone()
+        End If
+
+        If Not Me.Patente Is Nothing Then
+            e.Patente = Me.Patente.Clone()
+        End If
+
+        Return e
+    End Function
 End Class ' BEUsuario

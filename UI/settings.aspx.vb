@@ -72,7 +72,7 @@
                             End If
                         Next
                         ' sin esta linea me muestra el mail encriptado
-                        _user_session = oUserInfra.Filtrar(_user_session).First()
+                        '_user_session = oUserInfra.Filtrar(_user_session).First()
                         _msg = translate("update_settings_ok")
                         _msg_type = "info"
                         oBita.Descripcion = "Se modifcó con exito la configuración del usuario " + _user_session.Username

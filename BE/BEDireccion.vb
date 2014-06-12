@@ -15,6 +15,7 @@
 
 
 Public Class BEDireccion
+    Implements ICloneable
 
 
     Private _calle As String
@@ -79,5 +80,10 @@ Public Class BEDireccion
     'End Property
 
 
+    Public Function Clone() As Object Implements ICloneable.Clone
+        Dim e As New BE.BEDireccion
+        e = Me.MemberwiseClone()
+        Return e
+    End Function
 End Class ' BEDireccion
 
