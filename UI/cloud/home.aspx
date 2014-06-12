@@ -1,6 +1,16 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/CloudServices.Master" CodeBehind="home.aspx.vb" Inherits="UI.home" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
        <%-- <link href="/content/css/whhg-font/css/whhg.css" rel="stylesheet" />--%>
+    <style>
+        .addon-srv {
+            position: relative;
+            width: 45%;            
+            float: left;
+        }
+        .separar {
+            padding-right: 10px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
  
@@ -61,11 +71,28 @@
                          %>
 
                             <tr>
-                                <td><%=s.Nombre%></td>
+                                <td><%=s.Nombre%>
+                                     <span class="pull-right">
+                                     <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=s.Id %>">
+                                         <i class="icon-trash icon-white"></i>
+                                     </button>
+                                     </span>
+                                </td>
                                 <td>
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
                                     <% total_linea += a.Precio%>
-                                    <span class="addon-srv"> <%=a.Nombre%></span>
+                                    <div class="addon-srv">
+                                      <span class="">
+                                        <%=a.Nombre%>
+                                      </span>
+                                      <span class="pull-right separar">
+                                            <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=a.Id %>">
+                                            <i class="icon-trash icon-white"></i>
+                                            </button>                                       
+                                    </span>
+                                        </div>
+
+   
                                     <% Next%>
                                 </td>
                                 <td><span>$ &nbsp;&nbsp;</span><span class="pull-right"><%= total_linea %></span></td>
@@ -82,4 +109,23 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script>
+        $(document).ready(function() {
+            
+            $('.baja-srv').click(function (ev) {
+                ev.preventDefault();
+                var sid = $(this).data('sid')
+                $.confirm({
+                    text: "<%=translate("confirme_accion")%>",
+                    confirmButton: "<%=translate("Si")%>",
+                    cancelButton: "<%=translate("Cancelar")%>",
+                    confirm: function () {
+                        alert(sid);
+                    }
+
+                });
+            });
+        });
+        
+    </script>
 </asp:Content>
