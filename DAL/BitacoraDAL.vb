@@ -91,8 +91,14 @@ Public Class BitacoraDAL
             'abro cx
             conn.Open()
             'ejecuto y obtengo el reader
-            Dim lector As IDataReader = cmd.ExecuteReader()
-            Do While lector.Read()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
+
+            ' dataset / dataadapter 
+            Dim da As SqlDataAdapter = New SqlDataAdapter(cmd)
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            'Do While lector.Read()
+            For Each lector As DataRow In dt.Rows
                 Dim bitarow As New BE.Bitacora
                 Dim bitaUser As New BE.BEUsuario
                 bitarow.Categoria = Convert.ToString(lector("Categoria"))
@@ -103,7 +109,9 @@ Public Class BitacoraDAL
                 bitaUser.Id = Convert.ToInt32(lector("IdUsuario"))
                 bitarow.Usuario = bitaUser
                 _lista.Add(bitarow)
-            Loop
+            Next
+
+            'Loop
             '    Return _lista
         Catch ex As Exception
             Throw ex

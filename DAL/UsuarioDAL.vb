@@ -33,7 +33,7 @@ Public Class UsuarioDAL
 
 
         Catch ex As Exception
-            Throw ex ' definir jerarquia de excepciones
+            Throw ex
 
         Finally
             conn.Close()
@@ -310,8 +310,15 @@ Public Class UsuarioDAL
             'open
             conn.Open()
             cmd.Connection = conn
-            Dim lector As SqlDataReader = cmd.ExecuteReader()
-            Do While (lector.Read())
+            'Dim lector As SqlDataReader = cmd.ExecuteReader()
+            'Do While (lector.Read())
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim oUser As New BE.BEUsuario
                 oUser.Id = Convert.ToInt32(lector("IdUsuario"))
                 oUser.Apellido = Convert.ToString(lector("Apellido"))
@@ -328,7 +335,8 @@ Public Class UsuarioDAL
                                                  Convert.ToString(lector("DescripFlia")))
 
                 _lista.Add(oUser)
-            Loop
+                'Loop
+            Next
 
         Catch ex As Exception
             Throw ex

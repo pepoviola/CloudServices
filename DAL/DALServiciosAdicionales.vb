@@ -9,9 +9,16 @@
             'abro cx
             conn.Open()
             'ejecuto y obtengo el reader
-            Dim lector As IDataReader = cmd.ExecuteReader()
-            Do While lector.Read()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
+            'Do While lector.Read()
 
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
                 Dim s As Object = Activator.CreateInstance(t)
 
@@ -23,8 +30,8 @@
                 s.Precio = Convert.ToDouble(lector("Precio"))
                 lista.Add(s)
 
-
-            Loop
+            Next
+            'Loop
 
         Catch ex As Exception
             Throw ex

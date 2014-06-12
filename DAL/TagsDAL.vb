@@ -41,14 +41,22 @@
             End If
             conn.Open()
             'dr
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim otag As New BE.Tag
                 otag.Codigo = Convert.ToString(lector("Codigo"))
                 otag.Id = Convert.ToInt32(lector("IdTag"))
                 otag.Leyenda = Convert.ToString(lector("Leyenda"))
                 lista.Add(otag)
-            Loop
+                'Loop
+            Next
         Catch ex As Exception
         Finally
             conn.Close()
@@ -107,11 +115,17 @@
             dbManager.addParam(cmd, "@IdIdioma", idioma)
             'open
             conn.Open()
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 ret = Convert.ToString(lector("Leyenda"))
-            Loop
-
+                'Loop
+            Next
         Catch ex As Exception
             Throw ex
         Finally
@@ -128,13 +142,21 @@
             cmd.Connection = conn
             conn.Open()
             'dr
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim otag As New BE.Tag
                 otag.Codigo = Convert.ToString(lector("Codigo"))
                 otag.Id = Convert.ToInt32(lector("IdTag"))
                 lista.Add(otag)
-            Loop
+                'Loop
+            Next
         Catch ex As Exception
         Finally
             conn.Close()

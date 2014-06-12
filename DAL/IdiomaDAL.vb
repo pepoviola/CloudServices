@@ -109,15 +109,24 @@ Public Class IdiomaDAL
             End If
             'ejecuto y obtengo el reader
             conn.Open()
-            Dim lector As IDataReader = cmd.ExecuteReader()
-            Do While lector.Read()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
+            'Do While lector.Read()
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
+
                 Dim oIdioma As New BE.Idioma
                 oIdioma.Codigo = Convert.ToString(lector("codigo"))
                 oIdioma.Descripcion = Convert.ToString(lector("Descrip"))
                 oIdioma.Id = Convert.ToInt32(lector("IdIdioma"))
 
                 _lista.Add(oIdioma)
-            Loop
+                'Loop
+            Next
         Catch ex As Exception
             Throw ex
         Finally

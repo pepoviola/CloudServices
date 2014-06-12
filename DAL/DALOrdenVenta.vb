@@ -150,8 +150,15 @@ Public Class DALOrdenVenta
             conn.Open()
 
             'ejecuto
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 ' genero la ov
                 Dim ov As BE.BEOrdenVenta = New BE.BEOrdenVenta
                 ov.Id = Convert.ToInt32(lector("Id"))
@@ -159,9 +166,10 @@ Public Class DALOrdenVenta
                 ov.Fecha = Convert.ToDateTime(lector("Fecha"))
                 ov.Servicios = New List(Of BE.BEServicioBase)
                 lista.Add(ov)
-            Loop
+            Next
+            'Loop
 
-            lector.Close()
+            'lector.Close()
 
             For Each l As BE.BEOrdenVenta In lista
                 ' busco los servicios contratados por ov
@@ -169,8 +177,12 @@ Public Class DALOrdenVenta
                 cmd.Connection = conn
                 'add params
                 dbManager.addParam(cmd, "@id_ov", l.Id)
-                lector = cmd.ExecuteReader()
-                Do While (lector.Read())
+                'lector = cmd.ExecuteReader()
+                'Do While (lector.Read())
+                da.SelectCommand = cmd
+                dt.Clear()
+                da.Fill(dt)
+                For Each lector As DataRow In dt.Rows
                     'genero el tipo
                     Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
                     Dim srv As Object = Activator.CreateInstance(t)
@@ -187,8 +199,9 @@ Public Class DALOrdenVenta
                     '    addon.Precio = lector("Precio")
                     '    l.Servicios.Add(addon)
                     'End If
-                Loop
-                lector.Close()
+                Next
+                'Loop
+                'lector.Close()
             Next
 
 

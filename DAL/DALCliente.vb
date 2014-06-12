@@ -158,18 +158,29 @@ Public Class DALCliente
             'abro cx
             conn.Open()
             'ejecuto y obtengo el reader
-            Dim lector As IDataReader = cmd.ExecuteReader()
-            Do While lector.Read()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
+            'Do While lector.Read()
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim oCli As BE.BECliente = New BE.BECliente
                 oCli.Nombre = Convert.ToString(lector("Nombre"))
                 oCli.Apellido = Convert.ToString(lector("Apellido"))
                 oCli.ClienteId = Convert.ToString(lector("Id_Cliente"))
 
                 list.Add(oCli)
-            Loop
+            Next
+            'Loop
+
 
         Catch ex As Exception
             Throw ex
+        Finally
+            conn.Close()
         End Try
         Return list
     End Function
@@ -195,13 +206,19 @@ Public Class DALCliente
             'abro cx
             conn.Open()
             'ejecuto y obtengo el reader
-            Dim lector As IDataReader = cmd.ExecuteReader()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
             Dim id_usuario As Integer = 0
-            Do While lector.Read()
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
+                'Do While lector.Read()
                 id_usuario = Convert.ToInt32(lector("Id_usuario"))
-            Loop
+                'Loop
+            Next
 
-            lector.Close()
+            'lector.Close()
             If id_usuario <> 0 Then
                 ' esta ok debo generar la entrada en la db
                 Dim guid As String = System.Guid.NewGuid().ToString()
@@ -247,10 +264,18 @@ Public Class DALCliente
 
             conn.Open()
 
-            Dim lector As IDataReader = cmd.ExecuteReader()
-            Do While lector.Read()
+            'Dim lector As IDataReader = cmd.ExecuteReader()
+            'Do While lector.Read()
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 oCli.Id = Convert.ToInt32(lector("Id_user"))
-            Loop
+            Next
+            'Loop
 
             If oCli.Id = 0 Then
                 Throw New Exception()

@@ -70,7 +70,7 @@
                                   <% End If%>
 
                                    <% If Me.tieneAcceso("reportes") Then%>
-                                  <li><a href="/Admin/reportes/repos.aspx" id="A1" ><i class="icon-book"></i>  <% =translate("menu_reportes")%></a></li>
+                                  <li><a href="/Admin/reportes/repos.aspx" id="menu_reportes" ><i class="icon-book"></i>  <% =translate("menu_reportes")%></a></li>
                                   <% End If%>
 
                                   <% If Me.tieneAcceso("helper") Then%>

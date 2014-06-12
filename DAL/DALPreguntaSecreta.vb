@@ -26,12 +26,20 @@
 
             conn.Open()
             'dr
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim oPregTo As BE.BEPreguntaSecreta = New BE.BEPreguntaSecreta
                 oPregTo.Pregunta = Convert.ToString(lector("PreguntaTag"))
                 lista.Add(oPregTo)
-            Loop
+            Next
+            'Loop
         Catch ex As Exception
             Throw ex
         Finally

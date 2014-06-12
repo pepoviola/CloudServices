@@ -85,6 +85,7 @@
     <Content Include="Admin\bitacora\index.aspx" />
     <Content Include="Admin\clientes.aspx" />
     <Content Include="Admin\dvManager\dvs.aspx" />
+    <Content Include="Admin\plataforma\demo.aspx" />
     <Content Include="Admin\reportes\repos.aspx" />
     <Content Include="cambiar_clave.aspx" />
     <Content Include="cloud\add_services.aspx" />
@@ -204,6 +205,8 @@
     <Content Include="scripts\jquery.confirm.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jspdf\jspdf.js" />
+    <Content Include="scripts\jspdf\jspdf.plugin.from_html.js" />
     <Content Include="scripts\login\login.js" />
     <Content Include="settings.aspx" />
     <Content Include="Web.config" />
@@ -235,6 +238,13 @@
     </Compile>
     <Compile Include="Admin\dvManager\dvs.aspx.vb">
       <DependentUpon>dvs.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\plataforma\demo.aspx.designer.vb">
+      <DependentUpon>demo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\plataforma\demo.aspx.vb">
+      <DependentUpon>demo.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Admin\reportes\repos.aspx.designer.vb">
@@ -535,8 +545,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Admin\facturacion\" />
     <Folder Include="Admin\ovs\" />
-    <Folder Include="Admin\plataforma\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -136,8 +136,14 @@
             Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroBackups")
             cmd.Connection = conn
             conn.Open()
-            Dim lector As IDataReader = cmd.ExecuteReader
-            Do While (lector.Read())
+            'Dim lector As IDataReader = cmd.ExecuteReader
+            'Do While (lector.Read())
+
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter
+            da.SelectCommand = cmd
+            Dim dt As DataTable = New DataTable
+            da.Fill(dt)
+            For Each lector As DataRow In dt.Rows
                 Dim bkp As New BE.BEBackup
                 bkp.Fecha = Convert.ToDateTime(lector("Fecha"))
                 bkp.Filename = Convert.ToString(lector("Filename"))
@@ -146,7 +152,9 @@
                 bkp.Usuario = oUser
                 bkp.Id = Convert.ToInt32(lector("IdBkp"))
                 lista.Add(bkp)
-            Loop
+
+            Next
+            'Loop
         Catch ex As Exception
             Throw ex
         Finally
