@@ -1,30 +1,21 @@
 ﻿Public Class DALServicios
-    'Private ReadOnly _servers As List(Of Integer) = New List(Of Integer) From {1, 2, 6}
 
-    'Public Function filtrar(ByVal filtro As BE.BEServicioBase) As List(Of BE.BEServicioBase)
-    '    Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
-    '    Dim conn As IDbConnection = dbManager.getConnection
-    '    Try
-    '        Dim cmd As IDbCommand = dbManager.getCmd("SelectFiltroServiciosTipo")
-    '        cmd.Connection = conn
-    '        'agrego los params []
-    '        If Not filtro Is Nothing AndAlso Not String.IsNullOrEmpty(filtro.Codigo) Then
-    '            dbManager.addParam(cmd, "@Codigo", filtro.Codigo)
-    '        Else
-    '            dbManager.addParam(cmd, "@Codigo", DBNull.Value)
-    '        End If
+    'singleton
 
-    '        If Not filtro Is Nothing AndAlso Not String.IsNullOrEmpty(filtro.Codigo) Then
-    '            dbManager.addParam(cmd, "@Id", filtro.Id)
-    '        Else
-    '            dbManager.addParam(cmd, "@Id", DBNull.Value)
-    '        End If
+    ''' <summary>
+    ''' Singleton implementation 
+    ''' </summary>
+    ''' <remarks></remarks>
 
-    '    Catch ex As Exception
+    Private Shared ReadOnly instance As DALServicios = New DALServicios
+    Private Sub New()
+    End Sub
 
-    '    End Try
-    '    Return lista
-    'End Function
+    Public Shared Function getServiciosDAL() As DALServicios
+        Return instance
+    End Function
+
+
 
 
     ' completa la info de un servicio
@@ -74,9 +65,6 @@
     End Sub
 
 
-   
-
-
     Public Function obtenerServiciosDeCliente(ByVal filtro As BE.BECliente) As List(Of BE.BEServicioBase)
         Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
         Dim conn As IDbConnection = dbManager.getConnection
@@ -104,6 +92,7 @@
                 srv.Id = Convert.ToInt32(lector("Id"))
                 srv.Nombre = Convert.ToString(lector("Nombre"))
                 srv.Precio = Convert.ToDouble(lector("Precio"))
+                srv.Codigo = Convert.ToString(lector("Codigo"))
                 'srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)        
                 lista.Add(srv)
                 'Loop
@@ -133,6 +122,7 @@
                     addon.Id = Convert.ToInt32(lector_addons("Id"))
                     addon.Nombre = Convert.ToString(lector_addons("Nombre"))
                     addon.Precio = Convert.ToDouble(lector_addons("Precio"))
+                    addon.Codigo = Convert.ToString(lector_addons("Codigo"))
 
                     'srv.Srv_adicionales.Add(addon)
                     srv.addAdicional(addon)
@@ -151,4 +141,8 @@
         End Try
         Return lista
     End Function
+
+
+
+
 End Class

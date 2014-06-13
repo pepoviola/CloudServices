@@ -73,7 +73,7 @@
                             <tr>
                                 <td><%=s.Nombre%>
                                      <span class="pull-right">
-                                     <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=s.Id %>">
+                                     <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid="<%=s.Id %>" data-qaddons="<%=s.Srv_adicionales.Count%>" data-type="<%=s.Codigo%>">
                                          <i class="icon-trash icon-white"></i>
                                      </button>
                                      </span>
@@ -86,7 +86,7 @@
                                         <%=a.Nombre%>
                                       </span>
                                       <span class="pull-right separar">
-                                            <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=a.Id %>">
+                                            <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=a.Id %>" data-type="<%=a.Codigo%>">
                                             <i class="icon-trash icon-white"></i>
                                             </button>                                       
                                     </span>
@@ -114,15 +114,51 @@
             
             $('.baja-srv').click(function (ev) {
                 ev.preventDefault();
-                var sid = $(this).data('sid')
+                var sid = $(this).data('sid');
+                var codigo = $(this).data('type');
+                var text = ($(this).data('qaddons') > 0) ?"<%=translate("baja_con_adds")%>" : "<%=translate("baja_pregunta")%>";
                 $.confirm({
-                    text: "<%=translate("confirme_accion")%>",
+                    text: text,
                     confirmButton: "<%=translate("Si")%>",
                     cancelButton: "<%=translate("Cancelar")%>",
                     confirm: function () {
-                        alert(sid);
-                    }
+                        //alert(sid);
+                        // post
+                        $.post('/cloud/del_servicio.ashx', { sid: sid, codigo: codigo }, function (res) {
+                            //alert(res);
+                            // if the session expired reload the page to go to login form
+                            if (res.status == undefined) {
+                                location.reload();
+                            }
+                            else {
 
+                                var alert_type = (res.status == 200) ? "info" : "error";
+                                var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                    + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                    + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                                //remove if there any
+                                $('.alert').remove();
+
+                                $('section').prepend(div_alert);
+
+
+                                // scroll to top to show
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
+
+                                // continue
+                                if (res.status == "200") {
+
+                                    // it's new so reload the page in 1 sec
+                                    setTimeout(function () { location.href = "/cloud/home.aspx"; }, 1000);
+                                }
+                            }
+
+                        })
+                        .fail(function () {
+                            alert("ERR");
+                        });
+                    }
                 });
             });
         });

@@ -69,8 +69,8 @@
     Public Function obtenerServiciosDeCliente(ByVal oCli As BE.BECliente) As List(Of BE.BEServicioBase)
         Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
         Try
-            Dim dal As DAL.DALServicios = New DAL.DALServicios()
-            lista = dal.obtenerServiciosDeCliente(oCli)
+            Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL() 'New DAL.DALServicios()
+            lista = oDal.obtenerServiciosDeCliente(oCli)
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrObtenerServiciosCli")
         End Try
@@ -83,7 +83,7 @@
 
             lista = BLEntorno.generarEntorno(ops)
             'recorro la lista y busco la informacion de los servicios
-            Dim oDal As DAL.DALServicios = New DAL.DALServicios
+            Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL() 'New DAL.DALServicios
             For Each s As BE.BECloudServer In lista
                 Dim temp As String = s.Descripcion
                 oDal.getServiceInfo(s)
@@ -104,6 +104,25 @@
         End Try
 
         Return lista
+
+    End Function
+
+    Public Function bajaServicio(ByVal oServ As BE.BEServicioBase) As Boolean
+        Dim res As Boolean = True
+        Try
+            If TypeOf oServ Is BE.BECloudServer Then
+                Dim oDal As DAL.DALCloudServer = New DAL.DALCloudServer
+                res = oDal.bajaServicio(oServ)
+
+            Else
+                Dim oDal As DAL.DALServiciosAdicionales = New DAL.DALServiciosAdicionales
+                res = oDal.bajaServicio(oServ)
+
+            End If
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("ERR_baja")
+        End Try
+        Return res
 
     End Function
 End Class

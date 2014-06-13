@@ -40,4 +40,44 @@
         Return lista
     End Function
 
+
+    Public Function bajaServicio(ByVal oServ As BE.BEServicioAdicional) As Boolean
+
+        Dim conn As IDbConnection = dbManager.getConnection
+        Try
+            'open
+            conn.Open()
+            Dim trans As IDbTransaction = conn.BeginTransaction
+            Try
+                'get cmd
+                Dim cmd As IDbCommand = dbManager.getCmd("DeleteRelPorAdicional")
+                'agrego los params
+                dbManager.addParam(cmd, "@IdAdicional", oServ.Id)
+                cmd.Connection = conn
+                cmd.Transaction = trans
+                cmd.ExecuteNonQuery()
+
+                ' ahora bajo el servicio
+                cmd = dbManager.getCmd("BajaServicio")
+                'agrego los params
+                dbManager.addParam(cmd, "@Id", oServ.Id)
+                dbManager.addParam(cmd, "@Fecha", DateTime.Now())
+                cmd.Connection = conn
+                cmd.Transaction = trans
+                cmd.ExecuteNonQuery()
+
+                trans.Commit()
+                Return True
+            Catch ex As Exception
+                trans.Rollback()
+                Throw ex
+            End Try
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+
+    End Function
+
 End Class
