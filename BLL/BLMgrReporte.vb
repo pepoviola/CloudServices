@@ -233,4 +233,15 @@
         Return repo
     End Function
 
+    Public Function CrearReporteUsoPorServer(ByVal oSrvPlataforma As BE.BEServerPlataforma) As BE.BEReporte
+        Dim repo As BE.BEReporte = New BE.BEReporte
+        Try
+
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("Err_get_repo")
+        End Try
+
+        Return repo
+    End Function
+
 End Class

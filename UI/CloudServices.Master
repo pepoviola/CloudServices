@@ -11,6 +11,7 @@
     <link href="/content/css/bootstrap-responsive.css" rel="stylesheet"/>
     <link href="/content/css/customs.css" rel="stylesheet"/>
     <link href="/content/css/whhg-font/css/whhg.css" rel="stylesheet" />
+    <link  href="/content/ladda/ladda-themeless.min.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
     <style>
         body {
@@ -118,6 +119,8 @@
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/jquery.validate.js"></script>
      <script src="/scripts/jquery.confirm.js"></script>
+    <script src="/content/ladda/spin.js"></script>
+    <script src="/content/ladda/ladda.js"></script>
     <script>
         //$.ajax({
         //    cache: false           

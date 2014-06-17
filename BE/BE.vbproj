@@ -78,6 +78,7 @@
     <Compile Include="BEPermiso.vb" />
     <Compile Include="BEPreguntaSecreta.vb" />
     <Compile Include="BEReporte.vb" />
+    <Compile Include="BEServerPlataforma.vb" />
     <Compile Include="BEServicioAdicional.vb" />
     <Compile Include="BEServicioBase.vb" />
     <Compile Include="BESnapshot.vb" />

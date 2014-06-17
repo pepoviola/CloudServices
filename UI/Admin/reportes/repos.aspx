@@ -16,14 +16,16 @@
                     <hr />
                     <div class="form-inline">
                         <label class="inline" for="repo_tipo"><% =translate("reporte_por")%>
-                            <select name="repo_tipo" id="repo_tipo">                            
+                            <select name="repo_tipo" id="repo_tipo" class="input-xxlarge">                            
                                 <option value="pesos"><% =translate("ventas")%></option>
                                 <option value="q_ventas"><% =translate("q_ventas")%></option>
                                 <option value="q_ventas_por"><% =translate("q_ventas_por")%></option>                                          
                                 </select>    
                         </label>
                         <span class="separador"></span>
-                        <button  class="btn btn-primary" data-action="generar" id="generar_repo"><%=translate("btn_generar")%></button>
+                        <button  class="btn btn-primary ladda-button" data-action="generar" id="generar_repo" data-style="expand-left" data-size="xs" data-spinner-size="20">
+                            <span class="ladda-label"><%=translate("btn_generar")%></span>
+                        </button>
                     </div>
                 </div>
             </header>
@@ -279,6 +281,8 @@
         $('#generar_repo').click(function (ev) {
             ev.preventDefault();
             var type = $('#repo_tipo').val();
+            var l = Ladda.create(this);
+            l.start();
             $.post('/Admin/reportes/repo_data.ashx', { type: type }, function (res) {
                 //console.log(res);
                 // if the session expired reload the page to go to login form
@@ -303,7 +307,8 @@
                     }
                 }
                 
-            }, "json");
+            }, "json")
+                .always(function () { l.stop(); });
         });
     </script>
 </asp:Content>

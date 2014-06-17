@@ -86,8 +86,8 @@
                                         <%=a.Nombre%>
                                       </span>
                                       <span class="pull-right separar">
-                                            <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid ="<%=a.Id %>" data-type="<%=a.Codigo%>">
-                                            <i class="icon-trash icon-white"></i>
+                                            <button class="btn btn-mini btn-danger baja-srv ladda-button" title="baja" data-sid ="<%=a.Id %>" data-type="<%=a.Codigo%>" data-style="expand-right" data-size="l">
+                                            <span class="ladda-label"><i class="icon-trash icon-white"></i></span>
                                             </button>                                       
                                     </span>
                                         </div>
@@ -114,6 +114,7 @@
             
             $('.baja-srv').click(function (ev) {
                 ev.preventDefault();
+                var _this = this;
                 var sid = $(this).data('sid');
                 var codigo = $(this).data('type');
                 var text = ($(this).data('qaddons') > 0) ?"<%=translate("baja_con_adds")%>" : "<%=translate("baja_pregunta")%>";
@@ -123,6 +124,8 @@
                     cancelButton: "<%=translate("Cancelar")%>",
                     confirm: function () {
                         //alert(sid);
+                        var l = Ladda.create(_this);
+                        l.start();
                         // post
                         $.post('/cloud/del_servicio.ashx', { sid: sid, codigo: codigo }, function (res) {
                             //alert(res);
@@ -155,8 +158,9 @@
                             }
 
                         })
+                        .always(function () { l.stop(); })
                         .fail(function () {
-                            alert("ERR");
+                            //alert("ERR");
                         });
                     }
                 });

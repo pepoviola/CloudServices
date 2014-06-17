@@ -95,6 +95,14 @@
     <Content Include="content\css\whhg-font\custom.js" />
     <Content Include="content\css\whhg-font\example.html" />
     <Content Include="content\css\whhg-font\font\webhostinghub-glyphs.svg" />
+    <Content Include="content\ladda\ladda-themeless.css" />
+    <Content Include="content\ladda\ladda-themeless.min.css" />
+    <Content Include="content\ladda\ladda.css" />
+    <Content Include="content\ladda\ladda.js" />
+    <Content Include="content\ladda\ladda.min.css" />
+    <Content Include="content\ladda\ladda.min.js" />
+    <Content Include="content\ladda\spin.js" />
+    <Content Include="content\ladda\spin.min.js" />
     <Content Include="login_sys.aspx" />
     <Content Include="registro.aspx" />
     <Content Include="content\css\datepicker\datepicker.css" />
