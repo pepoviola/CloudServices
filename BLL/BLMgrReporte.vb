@@ -38,7 +38,7 @@
             ' ovs
             Dim BLov As BLOrdenVenta = New BLOrdenVenta
             Dim ovs As List(Of BE.BEOrdenVenta) = New List(Of BE.BEOrdenVenta)
-            Dim b As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
+            Dim dicData As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
 
 
 
@@ -65,18 +65,18 @@
                 Next
 
                 Xmes = total_mes
-                Dim d_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
+                Dim dicData_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
                 If primer_mes And Xmes > 0 Then
                     Ymes_prox = Xmes
                     primer_mes = False
-                    d_mes.Add("proy", Nothing)
-                    d_mes.Add("real", Xmes.ToString)
-                    b.Add(fecha_filtro_desde.ToString("MM/yyyy"), d_mes)
+                    dicData_mes.Add("proy", Nothing)
+                    dicData_mes.Add("real", Xmes.ToString)
+                    dicData.Add(fecha_filtro_desde.ToString("MM/yyyy"), dicData_mes)
                 Else
                     If Xmes > 0 Then
-                        d_mes.Add("proy", Ymes)
-                        d_mes.Add("real", Xmes.ToString)
-                        b.Add(fecha_filtro_desde.ToString("MM/yyyy"), d_mes)
+                        dicData_mes.Add("proy", Ymes)
+                        dicData_mes.Add("real", Xmes.ToString)
+                        dicData.Add(fecha_filtro_desde.ToString("MM/yyyy"), dicData_mes)
                     End If
 
                     Ymes_prox = _CalcularMesProximo(Xmes, Ymes)
@@ -86,13 +86,13 @@
                 Ymes = Ymes_prox
             Next
 
-            Dim dd_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
-            dd_mes.Add("proy", Ymes)
-            dd_mes.Add("real", Nothing)
-            b.Add(dateNow.AddMonths(+1).ToString("MM/yyyy"), dd_mes)
+            Dim dicDataLast_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            dicDataLast_mes.Add("proy", Ymes)
+            dicDataLast_mes.Add("real", Nothing)
+            dicData.Add(dateNow.AddMonths(+1).ToString("MM/yyyy"), dicDataLast_mes)
 
             repo.Titulo = "Ventas_Totales_Proyectadas"
-            repo.Cuerpo = b
+            repo.Cuerpo = dicData
             repo.Footer = "nuevas_ventas_agrupadas_por_plata_por_mes"
 
         Catch ex As Exception
@@ -107,7 +107,7 @@
             ' ovs
             Dim BLov As BLOrdenVenta = New BLOrdenVenta
             Dim ovs As List(Of BE.BEOrdenVenta) = New List(Of BE.BEOrdenVenta)
-            Dim b As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
+            Dim dicData As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
 
             Dim dateNow = DateTime.Now()
             Dim Xmes As Double = 0 ' real
@@ -132,18 +132,18 @@
                 Next
 
                 Xmes = total_mes
-                Dim d_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
+                Dim data_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
                 If primer_mes And Xmes > 0 Then
                     Ymes_prox = Xmes
                     primer_mes = False
-                    d_mes.Add("proy", Nothing)
-                    d_mes.Add("real", Xmes.ToString)
-                    b.Add(fecha_filtro_desde.ToString("MM/yyyy"), d_mes)
+                    data_mes.Add("proy", Nothing)
+                    data_mes.Add("real", Xmes.ToString)
+                    dicData.Add(fecha_filtro_desde.ToString("MM/yyyy"), data_mes)
                 Else
                     If Xmes > 0 Then
-                        d_mes.Add("proy", Ymes)
-                        d_mes.Add("real", Xmes.ToString)
-                        b.Add(fecha_filtro_desde.ToString("MM/yyyy"), d_mes)
+                        data_mes.Add("proy", Ymes)
+                        data_mes.Add("real", Xmes.ToString)
+                        dicData.Add(fecha_filtro_desde.ToString("MM/yyyy"), data_mes)
                     End If
 
                     Ymes_prox = _CalcularMesProximo(Xmes, Ymes)
@@ -153,13 +153,13 @@
                 Ymes = Ymes_prox
             Next
 
-            Dim dd_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
-            dd_mes.Add("proy", Ymes)
-            dd_mes.Add("real", Nothing)
-            b.Add(dateNow.AddMonths(+1).ToString("MM/yyyy"), dd_mes)
+            Dim dataLast_mes As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            dataLast_mes.Add("proy", Ymes)
+            dataLast_mes.Add("real", Nothing)
+            dicData.Add(dateNow.AddMonths(+1).ToString("MM/yyyy"), dataLast_mes)
 
             repo.Titulo = "Ventas_Totales_Proyectadas"
-            repo.Cuerpo = b
+            repo.Cuerpo = dicData
             repo.Footer = "nuevas_ventas_agrupadas_por_mes"
 
         Catch ex As Exception
