@@ -46,10 +46,13 @@ Public Class BLOrdenVenta
             Dim oDAL As DAL.DALOrdenVenta = New DAL.DALOrdenVenta
             lista = oDAL.FiltrarMes(oOV)
 
+            Return lista
         Catch ex As Exception
             Throw ex
+        Finally
+            lista = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 
 
@@ -61,10 +64,13 @@ Public Class BLOrdenVenta
             Dim oDAL As DAL.DALOrdenVenta = New DAL.DALOrdenVenta
             lista = oDAL.Filtrar(oOV)
 
+            Return lista
         Catch ex As Exception
             Throw ex
+        Finally
+            lista = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 
 

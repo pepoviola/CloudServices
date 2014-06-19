@@ -40,13 +40,16 @@
                 lista.Add(oPregTo)
             Next
             'Loop
+            Return lista
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            lista = Nothing
         End Try
 
-        Return lista
+        'Return lista
 
     End Function
 End Class

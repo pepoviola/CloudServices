@@ -130,11 +130,15 @@
                 Next
             End If
 
+            Return lista
+
         Catch ex As Exception
             Throw ex
+        Finally
+            lista = Nothing
         End Try
 
-        Return lista
+
 
     End Function
 End Class

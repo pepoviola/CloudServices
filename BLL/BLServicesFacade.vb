@@ -32,14 +32,17 @@
             ' cloud servers
             Dim oDalSrv As DAL.DALCloudServer = New DAL.DALCloudServer()
             lista.AddRange(oDalSrv.disponibles())
-            
+
+            Return lista
 
         Catch ex As Exception
             'Lanzar ex personalizada
             Throw New ExceptionsPersonales.CustomException("ErrObtenerDisponibles")
+        Finally
+            lista = Nothing
         End Try
 
-        Return lista
+        'Return lista
     End Function
 
     ''' <summary>
@@ -55,13 +58,16 @@
             Dim oDalSrv As DAL.DALServiciosAdicionales = New DAL.DALServiciosAdicionales
             lista.AddRange(oDalSrv.disponibles())
 
+            Return lista
 
         Catch ex As Exception
             'Lanzar ex personalizada
             Throw New ExceptionsPersonales.CustomException("ErrObtenerDisponibles")
+        Finally
+            lista = Nothing
         End Try
 
-        Return lista
+        'Return lista
     End Function
 
 
@@ -71,10 +77,16 @@
         Try
             Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL() 'New DAL.DALServicios()
             lista = oDal.obtenerServiciosDeCliente(oCli)
+
+            Return lista
+
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrObtenerServiciosCli")
+
+        Finally
+            lista = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 
     Public Function generarEntorno(ByVal ops As Dictionary(Of String, String)) As List(Of BE.BEServicioBase)
@@ -99,11 +111,17 @@
                 End If
             Next
 
+
+            Return lista
+
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrGenerarEntorno")
+
+        Finally
+            lista = Nothing
         End Try
 
-        Return lista
+        'Return lista
 
     End Function
 

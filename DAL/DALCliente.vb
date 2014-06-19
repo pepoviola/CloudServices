@@ -91,6 +91,8 @@ Public Class DALCliente
                 trans.Commit()
                 registros = 1
 
+                Return (registros = 1)
+
             Catch ex As SqlException
                 trans.Rollback()
                 If ex.ErrorCode = 2601 Then
@@ -110,7 +112,7 @@ Public Class DALCliente
         Finally
             conn.Close()
         End Try
-        Return (registros = 1)
+        'Return (registros = 1)
 
     End Function
 
@@ -176,13 +178,17 @@ Public Class DALCliente
             Next
             'Loop
 
+            Return list
 
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+
+            'limpio
+            list = Nothing
         End Try
-        Return list
+        'Return list
     End Function
 
     Public Function Modificar(t As BE.BECliente) As Boolean Implements ICRUD(Of BE.BECliente).Modificar
@@ -241,13 +247,14 @@ Public Class DALCliente
                 cmd_update.ExecuteNonQuery()
 
             End If
+
+            Return res
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
         End Try
 
-        Return res
     End Function
 
 
@@ -281,13 +288,17 @@ Public Class DALCliente
                 Throw New Exception()
             End If
 
+
+            Return oCli
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+            'limio 
+            oCli = Nothing
         End Try
 
-        Return oCli
+        'Return oCli
 
     End Function
 

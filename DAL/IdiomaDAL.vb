@@ -127,12 +127,15 @@ Public Class IdiomaDAL
                 _lista.Add(oIdioma)
                 'Loop
             Next
+            Return _lista
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            _lista = Nothing
         End Try
-        Return _lista
+        'Return _lista
     End Function
 
     Public Function Modificar(ByVal t As BE.Idioma) As Boolean Implements ICRUD(Of BE.Idioma).Modificar

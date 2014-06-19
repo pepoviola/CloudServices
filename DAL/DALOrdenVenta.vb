@@ -204,14 +204,17 @@ Public Class DALOrdenVenta
                 'lector.Close()
             Next
 
-
+            Return lista
 
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+            ' limpio
+            lista = Nothing
+            server = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 
 End Class ' DALOrdenVenta

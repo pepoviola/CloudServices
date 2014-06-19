@@ -65,6 +65,8 @@ Public Class FamiliaDAL
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            _lista = Nothing
         End Try
 
     End Function
@@ -94,6 +96,8 @@ Public Class FamiliaDAL
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            _lista = Nothing
         End Try
 
     End Function
@@ -124,6 +128,8 @@ Public Class FamiliaDAL
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            _lista = Nothing
         End Try
 
     End Function
@@ -155,6 +161,8 @@ Public Class FamiliaDAL
             Throw ex
         Finally
             conn.Close()
+            'limpio
+            _lista = Nothing
         End Try
 
     End Function

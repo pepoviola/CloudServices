@@ -4,10 +4,11 @@
 
     Public Function Agregar(ByVal oCli As BE.BECliente) As Boolean
         Dim ret As Boolean
+        'objeto dal
+        Dim oCliDal As New DAL.DALCliente
 
         Try
-            'objeto dal
-            Dim oCliDal As New DAL.DALCliente
+
 
             'hash pass
             oCli.Passwd = Criptografia.Crypto.getCrypto().generarMD5(oCli.Passwd)
@@ -24,13 +25,18 @@
                 End If
 
             End If
+
+            Return ret
         Catch exCus As ExceptionsPersonales.CustomException
             Throw exCus
         Catch ex As Exception
             'ex personalizada
             Throw New ExceptionsPersonales.CustomException("ErrAgregarUsuario")
+        Finally
+            'clean
+            oCliDal = Nothing
         End Try
-        Return ret
+        'Return ret
 
     End Function
 
@@ -53,17 +59,25 @@
             'retorno siempre el primero
             oCli = lista.First()
 
+            Return oCli
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrFiltroCliente")
+
+        Finally
+            'clean
+            oCli = Nothing
+            oFiltro = Nothing
+            lista = Nothing
         End Try
-        Return oCli
+
 
     End Function
 
     Public Function resetClave(ByVal oFiltro As BE.BECliente) As Boolean
         Dim ret As Boolean = True
+        Dim oCli As BE.BECliente
         Try
-            Dim oCli As BE.BECliente = obtenerCliente(oFiltro)
+            oCli = obtenerCliente(oFiltro)
             oCli.PregSecreta = oFiltro.PregSecreta
             'encrypt mail
             oCli.Email = Criptografia.Crypto.getCrypto().CypherTripleDES(oFiltro.Email, frase, True)
@@ -104,20 +118,29 @@
 
             End If
 
+            Return ret
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ERR_reset")
+
+        Finally
+            oCli = Nothing
         End Try
-        Return ret
+        'Return ret
     End Function
 
     Public Shared Function getUserForReset(ByVal url As String) As BE.BECliente
         Dim oUser As BE.BECliente = New BE.BECliente
         Try
             oUser = DAL.DALCliente.getUserForReset(url)
+            Return oUser
+
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ERR_url")
+
+        Finally
+            oUser = Nothing
         End Try
-        Return oUser
+
     End Function
 
 

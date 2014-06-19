@@ -113,13 +113,18 @@ Public Class BitacoraDAL
 
             'Loop
             '    Return _lista
+
+            Return _lista
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
+
+            'limpio
+            _lista = Nothing
         End Try
 
-        Return _lista
+        'Return _lista
     End Function
 
 

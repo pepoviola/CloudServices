@@ -57,11 +57,15 @@
                 lista.Add(otag)
                 'Loop
             Next
+
+            Return lista
         Catch ex As Exception
         Finally
             conn.Close()
+            'limpio
+            lista = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 
     Public Function Modificar(ByVal t As BE.Tag) As Boolean Implements ICRUD(Of BE.Tag).Modificar
@@ -126,12 +130,15 @@
                 ret = Convert.ToString(lector("Leyenda"))
                 'Loop
             Next
+
+            Return ret
+
         Catch ex As Exception
             Throw ex
         Finally
             conn.Close()
         End Try
-        Return ret
+        'Return ret
     End Function
 
     Public Function obtenerTodos() As List(Of BE.Tag)
@@ -157,10 +164,14 @@
                 lista.Add(otag)
                 'Loop
             Next
+
+            Return lista
         Catch ex As Exception
         Finally
             conn.Close()
+            'limpio
+            lista = Nothing
         End Try
-        Return lista
+        'Return lista
     End Function
 End Class
