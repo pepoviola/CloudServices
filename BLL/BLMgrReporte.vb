@@ -246,9 +246,32 @@
 
     End Function
 
-    Public Function CrearReporteUsoPorServer(ByVal oSrvPlataforma As BE.BEServerPlataforma) As BE.BEReporte
+    Public Function CrearReporteUsoPorServer() As BE.BEReporte
+        Dim oSrvPlataforma As BE.BEServerPlataforma = New BE.BEServerPlataforma
         Dim repo As BE.BEReporte = New BE.BEReporte
+        Dim listado_srv As List(Of BE.BEServerPlataforma)
+        Dim oBLServers As BLServerPlataforma = New BLServerPlataforma
+        Dim oBlServicios As BLServicesFacade = BLServicesFacade.getServicesFacade()
+        Dim dicData As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
         Try
+            ' obtengo el listado de servers fisicos
+            listado_srv = oBLServers.Filtrar(oSrvPlataforma)
+            ' lleno la propiedad
+            For Each oServer In listado_srv
+                oServer.Servicios = oBlServicios.obtenerServiciosDeServer(oServer)
+                Dim dicServer As New Dictionary(Of String, String)
+                dicServer.Add("mem_total", oServer.Memoria.ToString())
+                Dim mem_usada As Integer = 0
+                For Each servicio As BE.BECloudServer In oServer.Servicios
+                    mem_usada += servicio.Memoria
+                Next
+                dicServer.Add("mem_usada", mem_usada.ToString())
+                dicData.Add(oServer.Hostname, dicServer)
+            Next
+
+            repo.Cuerpo = dicData
+            repo.Titulo = "uso_servers_fisicos"
+            repo.Footer = "uso_memoria_servers_fisicos_porcien"
             Return repo
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("Err_get_repo")

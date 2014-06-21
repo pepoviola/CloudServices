@@ -17,6 +17,9 @@
 Public MustInherit Class BECloudServer
     Inherits BE.BEServicioBase
 
+    Private _memoria As Integer
+    Private _qcpu As Integer
+
     Friend _srv_adicionales As List(Of BEServicioAdicional) = New List(Of BEServicioAdicional)
 
     Public ReadOnly Property Srv_adicionales() As List(Of BEServicioAdicional)
@@ -30,6 +33,24 @@ Public MustInherit Class BECloudServer
 
     Public MustOverride Sub addAdicional(ByVal addon As BE.BEServicioAdicional)
 
+    Public Property Memoria As Integer
+        Get
+            Return _memoria
+        End Get
+
+        Set(value As Integer)
+            _memoria = value
+        End Set
+    End Property
+
+    Public Property Qcpu As Integer
+        Get
+            Return _qcpu
+        End Get
+        Set(value As Integer)
+            _qcpu = value
+        End Set
+    End Property
 
 End Class ' BECloudServer
 

@@ -2,7 +2,9 @@
 Public Class InfraUsuario
 
     Private frase As String = Configuration.ConfigurationManager.AppSettings("frase")
-    Public Function validarCredenciales(ByRef oUser As BE.BEUsuarioBase) As Boolean
+
+    ' modifique usuariobase
+    Public Function validarCredenciales(ByRef oUser As BE.BEUsuario) As Boolean
 
         Try
             'recibe un usuario con credenciales par validar y devuelve un entero
@@ -45,8 +47,8 @@ Public Class InfraUsuario
 
     End Function
 
-
-    Public Function Agregar(ByVal oUser As BE.BEUsuarioBase) As Boolean
+    ' modifique usuariobase
+    Public Function Agregar(ByVal oUser As BE.BEUsuario) As Boolean
         Dim ret As Boolean
 
 

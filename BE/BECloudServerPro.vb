@@ -4,6 +4,8 @@
 
     Public Sub New()
         Me.Id = 6
+        Me.Memoria = 16
+        Me.Qcpu = 4
     End Sub
 
     Public Overrides Sub addAdicional(addon As BEServicioAdicional)

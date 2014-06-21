@@ -19,7 +19,8 @@
                             <select name="repo_tipo" id="repo_tipo" class="input-xxlarge">                            
                                 <option value="pesos"><% =translate("ventas")%></option>
                                 <option value="q_ventas"><% =translate("q_ventas")%></option>
-                                <option value="q_ventas_por"><% =translate("q_ventas_por")%></option>                                          
+                                <option value="q_ventas_por"><% =translate("q_ventas_por")%></option>
+                                <option value="uso_servers"><% =translate("uso_server_fisico")%></option>                                          
                                 </select>    
                         </label>
                         <span class="separador"></span>
@@ -268,11 +269,65 @@
                 }]
             });
         };
+        var debug_servers
+        var repo_uso_servers = function (repo) {
+            var categories = [];
+            var serie_used = [];
+            var serie_free = [];
+            debug_servers = repo;
+
+            $.each(repo.Cuerpo, function (key, obj) {
+                console.log(key);
+                categories.push(key);
+                serie_used.push(parseInt(obj['mem_usada'], 10));
+                serie_free.push(parseInt(obj['mem_total'], 10) - parseInt(obj['mem_usada'], 10));
+            });
+
+            //// genero el gráfico
+            $('#container').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: repo.Titulo
+                },
+                subtitle: {
+                    text: repo.Footer
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '%'
+                    }
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} GB</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'percent'
+                    }
+                },
+                series: [{
+                    name: '<%=translate("free")%>',
+                    data: serie_free
+                }, {
+                    name: '<%=translate("used")%>',
+                    data: serie_used
+                }]
+            });
+
+        };
    
         var typos_handlers = {
             "pesos": repo_proyeccion,
             "q_ventas": repo_q_ventas,
-            "q_ventas_por": repo_q_ventas_por
+            "q_ventas_por": repo_q_ventas_por,
+            "uso_servers" : repo_uso_servers
         }
 
 

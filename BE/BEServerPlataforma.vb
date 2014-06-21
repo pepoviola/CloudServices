@@ -16,11 +16,24 @@
 
 
 Public Class BEServerPlataforma
+    Implements IComparable
 
-
+    Private _id As Integer
     Private _hostname As String
     Private _memoria As Integer
     Private _q_cpu As Integer
+    Private _servicios As List(Of BE.BECloudServer)
+
+
+
+    Public Property Id() As Integer
+        Get
+            Return _id
+        End Get
+        Set(ByVal value As Integer)
+            _id = value
+        End Set
+    End Property
 
     Public Property Hostname() As String
         Get
@@ -53,5 +66,47 @@ Public Class BEServerPlataforma
         End Set
     End Property
 
+    Public Property Servicios As List(Of BE.BECloudServer)
+        Get
+            Return _servicios
+        End Get
+        Set(value As List(Of BE.BECloudServer))
+            _servicios = value
+        End Set
+    End Property
 
+
+    ' overrides
+    Public Overrides Function Equals(obj As Object) As Boolean
+        Dim oServ = DirectCast(obj, BE.BEServerPlataforma)
+        Return (Me.Id = oServ.Id)
+    End Function
+
+
+
+    Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
+        Dim total_me As Integer = 0
+        Dim total_to As Integer = 0
+        obj = DirectCast(obj, BE.BEServerPlataforma)
+        If Me.Servicios Is Nothing Then
+            Return 1
+        End If
+        If obj.Servicios Is Nothing Then
+            Return -1
+        End If
+
+        ' comparo
+        For Each s As BE.BECloudServer In Me.Servicios
+            total_me += s.Memoria
+        Next
+        For Each s_to As BE.BECloudServer In Me.Servicios
+            total_to += s_to.Memoria
+        Next
+
+        If total_me >= total_to Then
+            Return -1
+        Else
+            Return 1
+        End If
+    End Function
 End Class ' BEServerPlataforma

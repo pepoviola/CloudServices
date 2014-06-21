@@ -16,7 +16,7 @@ Imports System.Web.Script.Serialization
 
 
 
-Public MustInherit Class BEUsuarioBase
+Public MustInherit Class NOBEUsuarioBase
 
 
 
@@ -107,6 +107,6 @@ Public MustInherit Class BEUsuarioBase
     End Property
 
 
-    
+
 End Class ' BEUsuarioBase
 

@@ -89,6 +89,23 @@
         'Return lista
     End Function
 
+    Public Function obtenerServiciosDeServer(ByVal oServerPlataforma As BE.BEServerPlataforma) As List(Of BE.BECloudServer)
+        Dim lista As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
+        Try
+            Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL() 'New DAL.DALServicios()
+            lista = oDal.obtenerServiciosPorServer(oServerPlataforma)
+
+            Return lista
+
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("ErrObtenerServiciosCli")
+
+        Finally
+            lista = Nothing
+        End Try
+        'Return lista
+    End Function
+
     Public Function generarEntorno(ByVal ops As Dictionary(Of String, String)) As List(Of BE.BEServicioBase)
         Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
         Try

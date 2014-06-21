@@ -29,6 +29,10 @@ Public Class repo_data
                     ElseIf context.Request.Form.Get("type") = "q_ventas_por" Then
 
                         repo = BLL.BLMgrReporte.getTagMgr().CrearReporteVentasPorTipo()
+
+                    ElseIf context.Request.Form.Get("type") = "uso_servers" Then
+
+                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteUsoPorServer()
                     Else
 
 

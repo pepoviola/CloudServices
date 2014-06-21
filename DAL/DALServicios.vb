@@ -147,5 +147,68 @@
 
 
 
+    Public Function obtenerServiciosPorServer(ByVal filtro As BE.BEServerPlataforma) As List(Of BE.BECloudServer)
+        Dim lista As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
+        Dim conn As IDbConnection = dbManager.getConnection
+        Try
+            Dim cmd As IDbCommand = dbManager.getCmd("SelectServersPorServer")
+            'asocio la cx
+            cmd.Connection = conn
+            'agrego los params [id_cliente]         
+            dbManager.addParam(cmd, "@Id", filtro.Id)
+
+            'ado dx
+            Dim da As SqlClient.SqlDataAdapter = New SqlClient.SqlDataAdapter(cmd)
+            Dim ds As DataSet = New DataSet
+            Dim dt As DataTable = New DataTable
+            da.Fill(ds)
+            For Each lector As DataRow In ds.Tables(0).Rows
+                'Dim srv As BE.BECloudServer = New BE.BECloudServer()
+                Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector("Codigo"))))
+                Dim srv As Object = Activator.CreateInstance(t)
+                srv.Id = Convert.ToInt32(lector("Id"))
+                srv.Nombre = Convert.ToString(lector("Nombre"))
+                srv.Precio = Convert.ToDouble(lector("Precio"))
+                srv.Codigo = Convert.ToString(lector("Codigo"))
+                lista.Add(srv)
+            Next
+
+
+            For Each srv As BE.BECloudServer In lista
+                ' chequeo los adicionales
+                Dim cmd_addons As IDbCommand = dbManager.getCmd("SelectAdicionales")
+                cmd_addons.Connection = conn
+                dbManager.addParam(cmd_addons, "@Id_padre", srv.Id)
+
+                'ejecuto y obtengo el reader
+                'Dim lector_addons As IDataReader = cmd_addons.ExecuteReader()
+                da.SelectCommand = cmd_addons
+                ds.Clear()
+                dt.Clear()
+                da.Fill(dt)
+                For Each lector_addons As DataRow In dt.Rows
+                    Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", Convert.ToString(lector_addons("Codigo"))))
+                    Dim addon As Object = Activator.CreateInstance(t)
+                    'Dim addon As BE.BEServicioAdicional = New BE.BEServicioAdicional()
+                    addon.Id = Convert.ToInt32(lector_addons("Id"))
+                    addon.Nombre = Convert.ToString(lector_addons("Nombre"))
+                    addon.Precio = Convert.ToDouble(lector_addons("Precio"))
+                    addon.Codigo = Convert.ToString(lector_addons("Codigo"))
+
+                    srv.addAdicional(addon)
+                Next
+
+            Next
+
+            Return lista
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+            'limpio
+            lista = Nothing
+        End Try
+    End Function
+
 
 End Class

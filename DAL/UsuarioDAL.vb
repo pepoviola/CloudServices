@@ -3,8 +3,8 @@
 Public Class UsuarioDAL
     Implements ICRUD(Of BE.BEUsuario)
 
-
-    Public Function validarCredenciales(ByRef oUser As BE.BEUsuarioBase) As Boolean
+    ' modifique usuariobase
+    Public Function validarCredenciales(ByRef oUser As BE.BEUsuario) As Boolean
 
         Dim conn As IDbConnection = dbManager.getConnection
         Try
@@ -42,7 +42,8 @@ Public Class UsuarioDAL
     End Function
 
 
-    Public Function getProfile(ByRef oUser As BE.BEUsuarioBase) As Boolean
+    ' modifique usuariobase
+    Public Function getProfile(ByRef oUser As BE.BEUsuario) As Boolean
         Dim conn As IDbConnection = dbManager.getConnection
         Try
             conn.Open()

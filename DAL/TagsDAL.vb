@@ -60,6 +60,7 @@
 
             Return lista
         Catch ex As Exception
+            Throw ex
         Finally
             conn.Close()
             'limpio
@@ -167,6 +168,7 @@
 
             Return lista
         Catch ex As Exception
+            Throw ex
         Finally
             conn.Close()
             'limpio
