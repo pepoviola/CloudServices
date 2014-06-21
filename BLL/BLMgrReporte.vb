@@ -253,16 +253,17 @@
         Dim oBLServers As BLServerPlataforma = New BLServerPlataforma
         Dim oBlServicios As BLServicesFacade = BLServicesFacade.getServicesFacade()
         Dim dicData As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
+        Dim lista_servicios As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
         Try
             ' obtengo el listado de servers fisicos
             listado_srv = oBLServers.Filtrar(oSrvPlataforma)
             ' lleno la propiedad
             For Each oServer In listado_srv
-                oServer.Servicios = oBlServicios.obtenerServiciosDeServer(oServer)
+                lista_servicios = oBlServicios.obtenerServiciosDeServer(oServer)
                 Dim dicServer As New Dictionary(Of String, String)
                 dicServer.Add("mem_total", oServer.Memoria.ToString())
                 Dim mem_usada As Integer = 0
-                For Each servicio As BE.BECloudServer In oServer.Servicios
+                For Each servicio As BE.BECloudServer In lista_servicios
                     mem_usada += servicio.Memoria
                 Next
                 dicServer.Add("mem_usada", mem_usada.ToString())
@@ -277,6 +278,11 @@
             Throw New ExceptionsPersonales.CustomException("Err_get_repo")
         Finally
             repo = Nothing
+            dicData = Nothing
+            oBLServers = Nothing
+            listado_srv = Nothing
+            oSrvPlataforma = Nothing
+            lista_servicios = Nothing
         End Try
 
 

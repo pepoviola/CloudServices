@@ -51,5 +51,28 @@ Public Class BLServerPlataforma
     End Function
 
 
+    Public Function CalcularMemoriaLibre(ByVal oServer As BE.BEServerPlataforma) As Integer
+        Dim oFacade As BLServicesFacade = BLServicesFacade.getServicesFacade()
+        Dim servicios As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
+        Dim mem_used As Integer = 0
+        Try
+            servicios = oFacade.obtenerServiciosDeServer(oServer)
+
+            For Each s As BE.BECloudServer In servicios
+                mem_used += s.Memoria
+            Next
+            ' just for check
+            If oServer.Memoria = 0 Then
+                oServer.Memoria = 192 'default
+            End If
+            Return (oServer.Memoria - mem_used)
+        Catch ex As Exception
+            Throw ex
+        Finally
+            servicios = Nothing
+            mem_used = Nothing
+        End Try
+    End Function
+
 End Class ' BLServerPlataforma
 

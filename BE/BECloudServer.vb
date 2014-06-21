@@ -19,6 +19,7 @@ Public MustInherit Class BECloudServer
 
     Private _memoria As Integer
     Private _qcpu As Integer
+    Private _platform_server As BE.BEServerPlataforma
 
     Friend _srv_adicionales As List(Of BEServicioAdicional) = New List(Of BEServicioAdicional)
 
@@ -52,5 +53,14 @@ Public MustInherit Class BECloudServer
         End Set
     End Property
 
+
+    Public Property Platform_server As BE.BEServerPlataforma
+        Get
+            Return _platform_server
+        End Get
+        Set(value As BE.BEServerPlataforma)
+            _platform_server = value
+        End Set
+    End Property
 End Class ' BECloudServer
 

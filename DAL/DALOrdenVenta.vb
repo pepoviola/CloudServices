@@ -60,7 +60,7 @@ Public Class DALOrdenVenta
                     dbManager.addParam(cmd_srv, "@Id_tipo_srv", s.Id)
                     dbManager.addParam(cmd_srv, "@Id_ov", idOV)
                     dbManager.addParam(cmd_srv, "@Precio", s.Precio)
-                    dbManager.addParam(cmd_srv, "@Id_server_plataforma", 1)
+                    dbManager.addParam(cmd_srv, "@Id_server_plataforma", s.Platform_server.Id)
 
                     idParam = CType(dbManager.addParam(cmd_srv, "@id"), SqlParameter)
                     idParam.Direction = ParameterDirection.Output

@@ -26,12 +26,45 @@ Public Class BLOrdenVenta
     ''' <param name="oOV"></param>
     Public Function Crear(ByVal oOV As BE.BEOrdenVenta) As Boolean
         Dim res As Boolean = True
+        Dim oDal As DAL.DALOrdenVenta = New DAL.DALOrdenVenta()
+        Dim oServersPlataforma As List(Of BE.BEServerPlataforma) = New List(Of BE.BEServerPlataforma)
+        Dim oBLServersPlataforma As BLServerPlataforma = New BLServerPlataforma()
+        Dim dicServers As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
         Try
-            Dim oDal As DAL.DALOrdenVenta = New DAL.DALOrdenVenta()
+            ' get all the platform servers
+            oServersPlataforma = oBLServersPlataforma.Filtrar(New BE.BEServerPlataforma())
+
+            ' dict for use
+            For Each oServerPlat As BE.BEServerPlataforma In oServersPlataforma
+                dicServers.Add(oServerPlat.Id, oBLServersPlataforma.CalcularMemoriaLibre(oServerPlat))
+            Next
+
+            
+            ' check if we have memory for those servers and assign physical servers
+            For Each server As BE.BECloudServer In oOV.Servicios
+                'ordeno el dic desc por memoria libre
+                dicServers = dicServers.OrderByDescending(Function(x) x.Value).ToDictionary(Function(x) x.Key, Function(y) y.Value)
+
+                ' verifico que tenga espacio
+                Dim keyPair As KeyValuePair(Of String, Integer) = dicServers.First()
+                If keyPair.Value > server.Memoria Then
+                    'asigno
+                    server.Platform_server = New BE.BEServerPlataforma(keyPair.Key)
+                    'actualizo en el dict
+                    dicServers.Item(keyPair.Key) = (keyPair.Value - server.Memoria)
+                Else
+                    Throw New ExceptionsPersonales.CustomException("ErrCrearOV")
+                End If
+
+            Next
+
             oDal.Crear(oOV)
 
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrCrearOV")
+
+        Finally
+            oDal = Nothing
         End Try
 
         Return res

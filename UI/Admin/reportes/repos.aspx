@@ -71,7 +71,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Ventas($)'
+                        text: '<%=translate("Ventas")%>'
                     },
                     labels: {
                         formatter: function () {                            
@@ -93,13 +93,13 @@
                     }
                 },
                 series: [{
-                    name: 'Real',
+                    name: '<%=translate("Real")%>',
                     marker: {
                         symbol: 'square'
                     },
                     data: data_real
                 }, {
-                    name: 'Proyectado',
+                    name: '<%=translate("Proyectado")%>',
                     marker: {
                         symbol: 'diamond'
                     },
@@ -138,7 +138,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Cantidad de servicios'
+                        text: '<%=translate("Cantidad_de_servicios")%>'
                     },
                     labels: {
                         formatter: function () {
@@ -160,13 +160,13 @@
                     }
                 },
                 series: [{
-                    name: 'Real',
+                    name: '<%=translate("Real")%>',
                     marker: {
                         symbol: 'square'
                     },
                     data: data_real
                 }, {
-                    name: 'Proyectado',
+                    name: '<%=translate("Proyectado")%>',
                     marker: {
                         symbol: 'diamond'
                     },
@@ -215,7 +215,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Cantidad de servicios'
+                        text: '<%=translate("Cantidad_de_servicios")%>'
                     },
                     labels: {
                         formatter: function () {
