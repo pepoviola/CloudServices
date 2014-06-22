@@ -10,6 +10,9 @@
         .separar {
             padding-right: 10px;
         }
+        .get_ip {
+            text-align:right;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
@@ -61,6 +64,7 @@
                             <tr>
                                 <th><%=translate("th_servicio")%></th>
                                 <th><%=translate("th_adicionales")%></th>
+                                <th><%=translate("th_ip")%></th>
                                 <th><%=translate("th_costo_mensual") %></th>
                             </tr>
                         </thead>
@@ -95,6 +99,7 @@
    
                                     <% Next%>
                                 </td>
+                                <td><span class="get_ip pull-right" id="ip-<%=s.Id%>"></span></td>
                                 <td><span>$ &nbsp;&nbsp;</span><span class="pull-right"><%= total_linea %></span></td>
                             </tr>    
                         <%Next%>
@@ -110,8 +115,36 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script>
+        // check localstorage facility
+        // implement kind of dhcp for ips
+        var lst = false;
+        if (typeof (Storage) !== "undefined") lst = true; // Code for localStorage/sessionStorage.            
+        //
+
+        function getOctet() {
+            return Math.round(Math.random()*255);
+        }
+
+        var get_ip = function () {
+
+            return '190.210.'+getOctet()+'.'+getOctet()
+        }
+
+
         $(document).ready(function() {
             
+            // fill ips
+            $('.get_ip').each(function (k, v) {
+                // chequeo el en lst               
+                var ip_for = localStorage.getItem(v.id);
+                if (ip_for == undefined) {
+                    //lo creo
+                    ip_for = get_ip();
+                    localStorage.setItem(v.id, ip_for);
+                }
+                $(v).html(ip_for);
+            });
+
             $('.baja-srv').click(function (ev) {
                 ev.preventDefault();
                 var _this = this;
