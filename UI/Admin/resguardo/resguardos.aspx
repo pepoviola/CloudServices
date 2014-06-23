@@ -55,10 +55,9 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script src="/scripts/cloud/customs_adm.js"></script>
     <script>
-        // make active Admin tab
-        $('.active').removeClass('active');
-        $('.menu_admin').addClass('active');
+
 
         $('#make_bkp').click(function (ev) {
             ev.preventDefault();

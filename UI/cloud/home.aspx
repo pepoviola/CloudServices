@@ -193,7 +193,6 @@
                         })
                         .always(function () { l.stop(); })
                         .fail(function () {
-                            //alert("ERR");
                         });
                     }
                 });

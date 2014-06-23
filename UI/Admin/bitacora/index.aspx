@@ -78,6 +78,7 @@
     <script src="/scripts/datepicker/bootstrap-datepicker.js"></script>
     <script src="/scripts/datepicker/locales/bootstrap-datepicker.es.js"></script>
     <script src="/content/dataTables/js/jquery.dataTables.js"></script>
+    <script src="/scripts/cloud/customs_adm.js"></script>
     <script type="text/javascript">
         var table_to = undefined;
     // make active Admin tab

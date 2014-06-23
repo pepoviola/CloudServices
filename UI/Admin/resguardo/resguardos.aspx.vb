@@ -47,6 +47,6 @@
 
     End Sub
     Public Function translate(ByVal ctrl_id As String)
-        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Master.lang)
+        Return Infra.TraductorMgr.TraducirControl(ctrl_id, Session("lang"))
     End Function
 End Class

@@ -74,6 +74,10 @@
                                   <li><a href="/Admin/reportes/repos.aspx" id="menu_reportes" ><i class="icon-book"></i>  <% =translate("menu_reportes")%></a></li>
                                   <% End If%>
 
+                                  <% If Me.tieneAcceso("plataforma_read") Then%>
+                                  <li><a href="/Admin/plataforma/platform.aspx" id="menu_plataforma" ><i class="icon-hdd"></i>  <% =translate("menu_plataforma")%></a></li>
+                                  <% End If%>
+
                                   <% If Me.tieneAcceso("helper") Then%>
                                   <li><a href="/Admin/helpers/helper.aspx" ><% =translate("menu_helper")%></a></li>
                                   <% End If%>

@@ -41,6 +41,7 @@
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script src="/scripts/cloud/customs_adm.js"></script>
     <script src="/scripts/highcharts/highcharts.js"></script>
     <script>
 
