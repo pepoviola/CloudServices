@@ -49,7 +49,7 @@ Public Class add_usuario
 
                     Else
                         resp.Add("status", "400")
-                        resp.Add("msg", Infra.TraductorMgr.TraducirControl("user_add_err", context.Session("lang")))
+                        resp.Add("msg", Infra.TraductorMgr.TraducirControl("server_add_err", context.Session("lang")))
                         oBita.Descripcion = "Error al crear el usuario " + oUser.Username
                     End If
 

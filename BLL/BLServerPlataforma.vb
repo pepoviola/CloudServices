@@ -19,19 +19,47 @@ Public Class BLServerPlataforma
     ''' 
     ''' <param name="oServer"></param>
     Public Function Actualizar(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Actualizar = False
+        Dim oDALServer As DAL.DALServerPlataforma = New DAL.DALServerPlataforma()
+        Try
+            Return oDALServer.Actualizar(oServer)
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("server_mod_err")
+        Finally
+            oDALServer = Nothing
+        End Try
     End Function
 
     ''' 
     ''' <param name="oServer"></param>
     Public Function Crear(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Crear = False
+        Dim oDALServer As DAL.DALServerPlataforma = New DAL.DALServerPlataforma()
+        Try
+            Return oDALServer.Crear(oServer)
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("server_add_err")
+        Finally
+            oDALServer = Nothing
+        End Try
     End Function
 
     ''' 
     ''' <param name="oServer"></param>
     Public Function Eliminar(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Eliminar = False
+        Dim oDALServer As DAL.DALServerPlataforma = New DAL.DALServerPlataforma()
+        Try
+            Return oDALServer.Eliminar(oServer)
+
+        Catch exsql As SqlClient.SqlException
+            If exsql.Number = 547 Then
+                Throw New ExceptionsPersonales.CustomException("ServerEnUso")
+            Else
+                Throw New ExceptionsPersonales.CustomException("server_del_err")
+            End If
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("server_del_err")
+        Finally
+            oDALServer = Nothing
+        End Try
     End Function
 
     ''' 

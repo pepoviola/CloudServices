@@ -19,19 +19,79 @@ Public Class DALServerPlataforma
     ''' 
     ''' <param name="oServer"></param>
     Public Function Actualizar(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Actualizar = False
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim registros As Integer
+        Try
+            'obtengo el command
+            Dim cmd As IDbCommand = dbManager.getCmd("UpdateServerPlataforma")
+            'asocio la cx
+            cmd.Connection = conn
+            'abro cx
+            conn.Open()
+            'agrego params
+            dbManager.addParam(cmd, "@id", oServer.Id)
+            dbManager.addParam(cmd, "@hostname", oServer.Hostname)
+            dbManager.addParam(cmd, "@memoria", oServer.Memoria)
+            dbManager.addParam(cmd, "@qcpu", oServer.Q_cpu)
+            registros = cmd.ExecuteNonQuery()
+            Return True
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
     End Function
 
     ''' 
     ''' <param name="oServer"></param>
     Public Function Crear(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Crear = False
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim registros As Integer
+        Try
+            'obtengo el command
+            Dim cmd As IDbCommand = dbManager.getCmd("InsertServerPlataforma")
+            'asocio la cx
+            cmd.Connection = conn
+            'abro cx
+            conn.Open()
+            'agrego params
+            dbManager.addParam(cmd, "@hostname", oServer.Hostname)
+            dbManager.addParam(cmd, "@memoria", oServer.Memoria)
+            dbManager.addParam(cmd, "@qcpu", oServer.Q_cpu)
+            registros = cmd.ExecuteNonQuery()
+            Return True
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
     End Function
 
     ''' 
     ''' <param name="oServer"></param>
     Public Function Eliminar(ByVal oServer As BE.BEServerPlataforma) As Boolean
-        Eliminar = False
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim registros As Integer
+        Try
+            'obtengo el command
+            Dim cmd As IDbCommand = dbManager.getCmd("DeleteServerPlataforma")
+            'asocio la cx
+            cmd.Connection = conn
+            'abro cx
+            conn.Open()
+            'agrego params
+            dbManager.addParam(cmd, "@id", oServer.Id)
+            registros = cmd.ExecuteNonQuery()
+            Return True
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+
     End Function
 
     ''' 
