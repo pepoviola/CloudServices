@@ -13,7 +13,8 @@
             ' default
             Session("lang") = 1
         End If
-        _lista_preguntas = Infra.InfraPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
+        '_lista_preguntas = Infra.InfraPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
+        _lista_preguntas = BLL.BLPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
     End Sub
 
     Public Function translate(ByVal ctrl_id As String)

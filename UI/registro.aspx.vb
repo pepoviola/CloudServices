@@ -25,7 +25,8 @@
             Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma
             _lista_idiomas = oInfraIdioma.Filtrar(New BE.Idioma())
 
-            _lista_preguntas = Infra.InfraPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
+            '_lista_preguntas = Infra.InfraPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
+            _lista_preguntas = BLL.BLPreguntaSecreta.getPreguntaSercreta.Filtrar(New BE.BEPreguntaSecreta)
 
         Catch ex As ExceptionsPersonales.CustomException
 
