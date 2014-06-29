@@ -64,21 +64,21 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="password" name="password" id="password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="password" maxlength="16" pattern=".{6,16}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="password" name="repeat_password" id="repeat_password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="repeat_password" maxlength="16" pattern=".{6,16}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="email"><% =translate("email")%></label>
                 <div class="controls">
-                        <input type="text" name="email" id="email" placeholder="" maxlength="150" />
+                        <input type="text" name="email" id="email" placeholder="" maxlength="100" />
                 </div>
             </div>
             <div class="control-group">
@@ -86,7 +86,7 @@
                         <label class="control-label" for="dir"><% =translate("direccion")%></label>
                         <div class="controls form-inline">
                             <label class="" for="dir"><%=translate("calle")%>
-                                <input type="text" class="input-large" name="calle" id="calle" placeholder="" maxlength="150" />
+                                <input type="text" class="input-large" name="calle" id="calle" placeholder="" maxlength="50" />
                             </label>
                             <label class="" for="dir"><%=translate("numero")%>
                                 <input type="number" class="input-mini" name="numero" id="numero"  maxlength="6" />
@@ -107,7 +107,7 @@
            <div class="control-group">
                 <label class="control-label" for="localidad"><% =translate("localidad")%></label>
                 <div class="controls">
-                        <input type="text" name="localidad" id="localidad" placeholder="" maxlength="150" />
+                        <input type="text" name="localidad" id="localidad" placeholder="" maxlength="50" />
                 </div>
             </div>
             
@@ -166,21 +166,7 @@
                         <input type="text" name="respuesta" id="respuesta" placeholder="" maxlength="256" pattern=".{2,256}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
-          <!--
-            <div class="control-group" id="ctrl-razon_social">
-                <label class="control-label" for="razon_socila"><% =translate("razon_social")%></label>
-                <div class="controls">
-                        <input type="text" name="razon_social" id="razon_social" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
-                </div>
-            </div>
-
-            <div class="control-group" id="ctrl-cuit">
-                <label class="control-label" for="cuit" ><% =translate("cuit")%></label>
-                <div class="controls">
-                        <input type="text" name="cuit" id="cuit" placeholder="" maxlength="50" pattern=".{2,50}" required title="2 <%=translate("x_caracteres_requeridos") %>"/>
-                </div>
-            </div>
-            -->
+        
         </div>
             </form>
         <div class="modal-footer">
@@ -286,7 +272,7 @@
                     password: {
                         required: true,
                         minlength: 6,
-                        maxlength: 50,
+                        maxlength: 16,
                     },
                     repeat_password: {
                         required: true,

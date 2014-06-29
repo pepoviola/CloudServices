@@ -48,7 +48,7 @@
             // que no deberia usar
 
             //DRY way to do stuff like this
-            var no_mostrar = ['usuarios', 'idiomas', 'patentes', 'bitacora','reportes'];
+            var no_mostrar = ['usuarios', 'idiomas', 'patentes', 'bitacora','reportes','plataforma'];
             for (var i = 0; i < no_mostrar.length; i++) {
                 var id_to = '#menu_'+no_mostrar[i];
                 $(id_to).parent().remove();

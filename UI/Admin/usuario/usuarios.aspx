@@ -90,14 +90,14 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="password" name="password" id="password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="password" id="password" maxlength="16" pattern=".{6,16}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="password" name="repeat_password" id="repeat_password" maxlength="50" pattern=".{6,50}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
+                        <input type="password" name="repeat_password" id="repeat_password" maxlength="16" pattern=".{6,16}" required title="6 <%=translate("x_caracteres_requeridos") %>"/>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@
             <div class="control-group">
                 <label class="control-label" for="email"><% =translate("email")%></label>
                 <div class="controls">
-                        <input type="text" name="email" id="email" placeholder="" maxlength="150" />
+                        <input type="text" name="email" id="email" placeholder="" maxlength="100" />
                 </div>
             </div>
 
@@ -175,14 +175,14 @@
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("password")%></label>
                 <div class="controls">
-                        <input type="password" name="password" id="edit_password" "/>
+                        <input type="password" name="password" id="edit_password" maxlength="16" />
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label" for="username"><% =translate("repeat_password")%></label>
                 <div class="controls">
-                        <input type="password" name="repeat_password" id="edit_repeat_password"/>
+                        <input type="password" name="repeat_password" id="edit_repeat_password" maxlength="16" />
                 </div>
             </div>
 
@@ -203,7 +203,7 @@
             <div class="control-group">
                 <label class="control-label" for="email"><% =translate("email")%></label>
                 <div class="controls">
-                        <input type="text" name="email" id="edit_email" placeholder="" maxlength="150" />
+                        <input type="text" name="email" id="edit_email" placeholder="" maxlength="100" />
                 </div>
             </div>
 
@@ -293,7 +293,7 @@
                     password: {
                         required: true,
                         minlength: 6,
-                        maxlength: 50,
+                        maxlength: 16,
                     },
                     repeat_password: {
                         required: true,

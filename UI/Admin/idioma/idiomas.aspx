@@ -68,7 +68,7 @@
             <div class="control-group">
                 <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
-                        <input type="text" name="idioma_code" id="idioma_code" placeholder="<% =Session("lang_code")%>" />
+                        <input type="text" name="idioma_code" id="idioma_code" placeholder="<% =Session("lang_code")%>"  maxlength="5" />
                 </div>
              </div>
             <div class="control-group">
@@ -111,7 +111,7 @@
                 <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
                         
-                        <input type="text" name="idioma_code" id="edit_idioma_code" placeholder="" value="" readonly/>
+                        <input type="text" name="idioma_code" id="edit_idioma_code" placeholder="" value="" maxlength="5" readonly/>
                 </div>
              </div>
             <div class="control-group">

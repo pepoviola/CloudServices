@@ -71,7 +71,7 @@
             <div class="control-group">
                 <label class="control-label" for="hostname"><% =translate("th_hostname")%></label>
                 <div class="controls">
-                        <input type="text" name="hostname" id="hostname" placeholder="" />
+                        <input type="text" name="hostname" id="hostname" placeholder="" maxlength="50"/>
                 </div>
              </div>
             <div class="control-group">
@@ -170,7 +170,7 @@
                     hostname: {
                         required :true,
                         minlength: 4,
-                        maxlength: 150
+                        maxlength: 50
                     },
                     memoria: {
                         required: true,

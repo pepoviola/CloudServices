@@ -43,6 +43,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
     <script src="/scripts/cloud/customs_adm.js"></script>
     <script src="/scripts/highcharts/highcharts.js"></script>
+    <%--<script src="http://code.highcharts.com/highcharts-3d.js"></script>--%>
+ 
     <script>
 
         var repo_proyeccion = function (repo) {
@@ -71,6 +73,7 @@
                     categories : categories
                 },
                 yAxis: {
+                    floor: 0,
                     title: {
                         text: '<%=translate("Ventas")%>'
                     },
@@ -138,6 +141,7 @@
                     categories: categories
                 },
                 yAxis: {
+                    floor: 0,
                     title: {
                         text: '<%=translate("Cantidad_de_servicios")%>'
                     },
@@ -178,6 +182,13 @@
 
 
 
+        var getTotal = function(valores){
+            sum = 0;
+            $.each(valores,function(k,v){
+                sum += v;
+            });
+            return sum;
+        }
 
         var debug, debug2;
         var repo_q_ventas_por = function (repo) {
@@ -215,6 +226,7 @@
                     categories: categories
                 },
                 yAxis: {
+                    floor: 0,
                     title: {
                         text: '<%=translate("Cantidad_de_servicios")%>'
                     },
@@ -238,35 +250,73 @@
                     }
                 },
                 series: [{
+                    type: 'spline',
                     name: 'BECloudServerBasic',
                     marker: {
                         symbol: 'diamond'
                     },
                     data: servicios.BECloudServerBasic
                 }, {
+                    type: 'spline',
                     name: 'BECloudServerAdvance',
                     marker: {
                         symbol: 'diamond'
                     },
                     data: servicios.BECloudServerAdvance
                 }, {
+                    type: 'spline',
                     name: 'BECloudServerPro',
                     marker: {
                         symbol: 'diamond'
                     },
                     data: servicios.BECloudServerPro
                 }, {
+                    type: 'spline',
                     name: 'BEBackupService',
                     marker: {
                         symbol: 'diamond'
                     },
                     data: servicios.BEBackupService
                 }, {
+                    type: 'spline',
                     name: 'BESnapshot',
                     marker: {
                         symbol: 'diamond'
                     },
                     data: servicios.BESnapshot
+                },
+                //pie
+                {
+                    type: 'pie',
+                    name: 'Total',
+                    data: [{
+                        name: 'BECloudServerBasic',
+                        y: getTotal(servicios.BECloudServerBasic),
+                        color: Highcharts.getOptions().colors[0]
+                    }, {
+                        name: 'BECloudServerAdvance',
+                        y: getTotal(servicios.BECloudServerAdvance),
+                        color: Highcharts.getOptions().colors[1]
+                    }, {
+                        name: 'BECloudServerPro',
+                        y: getTotal(servicios.BECloudServerPro),
+                        color: Highcharts.getOptions().colors[2]
+                    }, {
+                        name: 'BEBackupService',
+                        y: getTotal(servicios.BEBackupService),
+                        color: Highcharts.getOptions().colors[3]
+                    }, {
+                        name: 'BESnapshot',
+                        y: getTotal(servicios.BESnapshot),
+                        color: Highcharts.getOptions().colors[4]
+                    }],
+                    center: [100, 80],
+                    size: 100,
+                    showInLegend: false,
+                    dataLabels: {
+                        enabled: false
+                    }
+
                 }]
             });
         };
@@ -278,7 +328,7 @@
             debug_servers = repo;
 
             $.each(repo.Cuerpo, function (key, obj) {
-                console.log(key);
+                //console.log(key);
                 categories.push(key);
                 serie_used.push(parseInt(obj['mem_usada'], 10));
                 serie_free.push(parseInt(obj['mem_total'], 10) - parseInt(obj['mem_usada'], 10));
@@ -287,7 +337,16 @@
             //// genero el gráfico
             $('#container').highcharts({
                 chart: {
-                    type: 'column'
+                    type: 'column',
+                    //options3d: {
+                    //    enabled: true,
+                    //    alpha: 15,
+                    //    beta: 15,
+                    //    depth: 50,
+                    //    viewDistance: 25
+                    //},
+                    //marginTop: 80,
+                    //marginRight: 40
                 },
                 title: {
                     text: repo.Titulo

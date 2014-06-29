@@ -231,7 +231,7 @@
             'dd_mes.Add("real", Nothing)
             'dicData.Add(dateNow.AddMonths(+1).ToString("MM/yyyy"), dd_mes)
 
-            repo.Titulo = "Ventas_Totales_Proyectadas"
+            repo.Titulo = "Ventas_Totales_Por_Tipo"
             repo.Cuerpo = dicData
             repo.Footer = "nuevas_ventas_agrupadas_por_mes"
 
