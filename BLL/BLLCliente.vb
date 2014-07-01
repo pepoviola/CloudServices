@@ -27,6 +27,7 @@
             End If
 
             Return ret
+
         Catch exCus As ExceptionsPersonales.CustomException
             Throw exCus
         Catch ex As Exception

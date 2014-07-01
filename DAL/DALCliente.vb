@@ -95,8 +95,10 @@ Public Class DALCliente
 
             Catch ex As SqlException
                 trans.Rollback()
-                If ex.ErrorCode = 2601 Then
+                If ex.Number = 2601 Then
                     Throw New ExceptionsPersonales.CustomException("username_en_uso")
+                ElseIf ex.Number = 2627 Then
+                    Throw New ExceptionsPersonales.CustomException("EmailEnUso")
                 Else
                     Throw ex
                 End If

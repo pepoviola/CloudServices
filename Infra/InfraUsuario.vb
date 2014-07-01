@@ -216,6 +216,12 @@ Public Class InfraUsuario
                 End If
 
             End If
+        Catch exsql As SqlClient.SqlException
+            If exsql.Number = 2627 Then
+                Throw New ExceptionsPersonales.CustomException("EmailEnUso")
+            Else
+                Throw New ExceptionsPersonales.CustomException("ex_modif_user")
+            End If
         Catch ex As Exception
             'ex personalizada
             Throw New ExceptionsPersonales.CustomException("ex_modif_user", ex.Message)
