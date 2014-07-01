@@ -120,6 +120,9 @@
             End If
 
             Return ret
+
+        Catch exCus As ExceptionsPersonales.CustomException
+            Throw New ExceptionsPersonales.CustomException("no_es_cliente")
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ERR_reset")
 

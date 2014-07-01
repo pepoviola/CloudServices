@@ -30,6 +30,11 @@ Public Class generate_url
                 End If
 
 
+            Catch ex As ExceptionsPersonales.CustomException
+                resp.Add("status", "500")
+                resp.Add("msg", Infra.TraductorMgr.TraducirControl(ex.codigo, context.Session("lang")))
+
+
             Catch ex As Exception
                 resp.Add("status", "500")
                 resp.Add("msg", Infra.TraductorMgr.TraducirControl("datos_no_validos", context.Session("lang")))

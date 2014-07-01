@@ -2,6 +2,7 @@
 Public Class DALCliente
     Implements ICRUD(Of BE.BECliente)
 
+    Private frase As String = Configuration.ConfigurationManager.AppSettings("frase")
 
     Public Function Agregar(t As BE.BECliente) As Boolean Implements ICRUD(Of BE.BECliente).Agregar
         Dim registros As Integer = 0
@@ -155,7 +156,9 @@ Public Class DALCliente
             End If
 
             If Not t Is Nothing AndAlso Not t.Email Is Nothing Then
-                dbManager.addParam(cmd, "@email", t.Email)
+                'encripto el mail para el select
+                Dim mail_cryp As String = Criptografia.Crypto.getCrypto.CypherTripleDES(t.Email, frase, True)
+                dbManager.addParam(cmd, "@email", mail_cryp)
             Else
                 dbManager.addParam(cmd, "@email", DBNull.Value)
             End If

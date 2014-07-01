@@ -13,6 +13,9 @@
         .get_ip {
             text-align:right;
         }
+        .adicionales-width {
+            width:400px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
@@ -63,7 +66,7 @@
                         <thead>
                             <tr>
                                 <th><%=translate("th_servicio")%></th>
-                                <th><%=translate("th_adicionales")%></th>
+                                <th class="adicionales-width"><%=translate("th_adicionales")%></th>
                                 <th><%=translate("th_ip")%></th>
                                 <th><%=translate("th_costo_mensual") %></th>
                             </tr>
@@ -82,7 +85,7 @@
                                      </button>
                                      </span>
                                 </td>
-                                <td>
+                                <td class="adicionales-width">
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
                                     <% total_linea += a.Precio%>
                                     <div class="addon-srv">
@@ -157,8 +160,8 @@
                     cancelButton: "<%=translate("Cancelar")%>",
                     confirm: function () {
                         //alert(sid);
-                        var l = Ladda.create(_this);
-                        l.start();
+                        //var l = Ladda.create(_this);
+                        //l.start();
                         // post
                         $.post('/cloud/del_servicio.ashx', { sid: sid, codigo: codigo }, function (res) {
                             //alert(res);
@@ -191,7 +194,7 @@
                             }
 
                         })
-                        .always(function () { l.stop(); })
+                        .always(function () { })//l.stop(); })
                         .fail(function () {
                         });
                     }
