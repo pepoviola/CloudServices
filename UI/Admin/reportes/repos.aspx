@@ -48,6 +48,7 @@
  
     <script>
         var debug_proy;
+
         var repo_proyeccion = function (repo) {
             debug_proy = repo;
             var categories = [];
