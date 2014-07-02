@@ -20,7 +20,8 @@
                                 <option value="pesos"><% =translate("ventas")%></option>
                                 <option value="q_ventas"><% =translate("q_ventas")%></option>
                                 <option value="q_ventas_por"><% =translate("q_ventas_por")%></option>
-                                <option value="uso_servers"><% =translate("uso_server_fisico")%></option>                                          
+                                <option value="uso_servers"><% =translate("uso_server_fisico")%></option>
+                                <option value="capacidad"><% =translate("repo_capacidad")%></option>                                           
                                 </select>    
                         </label>
                         <span class="separador"></span>
@@ -46,8 +47,9 @@
     <%--<script src="http://code.highcharts.com/highcharts-3d.js"></script>--%>
  
     <script>
-
+        var debug_proy;
         var repo_proyeccion = function (repo) {
+            debug_proy = repo;
             var categories = [];
             var data_real = [];
             var data_proy = [];
@@ -122,7 +124,7 @@
             $.each(repo.Cuerpo, function (key, obj) {
                 categories.push(key);
                 data_real.push((parseFloat(obj.real)) ? parseFloat(obj.real) : null);
-                data_proy.push((parseFloat(obj.proy)) ? parseFloat(obj.proy) : null);
+                data_proy.push((parseInt(obj.proy,10)) ? parseInt(obj.proy,10) : null);
             });
 
             // genero el gráfico
@@ -383,11 +385,80 @@
 
         };
    
+        var repo_capacidad = function (repo) {
+            var categories = [];
+            var serie_used = [];
+            var serie_free = [];
+            var serie_proy = [];
+            debug_servers = repo;
+
+            $.each(repo.Cuerpo, function (key, obj) {
+                //console.log(key);
+                categories.push(key);
+                serie_used.push(parseInt(obj['usada'], 10));
+                serie_proy.push(parseInt(obj['proy'], 10));
+                serie_free.push(parseInt(obj['libre'], 10));
+            });
+
+            //// genero el gráfico
+            $('#container').highcharts({
+                chart: {
+                    type: 'column',
+                    //options3d: {
+                    //    enabled: true,
+                    //    alpha: 15,
+                    //    beta: 15,
+                    //    depth: 50,
+                    //    viewDistance: 25
+                    //},
+                    //marginTop: 80,
+                    //marginRight: 40
+                },
+                title: {
+                    text: repo.Titulo
+                },
+                subtitle: {
+                    text: repo.Footer
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} GB</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'percent'
+                    }
+                },
+                series: [{
+                    name: '<%=translate("free")%>',
+                    data: serie_free
+                }, {
+                    name: '<%=translate("Proyectado")%>',
+                    data: serie_proy
+                },{
+                    name: '<%=translate("used")%>',
+                    data: serie_used
+                }]
+            });
+
+       };
+
+
         var typos_handlers = {
             "pesos": repo_proyeccion,
             "q_ventas": repo_q_ventas,
             "q_ventas_por": repo_q_ventas_por,
-            "uso_servers" : repo_uso_servers
+            "uso_servers": repo_uso_servers,
+            "capacidad": repo_capacidad
         }
 
 

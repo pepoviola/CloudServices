@@ -18,21 +18,24 @@ Public Class repo_data
                     'Dim bllRepo As BLL.BLMgrReporte = New BLL.BLMgrReporte()
 
                     If context.Request.Form.Get("type") = "pesos" Then
-                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteProyeccion()
+                        repo = BLL.BLMgrReporte.getRepoMgr().CrearReporteProyeccion()
                        
 
 
                     ElseIf context.Request.Form.Get("type") = "q_ventas" Then
-                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteVentas()
+                        repo = BLL.BLMgrReporte.getRepoMgr().CrearReporteVentas()
                      
 
                     ElseIf context.Request.Form.Get("type") = "q_ventas_por" Then
 
-                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteVentasPorTipo()
+                        repo = BLL.BLMgrReporte.getRepoMgr().CrearReporteVentasPorTipo()
 
                     ElseIf context.Request.Form.Get("type") = "uso_servers" Then
 
-                        repo = BLL.BLMgrReporte.getTagMgr().CrearReporteUsoPorServer()
+                        repo = BLL.BLMgrReporte.getRepoMgr().CrearReporteUsoPorServer()
+                    ElseIf context.Request.Form.Get("type") = "capacidad" Then
+
+                        repo = BLL.BLMgrReporte.getRepoMgr().CrearReporteCapacidad()
                     Else
 
 

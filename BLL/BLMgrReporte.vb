@@ -15,7 +15,7 @@
 
     End Sub
 
-    Public Shared Function getTagMgr() As BLMgrReporte
+    Public Shared Function getRepoMgr() As BLMgrReporte
         Return instance
     End Function
     'end singleton implementation
@@ -287,5 +287,77 @@
 
 
     End Function
+
+
+    Public Function CrearReporteCapacidad() As BE.BEReporte
+        Dim oSrvPlataforma As BE.BEServerPlataforma = New BE.BEServerPlataforma
+        Dim repo As BE.BEReporte = New BE.BEReporte
+        Dim listado_srv As List(Of BE.BEServerPlataforma)
+        Dim oBLServers As BLServerPlataforma = New BLServerPlataforma
+        Dim oBlServicios As BLServicesFacade = BLServicesFacade.getServicesFacade()
+        Dim dicData As Dictionary(Of String, Dictionary(Of String, String)) = New Dictionary(Of String, Dictionary(Of String, String))
+        Dim subData As Dictionary(Of String, String) = New Dictionary(Of String, String)
+        Dim lista_servicios As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
+        'totales
+        Dim total_mem As Integer = 0
+        Dim mem_used As Integer = 0
+        Dim proyected_mem As Integer = 0
+
+        Dim repo_ventas As BE.BEReporte = New BE.BEReporte
+        Dim dateNow = DateTime.Now()
+        Dim oBasic As BE.BECloudServerBasic = New BE.BECloudServerBasic
+        Dim oAdvance As BE.BECloudServerAdvance = New BE.BECloudServerAdvance
+        Dim oPro As BE.BECloudServerPro = New BE.BECloudServerPro
+
+        Try
+            ' obtengo el total de memoria y el total consumido
+            listado_srv = oBLServers.Filtrar(oSrvPlataforma)
+            ' lleno la propiedad
+            For Each oServer In listado_srv
+                lista_servicios = oBlServicios.obtenerServiciosDeServer(oServer)
+                total_mem += oServer.Memoria
+                For Each servicio As BE.BECloudServer In lista_servicios
+                    mem_used += servicio.Memoria
+                Next
+            Next
+
+            ' me traigo el reporte de ventas con proyeccion
+            repo_ventas = CrearReporteVentas()
+            Dim ventas_proy = repo_ventas.Cuerpo.Item(dateNow.AddMonths(+1).ToString("MM/yyyy")).Item("proy")
+
+            ' calculamos el 50% de ventas de basic (2)
+            ' el 40 de advance (4) y el 10 de pro (16)
+            Dim mem_basic = CInt((ventas_proy * 0.5) * oBasic.Memoria)
+            Dim mem_adv = CInt((ventas_proy * 0.4) * oAdvance.Memoria)
+            Dim mem_pro = CInt((ventas_proy * 0.1) * oPro.Memoria)
+            proyected_mem = mem_basic + mem_adv + mem_pro
+
+            subData.Add("total", total_mem.ToString())
+            subData.Add("usada", mem_used.ToString())
+            subData.Add("proy", proyected_mem.ToString())
+            subData.Add("libre", (total_mem - mem_used - proyected_mem).ToString())
+
+            dicData.Add("plataforma", subData)
+            repo.Cuerpo = dicData
+            repo.Titulo = "Repo_capacity"
+            repo.Footer = "Repo_capacity_proyectada"
+            Return repo
+
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("Err_get_repo")
+        Finally
+            repo = Nothing
+            dicData = Nothing
+            oBLServers = Nothing
+            listado_srv = Nothing
+            oSrvPlataforma = Nothing
+            lista_servicios = Nothing
+            repo_ventas = Nothing
+            oAdvance = Nothing
+            oPro = Nothing
+            oBasic = Nothing
+        End Try
+    End Function
+
 
 End Class

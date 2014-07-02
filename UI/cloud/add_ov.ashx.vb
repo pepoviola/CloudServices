@@ -30,6 +30,8 @@ Public Class add_ov
                     For Each oToCast As Object In lista
                         Dim t As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", oToCast.Item("Codigo")))
                         Dim srv As BE.BECloudServer = Activator.CreateInstance(t)
+                        'add precio
+                        srv.Precio = CDbl(oToCast.Item("Precio"))
                         'Dim srv = Convert.ChangeType(oToCast, t) '= DirectCast(oToCast, t)
                         'srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)
                         'check id we have addons
@@ -38,6 +40,8 @@ Public Class add_ov
                                 Dim tInner As Type = Type.GetType(String.Format("BE.{0},BE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", oToCastInner.Item("Codigo")))
                                 Dim addon As BE.BEServicioAdicional = Activator.CreateInstance(tInner)
                                 'srv.Srv_adicionales.Add(addon)
+                                'add precio
+                                addon.Precio = CDbl(oToCastInner.Item("Precio"))
                                 srv.addAdicional(addon)
                             Next
 
