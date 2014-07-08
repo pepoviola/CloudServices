@@ -30,6 +30,8 @@ Public Class BLOrdenVenta
         Dim oServersPlataforma As List(Of BE.BEServerPlataforma) = New List(Of BE.BEServerPlataforma)
         Dim oBLServersPlataforma As BLServerPlataforma = New BLServerPlataforma()
         Dim dicServers As Dictionary(Of String, Integer) = New Dictionary(Of String, Integer)
+        Dim idOv As Integer
+        Dim oBLServices As BLServicesFacade = BLServicesFacade.getServicesFacade()
         Try
             ' get all the platform servers
             oServersPlataforma = oBLServersPlataforma.Filtrar(New BE.BEServerPlataforma())
@@ -58,13 +60,20 @@ Public Class BLOrdenVenta
 
             Next
 
-            oDal.Crear(oOV)
+            ' obtengo la ob
+            idOv = oDal.Crear(oOV)
+            oOV.Id = idOv
+
+            ' llamo a crear lo servicios con la oOV
+            oBLServices.CrearServicios(oOV)
+
 
         Catch ex As Exception
             Throw New ExceptionsPersonales.CustomException("ErrCrearOV")
 
         Finally
             oDal = Nothing
+            idOv = Nothing
         End Try
 
         Return res

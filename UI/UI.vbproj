@@ -92,6 +92,7 @@
     <Content Include="cloud\add_services.aspx" />
     <Content Include="cloud\generar_entorno.aspx" />
     <Content Include="cloud\home.aspx" />
+    <Content Include="cloud\home_partial.aspx" />
     <Content Include="content\css\whhg-font\css\whhg.css" />
     <Content Include="content\css\whhg-font\custom.js" />
     <Content Include="content\css\whhg-font\example.html" />
@@ -218,6 +219,8 @@
     <Content Include="scripts\jspdf\jspdf.js" />
     <Content Include="scripts\jspdf\jspdf.plugin.from_html.js" />
     <Content Include="scripts\login\login.js" />
+    <Content Include="scripts\spin\jquery.spin.js" />
+    <Content Include="scripts\spin\spin.js" />
     <Content Include="settings.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
@@ -303,6 +306,9 @@
       <DependentUpon>add_services.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="cloud\cronJob.ashx.vb">
+      <DependentUpon>cronJob.ashx</DependentUpon>
+    </Compile>
     <Compile Include="cloud\del_servicio.ashx.vb">
       <DependentUpon>del_servicio.ashx</DependentUpon>
     </Compile>
@@ -321,6 +327,13 @@
     </Compile>
     <Compile Include="cloud\home.aspx.vb">
       <DependentUpon>home.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="cloud\home_partial.aspx.designer.vb">
+      <DependentUpon>home_partial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\home_partial.aspx.vb">
+      <DependentUpon>home_partial.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="generate_url.ashx.vb">
@@ -542,6 +555,7 @@
     <Content Include="Admin\plataforma\add_server.ashx" />
     <Content Include="Admin\plataforma\del_server.ashx" />
     <Content Include="Admin\plataforma\save_server.ashx" />
+    <Content Include="cloud\cronJob.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

@@ -72,6 +72,7 @@
     <Compile Include="DALServerPlataforma.vb" />
     <Compile Include="DALServicios.vb" />
     <Compile Include="DALServiciosAdicionales.vb" />
+    <Compile Include="DALTaskMgr.vb" />
     <Compile Include="dbManager.vb" />
     <Compile Include="DVManager.vb" />
     <Compile Include="FamiliaDAL.vb" />

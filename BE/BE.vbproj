@@ -82,6 +82,7 @@
     <Compile Include="BEServicioAdicional.vb" />
     <Compile Include="BEServicioBase.vb" />
     <Compile Include="BESnapshot.vb" />
+    <Compile Include="BETask.vb" />
     <Compile Include="BEUsuario.vb" />
     <Compile Include="BEUsuarioBase.vb" />
     <Compile Include="BEvFW.vb" />

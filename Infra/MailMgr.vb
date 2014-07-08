@@ -39,12 +39,15 @@ Public Class MailMgr
             Dim wrGETURL As WebRequest
             wrGETURL = WebRequest.Create(sURL)
 
-            'Dim myProxy As New WebProxy("myproxy", 80)
+            ' HABILITAR PARA EL PROXY DE LA UAI
+            'Dim myProxy As New WebProxy("10.1.200.251", 80)
             'myProxy.BypassProxyOnLocal = True
 
             'wrGETURL.Proxy = myProxy
+
+
             'o
-            wrGETURL.Proxy = WebProxy.GetDefaultProxy()
+            'wrGETURL.Proxy = WebProxy.GetDefaultProxy()
 
             'Dim r As WebResponse = wrGETURL.GetResponse()
             'Dim oStream As StreamReader = New StreamReader(r.GetResponseStream())

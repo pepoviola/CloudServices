@@ -160,4 +160,38 @@
         Return res
 
     End Function
+
+    Public Sub CrearServicios(ByVal oOV As BE.BEOrdenVenta)
+        'Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL()
+        Dim oDALServer As DAL.DALCloudServer = New DAL.DALCloudServer()
+        Dim oDALAddon As DAL.DALServiciosAdicionales = New DAL.DALServiciosAdicionales()
+        Try
+            'oDal.CrearServicios(oOV)
+            ' recorro la ov
+            For Each s As BE.BECloudServer In oOV.Servicios
+                Dim idServer As Integer = oDALServer.CrearServerContratado(s, oOV)
+                'actualizo el id del server con referencia a la db
+                s.Id = idServer
+                'llamo al proxy para levantar la vm
+                Dim task As Integer = vSphereProxy.CreateVM(idServer, s.Codigo)
+                'guardo la vm y la tarea
+                Dim res As Boolean
+                res = oDALServer.CrearVM(s, oOV, task)
+                'addon
+                If Not s.Srv_adicionales Is Nothing Then
+                    For Each addon As BE.BEServicioBase In s.Srv_adicionales
+                        oDALAddon.CrearAdicional(s, addon, oOV.Id)
+                    Next
+                End If
+            Next
+        Catch ex As Exception
+            Throw ex
+        Finally
+            oDALAddon = Nothing
+            oDALServer = Nothing
+        End Try
+
+    End Sub
+
+    
 End Class

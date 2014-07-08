@@ -1,4 +1,6 @@
-﻿Public Class DALServicios
+﻿Imports System.Data.SqlClient
+
+Public Class DALServicios
 
     'singleton
 
@@ -93,6 +95,8 @@
                 srv.Nombre = Convert.ToString(lector("Nombre"))
                 srv.Precio = Convert.ToDouble(lector("Precio"))
                 srv.Codigo = Convert.ToString(lector("Codigo"))
+                srv.vmNombre = Convert.ToString(lector("vmNombre"))
+                srv.Estado = Convert.ToString(lector("Estado"))
                 'srv.Srv_adicionales = New List(Of BE.BEServicioAdicional)        
                 lista.Add(srv)
                 'Loop
@@ -209,6 +213,90 @@
             lista = Nothing
         End Try
     End Function
+
+    Public Sub CrearServicios(ByVal oOV As BE.BEOrdenVenta)
+        Dim conn As IDbConnection = dbManager.getConnection
+        Dim idParam As SqlParameter
+        Try
+            conn.Open()
+            Dim trans As IDbTransaction = conn.BeginTransaction
+            Try
+
+                ' ahora agrego los servicios
+                For Each s As BE.BECloudServer In oOV.Servicios
+                    Dim cmd_srv As IDbCommand = dbManager.getCmd("InsertSrvContratadoAndOutputId")
+
+                    'asocio la cx
+                    cmd_srv.Connection = conn
+                    cmd_srv.Transaction = trans
+
+                    ' agrego los params
+                    dbManager.addParam(cmd_srv, "@Id_tipo_srv", s.Id)
+                    dbManager.addParam(cmd_srv, "@Id_ov", oOV.Id)
+                    dbManager.addParam(cmd_srv, "@Precio", s.Precio)
+                    dbManager.addParam(cmd_srv, "@Id_server_plataforma", s.Platform_server.Id)
+
+                    idParam = CType(dbManager.addParam(cmd_srv, "@id"), SqlParameter)
+                    idParam.Direction = ParameterDirection.Output
+
+                    cmd_srv.ExecuteNonQuery()
+
+                    Dim id_srv_padre As Integer = idParam.Value
+
+                    ' los adicionales
+                    If Not s.Srv_adicionales Is Nothing Then
+
+
+                        For Each addon As BE.BEServicioBase In s.Srv_adicionales
+                            Dim cmd_addon As IDbCommand = dbManager.getCmd("InsertSrvContratadoAndOutputId")
+
+                            'asocio la cx
+                            cmd_addon.Connection = conn
+                            cmd_addon.Transaction = trans
+
+                            ' agrego los params
+                            dbManager.addParam(cmd_addon, "@Id_tipo_srv", addon.Id)
+                            dbManager.addParam(cmd_addon, "@Id_ov", oOV.Id)
+                            dbManager.addParam(cmd_addon, "@Precio", addon.Precio)
+                            dbManager.addParam(cmd_addon, "@Id_server_plataforma", s.Platform_server.Id)
+
+                            idParam = CType(dbManager.addParam(cmd_addon, "@id"), SqlParameter)
+                            idParam.Direction = ParameterDirection.Output
+
+                            cmd_addon.ExecuteNonQuery()
+
+                            Dim id_srv_hijo As Integer = idParam.Value
+
+                            ' los relaciono
+                            Dim cmd_rel As IDbCommand = dbManager.getCmd("InsertSrvContratadoRelacion")
+                            'asocio la cx
+                            cmd_rel.Connection = conn
+                            cmd_rel.Transaction = trans
+                            ' agrego los params
+                            dbManager.addParam(cmd_rel, "@Id_padre", id_srv_padre)
+                            dbManager.addParam(cmd_rel, "@Id_hijo", id_srv_hijo)
+
+                            cmd_rel.ExecuteNonQuery()
+
+
+                        Next
+                    End If
+                Next
+
+                trans.Commit()
+
+            Catch ex As Exception
+                trans.Rollback()
+                Throw ex
+            End Try
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+
+    End Sub
 
 
 End Class

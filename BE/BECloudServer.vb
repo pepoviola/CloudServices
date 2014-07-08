@@ -53,6 +53,27 @@ Public MustInherit Class BECloudServer
         End Set
     End Property
 
+    Private _vmNombre As String
+    Public Property vmNombre() As String
+        Get
+            Return _vmNombre
+        End Get
+        Set(ByVal value As String)
+            _vmNombre = value
+        End Set
+    End Property
+
+    Private _estado As String
+    Public Property Estado() As String
+        Get
+            Return _estado
+        End Get
+        Set(ByVal value As String)
+            _estado = value
+        End Set
+    End Property
+
+
 
     Public Property Platform_server As BE.BEServerPlataforma
         Get

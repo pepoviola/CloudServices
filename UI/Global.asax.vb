@@ -3,6 +3,7 @@
 Public Class Global_asax
     Inherits System.Web.HttpApplication
 
+    Private ReadOnly DummyCacheItemKey As String = "cronJob"
 
   
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
@@ -22,11 +23,14 @@ Public Class Global_asax
         Application.Set("listaErrs", listaErrs)
         Application.Set("demo", 1)
 
+        'RegisterCacheEntry()
+
 
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
         ' Fires when the session is started
+        
     End Sub
 
     Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)
@@ -48,5 +52,32 @@ Public Class Global_asax
     Sub Application_End(ByVal sender As Object, ByVal e As EventArgs)
         ' Fires when the application ends
     End Sub
+
+    Private Sub RegisterCacheEntry()
+        If HttpContext.Current.Cache("DummyCacheItemKey") Is Nothing Then
+
+
+        Else
+
+            HttpContext.Current.Cache.Add(DummyCacheItemKey, "Test", Nothing,
+                DateTime.MaxValue, TimeSpan.FromMinutes(1),
+                CacheItemPriority.Normal,
+                New CacheItemRemovedCallback(AddressOf Me.CacheItemRemovedCallback))
+
+
+        End If
+
+    End Sub
+
+    Public Sub CacheItemRemovedCallback(k As String, v As Object, r As CacheItemRemovedReason)
+
+        Try
+            BLL.BLTaskMgr.runJob()
+        Catch ex As Exception
+
+        End Try
+        'DoWork()
+    End Sub
+
 
 End Class

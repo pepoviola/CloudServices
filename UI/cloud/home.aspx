@@ -16,6 +16,13 @@
         .adicionales-width {
             width:400px;
         }
+        .servicioNombre {
+            /*width: 20px;*/
+            position: relative;
+        }
+        .spin {
+            margin-left: 15px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
@@ -66,8 +73,9 @@
                         <thead>
                             <tr>
                                 <th><%=translate("th_servicio")%></th>
+                                <th>vmNombre</th>
                                 <th class="adicionales-width"><%=translate("th_adicionales")%></th>
-                                <th><%=translate("th_ip")%></th>
+                                <!--<th><%=translate("th_ip")%></th>-->
                                 <th><%=translate("th_costo_mensual") %></th>
                             </tr>
                         </thead>
@@ -78,12 +86,24 @@
                          %>
 
                             <tr>
-                                <td><%=s.Nombre%>
-                                     <span class="pull-right">
+                                <td class="servicioNombre">
+                                    <div >
+                                    <span class=""><%=s.Nombre%> &nbsp;</span>
+                                    <% If s.Estado = 1 Then %>
+                                    <span class="pull-right separar">
+                                       <span class="spin"></span>
+                                    </span>
+                                    <% Else %> 
+                                    <span class="pull-right">
                                      <button class="btn btn-mini btn-danger baja-srv" title="baja" data-sid="<%=s.Id %>" data-qaddons="<%=s.Srv_adicionales.Count%>" data-type="<%=s.Codigo%>">
                                          <i class="icon-trash icon-white"></i>
                                      </button>
                                      </span>
+                                    <% End If%> 
+                                    </div>
+                                </td>
+                                <td>                                    
+                                        <%=s.vmNombre%>                                                                        
                                 </td>
                                 <td class="adicionales-width">
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
@@ -92,17 +112,22 @@
                                       <span class="">
                                         <%=a.Nombre%>
                                       </span>
-                                      <span class="pull-right separar">
+                                      
+                                        <span class="pull-right separar">
+                                            <% If s.Estado = 1 Then%>
+                                                <span class="spin"></span>
+                                            <% Else%>
                                             <button class="btn btn-mini btn-danger baja-srv ladda-button" title="baja" data-sid ="<%=a.Id %>" data-type="<%=a.Codigo%>" data-style="expand-right" data-size="l">
                                             <span class="ladda-label"><i class="icon-trash icon-white"></i></span>
                                             </button>                                       
-                                    </span>
+                                        </span>
+                                    <%End If%>
                                         </div>
 
    
                                     <% Next%>
                                 </td>
-                                <td><span class="get_ip pull-right" id="ip-<%=s.Id%>"></span></td>
+                                <!--<td><span class="get_ip pull-right" id="ip-<%=s.Id%>"></span></td>-->
                                 <td><span>$ &nbsp;&nbsp;</span><span class="pull-right"><%= total_linea %></span></td>
                             </tr>    
                         <%Next%>
@@ -117,6 +142,8 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script src="/scripts/spin/spin.js"></script>
+    <script src="/scripts/spin/jquery.spin.js"></script>
     <script>
         // check localstorage facility
         // implement kind of dhcp for ips
@@ -133,9 +160,7 @@
             return '190.210.'+getOctet()+'.'+getOctet()
         }
 
-
-        $(document).ready(function() {
-            
+        var fill_ips = function () {
             // fill ips
             $('.get_ip').each(function (k, v) {
                 // chequeo el en lst               
@@ -147,6 +172,40 @@
                 }
                 $(v).html(ip_for);
             });
+        }
+
+        var generate_spins = function () {
+            $('.spin').spin({ lines: 8, length: 2, width: 2, radius: 3, left: 5 })
+        }
+
+        var update_partial = function () {
+            var ie_fix = new Date();
+            $.get('/cloud/home_partial.aspx', { "ie_fix": ie_fix }, function (res) {
+                // delete content
+                $('tbody').children().remove();
+                $('tbody').append(res);
+                generate_spins();
+            });
+
+        }
+
+        $(document).ready(function() {
+            
+            //fill_ips();
+            generate_spins();
+
+            setInterval(update_partial, 15000);
+            // fill ips
+            //$('.get_ip').each(function (k, v) {
+            //    // chequeo el en lst               
+            //    var ip_for = localStorage.getItem(v.id);
+            //    if (ip_for == undefined) {
+            //        //lo creo
+            //        ip_for = get_ip();
+            //        localStorage.setItem(v.id, ip_for);
+            //    }
+            //    $(v).html(ip_for);
+            //});
 
             $('.baja-srv').click(function (ev) {
                 ev.preventDefault();
