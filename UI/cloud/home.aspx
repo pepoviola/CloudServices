@@ -17,11 +17,14 @@
             width:400px;
         }
         .servicioNombre {
-            /*width: 20px;*/
+            width: 220px;
             position: relative;
         }
         .spin {
             margin-left: 15px;
+        }
+        .sidebar-nav {
+            padding: 9px 0px;
         }
     </style>
 </asp:Content>
@@ -69,6 +72,18 @@
                     <br /><br />
                     <%=Servicios_contratados.Count %>
                     <br />
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <div class="well sidebar-nav">
+                                <ul class="nav nav-list">
+                                    <li class="nav-header">Menu</li>
+                                    <li class="active"><a href="#">home</a></li>
+                                    <li><a href="#">fw</a></li>
+                                    <li><a href="#">eventos</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <div class="span9">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -102,8 +117,12 @@
                                     <% End If%> 
                                     </div>
                                 </td>
-                                <td>                                    
-                                        <%=s.vmNombre%>                                                                        
+                                <td>     
+                                    <% If s.Estado = 1 Then %>                           
+                                        <a href="#" class="tip" data-toggle="tooltip" title="creando"><%=s.vmNombre%></a>                                                                        
+                                    <%Else%>
+                                        <a href="vm_details.aspx?id=<%=s.Id%>"><%=s.vmNombre%></a>
+                                    <%End If%>
                                 </td>
                                 <td class="adicionales-width">
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
@@ -133,6 +152,8 @@
                         <%Next%>
                         </tbody>
                      </table>
+                        </div> <!-- end span9 -->
+                    </div><!-- end row fluid -->
                 </div>
                     
                     <br />
@@ -175,44 +196,34 @@
         }
 
         var generate_spins = function () {
-            $('.spin').spin({ lines: 8, length: 2, width: 2, radius: 3, left: 5 })
+            $('.spin').spin({ lines: 8, length: 2, width: 2, radius: 3, left: 5 });
+            $('.tip').tooltip();
         }
 
         var update_partial = function () {
             var ie_fix = new Date();
-            $.get('/cloud/home_partial.aspx', { "ie_fix": ie_fix }, function (res) {
+            $.get('/cloud/home_partial.aspx', { "ie_fix": ie_fix }, function (res,status,jqxhr) {
                 // delete content
+                var patt = new RegExp("txt_login_username");
+                if (patt.test(res)) {
+                    location.reload(true);
+                }
                 $('tbody').children().remove();
                 $('tbody').append(res);
                 generate_spins();
+                bindEvents();
             });
 
         }
 
-        $(document).ready(function() {
-            
-            //fill_ips();
-            generate_spins();
-
-            setInterval(update_partial, 15000);
-            // fill ips
-            //$('.get_ip').each(function (k, v) {
-            //    // chequeo el en lst               
-            //    var ip_for = localStorage.getItem(v.id);
-            //    if (ip_for == undefined) {
-            //        //lo creo
-            //        ip_for = get_ip();
-            //        localStorage.setItem(v.id, ip_for);
-            //    }
-            //    $(v).html(ip_for);
-            //});
+        var bindEvents = function () {
 
             $('.baja-srv').click(function (ev) {
                 ev.preventDefault();
                 var _this = this;
                 var sid = $(this).data('sid');
                 var codigo = $(this).data('type');
-                var text = ($(this).data('qaddons') > 0) ?"<%=translate("baja_con_adds")%>" : "<%=translate("baja_pregunta")%>";
+                var text = ($(this).data('qaddons') > 0) ? "<%=translate("baja_con_adds")%>" : "<%=translate("baja_pregunta")%>";
                 $.confirm({
                     text: text,
                     confirmButton: "<%=translate("Si")%>",
@@ -258,7 +269,30 @@
                         });
                     }
                 });
-            });
+             });
+
+        } // end function
+
+        $(document).ready(function() {
+            
+            //fill_ips();
+            generate_spins();
+
+            bindEvents();
+            setInterval(update_partial, 15000);
+            // fill ips
+            //$('.get_ip').each(function (k, v) {
+            //    // chequeo el en lst               
+            //    var ip_for = localStorage.getItem(v.id);
+            //    if (ip_for == undefined) {
+            //        //lo creo
+            //        ip_for = get_ip();
+            //        localStorage.setItem(v.id, ip_for);
+            //    }
+            //    $(v).html(ip_for);
+            //});
+
+           
         });
         
     </script>

@@ -67,6 +67,7 @@
     <Compile Include="BitacoraDAL.vb" />
     <Compile Include="DALCliente.vb" />
     <Compile Include="DALCloudServer.vb" />
+    <Compile Include="DALEvento.vb" />
     <Compile Include="DALOrdenVenta.vb" />
     <Compile Include="DALPreguntaSecreta.vb" />
     <Compile Include="DALServerPlataforma.vb" />

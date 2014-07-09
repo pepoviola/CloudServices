@@ -193,5 +193,19 @@
 
     End Sub
 
-    
+    Public Function tieneAccesoVM(ByVal oCli As BE.BECliente, vmId As Integer) As Boolean
+        Try
+            'obtengo el listado
+            Dim _lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
+            _lista = obtenerServiciosDeCliente(oCli)
+            For Each s As BE.BECloudServer In _lista
+                If s.Id = vmId Then
+                    Return True
+                End If
+            Next
+            Return False
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 End Class

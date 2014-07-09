@@ -42,6 +42,10 @@
 
             _servicios_contratados = BLL.BLServicesFacade.getServicesFacade().obtenerServiciosDeCliente(oCli)
 
+            'just to try redirect hack
+            'Session.Abandon()
+
+
         Catch ex As ExceptionsPersonales.CustomException
             ' guardo en la bitacora
             'preparo bitacora

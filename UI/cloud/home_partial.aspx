@@ -22,8 +22,13 @@
                                     <% End If%> 
                                     </div>
                                 </td>
-                                <td>                                    
-                                        <%=s.vmNombre%>                                                                        
+                                <td> 
+                                    <% If s.Estado = 1 Then %>                           
+                                        <a href="#" class="tip" data-toggle="tooltip" title="creando"><%=s.vmNombre%></a>                                                                        
+                                    <%Else%>
+                                        <a href="vm_details.aspx?id=<%=s.Id%>"><%=s.vmNombre%></a>
+                                    <%End If%>                                   
+                                        
                                 </td>
                                 <td class="adicionales-width">
                                     <%For Each a As BE.BEServicioAdicional In s.Srv_adicionales%>
