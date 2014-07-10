@@ -120,7 +120,8 @@
                                     <% If s.Estado = 1 Then %>                           
                                         <a href="#" class="tip" data-toggle="tooltip" title="creando"><%=s.vmNombre%></a>                                                                        
                                     <%Else%>
-                                        <a href="vm_details.aspx?id=<%=s.Id%>"><%=s.vmNombre%></a>
+                                        <!--<a href="vm_details.aspx?id=<%=s.Id%>"><%=s.vmNombre%></a>-->
+                                        <a href="detalles_vm.aspx?id=<%=s.Id%>"><%=s.vmNombre%></a>
                                     <%End If%>
                                 </td>
                                 <td class="adicionales-width">

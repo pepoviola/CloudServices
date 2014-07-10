@@ -33,6 +33,7 @@
                     <div class="span9">
                         <div class="well">
                             <h4 class=""><%=translate("li_info")%></h4>
+                            <div class="row-fluid">
                             <div class="span4">
                                 <ul class="unstyled">
                                     
@@ -71,9 +72,10 @@
                                     </ul>
                                     <a class="btn btn-primary" onclick="connect_vm()">connect</a>
                                     <span class="help-inline">Ctrl+Alt to release</span>--%>
-                            
-                            <div class="span10">
-                                <hr />
+                            </div>
+                            <hr />
+                            <div class="row-fluid">
+                                    <a class="btn btn-primary segs" data-action="reboot" data-vmid="<%=VM.Id%>" >Config SG</a>                                
                                     <a class="btn btn-warning actions" data-action="reboot" data-vmid="<%=VM.Id%>" >Reboot</a>
                                     <a class="btn btn-danger actions" data-action="reset" data-vmid="<%=VM.Id%>">Reset</a>
                                     <% End If%>                  
@@ -113,4 +115,43 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script>
+    $(document).ready(function(){
+        $('.actions').click(function (ev) {
+            ev.preventDefault();
+            var _this = this;
+            var vmid = $(this).data('vmid');
+            var action = $(this).data('action');
+            $.confirm({
+                text: "<%=translate("desea_realizar")%> "+action,
+                    confirmButton: "<%=translate("Si")%>",
+                    cancelButton: "<%=translate("Cancelar")%>",
+                    confirm: function () {
+                        $.post('/cloud/eventos/actionVM.ashx', { id: vmid, action: action }, function (res) {
+                            // if the session expired reload the page to go to login form
+                            if (res.status == undefined) {
+                                location.reload();
+                            }
+                            else {
+
+                                var alert_type = (res.status == 200) ? "info" : "error";
+                                var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                    + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                    + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                                //remove if there any
+                                $('.alert').remove();
+                                $('section').prepend(div_alert);
+                                // scroll to top to show
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
+                            }
+
+                        });
+                    }
+                });
+
+
+                 });
+            });
+    </script>
 </asp:Content>
