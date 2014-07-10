@@ -77,9 +77,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Menu</li>
-                                    <li class="active"><a href="#">home</a></li>
-                                    <li><a href="#">fw</a></li>
-                                    <li><a href="#">eventos</a></li>
+                                    <li class="active"><a href="#"><% =translate("menu_home")%></a></li>
+                                    <li><a href="/cloud/sg/sg.aspx"><% =translate("menu_sg")%></a></li>                                    
                                 </ul>
                             </div>
                         </div>
@@ -88,7 +87,7 @@
                         <thead>
                             <tr>
                                 <th><%=translate("th_servicio")%></th>
-                                <th>vmNombre</th>
+                                <th><%=translate("th_vmNombre")%></th>
                                 <th class="adicionales-width"><%=translate("th_adicionales")%></th>
                                 <!--<th><%=translate("th_ip")%></th>-->
                                 <th><%=translate("th_costo_mensual") %></th>

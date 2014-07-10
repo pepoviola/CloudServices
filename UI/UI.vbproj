@@ -90,6 +90,7 @@
     <Content Include="Admin\reportes\repos.aspx" />
     <Content Include="cambiar_clave.aspx" />
     <Content Include="cloud\add_services.aspx" />
+    <Content Include="cloud\detalles_vm.aspx" />
     <Content Include="cloud\eventos\eventos.aspx" />
     <Content Include="cloud\generar_entorno.aspx" />
     <Content Include="cloud\home.aspx" />
@@ -316,6 +317,13 @@
     </Compile>
     <Compile Include="cloud\del_servicio.ashx.vb">
       <DependentUpon>del_servicio.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\detalles_vm.aspx.designer.vb">
+      <DependentUpon>detalles_vm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloud\detalles_vm.aspx.vb">
+      <DependentUpon>detalles_vm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="cloud\eventos\actionVM.ashx.vb">
       <DependentUpon>actionVM.ashx</DependentUpon>

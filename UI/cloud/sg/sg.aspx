@@ -8,6 +8,9 @@
             margin-left: 3px;
             margin-right: 3px;
         }
+            .sidebar-nav {
+            padding: 9px 0px;
+        }
     </style>
     
 </asp:Content>
@@ -30,6 +33,17 @@
                     
                     <br />
                     <br />
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <div class="well sidebar-nav">
+                                <ul class="nav nav-list">
+                                    <li class="nav-header">Menu</li>
+                                    <li ><a href="/cloud/home.aspx"><% =translate("menu_home")%></a></li>
+                                    <li class="active"><a href="#"><% =translate("menu_sg")%></a></li>                                    
+                                </ul>
+                            </div>
+                        </div>
+                    <div class="span9">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -57,6 +71,8 @@
                             <% Next%>                            
                         </tbody>                    
                     </table>
+                        </div>
+                        </div>
                 </div>
             </section>            
         </div>
