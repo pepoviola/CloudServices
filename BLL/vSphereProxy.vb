@@ -54,6 +54,9 @@ Public Class vSphereProxy
                 Throw New Exception
             End If
 
+        Catch ex As WebException
+            'mockup if we cant
+            Return CInt(Math.Ceiling(Rnd() * 100))
         Catch ex As Exception
             Throw ex
         End Try
@@ -103,6 +106,9 @@ Public Class vSphereProxy
                 Throw New Exception
             End If
 
+        Catch ex As WebException
+            'mockup if we cant
+            Return 3
         Catch ex As Exception
             Throw ex
         End Try
@@ -150,9 +156,14 @@ Public Class vSphereProxy
             If lista.Item("status") = 200 Then
                 Return lista
             Else
-                Throw New Exception
+                Throw New ExceptionsPersonales.CustomException("err")
             End If
 
+        Catch ex As WebException
+            Dim lista As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            lista.Add("mor", "no_disponible")
+            lista.Add("tt", "no_disponible")
+            Return lista
         Catch ex As Exception
             Throw ex
         End Try
@@ -202,6 +213,9 @@ Public Class vSphereProxy
                 Throw New Exception
             End If
 
+        Catch ex As WebException
+            'mockup if we cant
+            Return True
         Catch ex As Exception
             Throw ex
         End Try

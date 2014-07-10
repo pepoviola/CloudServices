@@ -67,6 +67,7 @@
     <Compile Include="BLEntorno.vb" />
     <Compile Include="BLEvento.vb" />
     <Compile Include="BLLCliente.vb" />
+    <Compile Include="BLLGrupoSeguridad.vb" />
     <Compile Include="BLMgrReporte.vb" />
     <Compile Include="BLOrdenVenta.vb" />
     <Compile Include="BLPreguntaSecreta.vb" />

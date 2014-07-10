@@ -168,7 +168,7 @@
                 // not make empty post
                 if (servicios.length > 0) {
                     $.post('/cloud/add_ov.ashx', { ov: JSON.stringify(servicios) }, function (res) {
-                        console.log(res);
+                        //console.log(res);
 
                         // if the session expired reload the page to go to login form
                         if (res.status == undefined) {

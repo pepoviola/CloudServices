@@ -74,10 +74,12 @@
     <Compile Include="BEEmpresa.vb" />
     <Compile Include="BEEvento.vb" />
     <Compile Include="BEFamilia.vb" />
+    <Compile Include="BEGrupoSeguridad.vb" />
     <Compile Include="BEOrdenVenta.vb" />
     <Compile Include="BEPatenteBasica.vb" />
     <Compile Include="BEPermiso.vb" />
     <Compile Include="BEPreguntaSecreta.vb" />
+    <Compile Include="BERegla.vb" />
     <Compile Include="BEReporte.vb" />
     <Compile Include="BEServerPlataforma.vb" />
     <Compile Include="BEServicioAdicional.vb" />
