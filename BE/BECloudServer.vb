@@ -83,5 +83,16 @@ Public MustInherit Class BECloudServer
             _platform_server = value
         End Set
     End Property
+
+    Private _gruposSeguridad As List(Of BE.BEGrupoSeguridad)
+    Public Property gruposSeguridad() As List(Of BE.BEGrupoSeguridad)
+        Get
+            Return _gruposSeguridad
+        End Get
+        Set(ByVal value As List(Of BE.BEGrupoSeguridad))
+            _gruposSeguridad = value
+        End Set
+    End Property
+
 End Class ' BECloudServer
 

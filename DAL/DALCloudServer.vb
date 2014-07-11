@@ -253,4 +253,57 @@ Public Class DALCloudServer
         End Try
     End Sub
 
+
+    Public Sub ConfigSegGrp(ByVal oServer As BE.BECloudServer)
+        Dim conn As IDbConnection = dbManager.getConnection
+
+        Try
+            conn.Open()
+            Dim trans As IDbTransaction = conn.BeginTransaction
+            Try
+
+
+                'agrego la vm
+                Dim cmd As IDbCommand = dbManager.getCmd("deleteConfigSegGrpByIdVM")
+                'asocio la cx
+                cmd.Connection = conn
+                cmd.Transaction = trans
+
+
+                dbManager.addParam(cmd, "@susc", oServer.Id)
+
+                cmd.ExecuteNonQuery()
+
+                ' agrego los sgs
+                For Each s As BE.BEGrupoSeguridad In oServer.gruposSeguridad
+
+                    ' agrego la tarea
+                    cmd = dbManager.getCmd("ConfigSegGrp")
+                    'asocio la cx
+                    cmd.Connection = conn
+                    cmd.Transaction = trans
+
+                    ' agrego los params
+
+                    dbManager.addParam(cmd, "@susc", oServer.Id)
+                    dbManager.addParam(cmd, "@idGrp", s.Id)
+                    cmd.ExecuteNonQuery()
+
+                Next
+
+                trans.Commit()
+
+
+            Catch ex As Exception
+                trans.Rollback()
+                Throw ex
+            End Try
+
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
 End Class

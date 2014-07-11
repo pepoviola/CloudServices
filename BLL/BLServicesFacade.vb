@@ -76,7 +76,14 @@
         Dim lista As List(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
         Try
             Dim oDal As DAL.DALServicios = DAL.DALServicios.getServiciosDAL() 'New DAL.DALServicios()
+            Dim oDALSG As DAL.DALGrupoSeguridad = DAL.DALGrupoSeguridad.getDALGrupo()
             lista = oDal.obtenerServiciosDeCliente(oCli)
+
+            ' decoro con los grupos de seguridad
+            For Each s As BE.BECloudServer In lista
+                s.gruposSeguridad = New List(Of BE.BEGrupoSeguridad)
+                s.gruposSeguridad = oDALSG.obtenerSGsPorVM(s)
+            Next
 
             Return lista
 
@@ -206,6 +213,19 @@
             Return False
         Catch ex As Exception
             Return False
+        End Try
+    End Function
+
+    Public Function ConfigVMGrupoSeg(ByVal oServer As BE.BECloudServer) As Boolean
+        Dim oDAL As DAL.DALCloudServer = New DAL.DALCloudServer
+
+        Try
+            oDAL.ConfigSegGrp(oServer)
+            Return True
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("sg_config_err")
+        Finally
+            oDAL = Nothing
         End Try
     End Function
 End Class

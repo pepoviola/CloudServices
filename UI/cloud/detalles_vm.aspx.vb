@@ -1,4 +1,6 @@
-﻿Public Class detalles_vm
+﻿Imports System.Web.Script.Serialization
+
+Public Class detalles_vm
     Inherits System.Web.UI.Page
 
     Private _cli As BE.BECliente
@@ -21,19 +23,29 @@
             Return _vm
         End Get
     End Property
-    Private _mor As String
-    Private _tt As String
-    Public ReadOnly Property mor As String
+
+    Private _vm_serializada As String
+    Public ReadOnly Property VM_serialziada As String
         Get
-            Return _mor
+            Return _vm_serializada
         End Get
     End Property
 
-    Public ReadOnly Property tt As String
+
+    Private _sgs As List(Of BE.BEGrupoSeguridad) = New List(Of BE.BEGrupoSeguridad)
+    Public ReadOnly Property sgs As List(Of BE.BEGrupoSeguridad)
         Get
-            Return _tt
+            Return _sgs
         End Get
     End Property
+
+    Private _sgs_serializado As String = String.Empty
+    Public ReadOnly Property sgs_serializado As String
+        Get
+            Return _sgs_serializado
+        End Get
+    End Property
+
     Private Function checkAccess() As Boolean
         Try
             'obtengo el cliente de la session
@@ -68,6 +80,7 @@
                 Exit Sub
             End If
         End If
+        Dim blsg As BLL.BLLGrupoSeguridad = New BLL.BLLGrupoSeguridad()
         Try
             ' tengo que buscar los eventos de la vm
             Dim filtro As BE.BEEvento = New BE.BEEvento
@@ -81,6 +94,13 @@
             _vms = oBL.obtenerServiciosDeCliente(_cli)
             _vm = _vms.Find(Function(x) x.Id.ToString() = Request.QueryString.Get("id"))
 
+            Dim oSG As BE.BEGrupoSeguridad = New BE.BEGrupoSeguridad
+            oSG.Cliente = _cli
+            _sgs = blsg.Filtrar(oSG)
+
+            Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
+            _sgs_serializado = jss.Serialize(_sgs)
+            _vm_serializada = jss.Serialize(_vm)
             'obtengo creds
             'Dim creds As Dictionary(Of String, String)
             'creds = BLL.vSphereProxy.getCreds(Request.QueryString.Get("id"))

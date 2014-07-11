@@ -154,16 +154,10 @@ Public Class DALGrupoSeguridad
 
                 dbManager.addParam(cmd, "@idGrp", oSG.Id)
                 
-
-                
-
-
                 cmd.Connection = conn
                 cmd.Transaction = trans
 
                 cmd.ExecuteNonQuery()
-
-
 
                 ' ahora agrego las reglas
 
@@ -183,7 +177,6 @@ Public Class DALGrupoSeguridad
 
                 Next
 
-
                 trans.Commit()
                 Return True
 
@@ -200,4 +193,56 @@ Public Class DALGrupoSeguridad
         End Try
     End Function
 
+    Public Function obtenerSGsPorVM(ByVal oServer As BE.BECloudServer) As List(Of BE.BEGrupoSeguridad)
+        Dim _lista As List(Of BE.BEGrupoSeguridad) = New List(Of BE.BEGrupoSeguridad)
+        Dim conn As IDbConnection = dbManager.getConnection
+        Try
+            ' busco las task
+            Dim cmd As IDbCommand = dbManager.getCmd("selectSGByVM")
+            cmd.Connection = conn
+            'agrego los params
+
+            dbManager.addParam(cmd, "@susc", oServer.Id)
+
+            Dim da As SqlDataAdapter = New SqlDataAdapter(cmd)
+            Dim dt As DataTable = New DataTable
+            Dim dt_rules As DataTable = New DataTable
+            da.Fill(dt)
+
+            For Each lector As DataRow In dt.Rows
+                Dim sg As BE.BEGrupoSeguridad = New BE.BEGrupoSeguridad
+                sg.Id = Convert.ToInt32(lector("IdGrupo"))
+                sg.Nombre = Convert.ToString(lector("Nombre"))
+                sg.FechaIn = Convert.ToDateTime(lector("FechaIn"))
+                sg.Reglas = New List(Of BE.BERegla)
+
+                Dim cmd_rules As IDbCommand = dbManager.getCmd("getRulesById")
+                cmd_rules.Connection = conn
+                dbManager.addParam(cmd_rules, "@idGrp", sg.Id)
+
+                dt_rules.Rows.Clear()
+                da.SelectCommand = cmd_rules
+                da.Fill(dt_rules)
+
+                For Each r As DataRow In dt_rules.Rows
+                    Dim rule As BE.BERegla = New BE.BERegla
+                    rule.Id = Convert.ToInt32(r("IdRegla"))
+                    rule.Origen = Convert.ToString(r("Origen"))
+                    rule.PtoDestino = Convert.ToString(r("PtoDestino"))
+                    rule.Regla = Convert.ToString(r("Regla"))
+                    sg.Reglas.Add(rule)
+                Next
+
+
+                _lista.Add(sg)
+            Next
+            Return _lista
+        Catch ex As Exception
+            Throw ex
+        Finally
+            conn.Close()
+            _lista = Nothing
+        End Try
+
+    End Function
 End Class
