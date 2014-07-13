@@ -129,7 +129,8 @@
         function connect_vm() {
 
             try {
-                var ret = vmrc.startup(2, 1, "");
+                //usebrowserproxy=true;tunnelmks=true
+                var ret = vmrc.startup(2, 1, "tunnelmks=true");
                 log('startup returned "' + ret + '"');
             } catch (err) {
                 log('startup call failed: ' + err);
