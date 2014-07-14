@@ -365,6 +365,9 @@
     <Compile Include="cloud\sg\config_vm_fw.ashx.vb">
       <DependentUpon>config_vm_fw.ashx</DependentUpon>
     </Compile>
+    <Compile Include="cloud\sg\del_fw.ashx.vb">
+      <DependentUpon>del_fw.ashx</DependentUpon>
+    </Compile>
     <Compile Include="cloud\sg\save_fw.ashx.vb">
       <DependentUpon>save_fw.ashx</DependentUpon>
     </Compile>
@@ -606,6 +609,7 @@
     <Content Include="cloud\sg\add_fw.ashx" />
     <Content Include="cloud\sg\save_fw.ashx" />
     <Content Include="cloud\sg\config_vm_fw.ashx" />
+    <Content Include="cloud\sg\del_fw.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

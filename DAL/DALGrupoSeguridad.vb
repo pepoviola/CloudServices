@@ -245,4 +245,53 @@ Public Class DALGrupoSeguridad
         End Try
 
     End Function
+
+    Function Eliminar(oSG As BE.BEGrupoSeguridad) As Boolean
+        Dim conn As IDbConnection = dbManager.getConnection
+        Try
+            conn.Open()
+            Dim trans As IDbTransaction = conn.BeginTransaction
+            Try
+                ' busco las task
+                Dim cmd As IDbCommand = dbManager.getCmd("deleteRulesByIdGrp")
+                'agrego los params
+
+
+                dbManager.addParam(cmd, "@idGrp", oSG.Id)
+
+                cmd.Connection = conn
+                cmd.Transaction = trans
+
+                cmd.ExecuteNonQuery()
+
+                ' ahora elimino el SG
+
+
+                Dim cmd_sg As IDbCommand = dbManager.getCmd("DeleteSG")
+
+                'agrego los params
+                dbManager.addParam(cmd_sg, "@idGrp", oSG.Id)
+
+                cmd_sg.Connection = conn
+                cmd_sg.Transaction = trans
+
+                cmd_sg.ExecuteNonQuery()
+
+
+                trans.Commit()
+                Return True
+
+            Catch ex As Exception
+                trans.Rollback()
+                Throw ex
+            End Try
+        Catch ex As Exception
+            Throw ex
+
+        Finally
+            conn.Close()
+
+        End Try
+    End Function
+
 End Class

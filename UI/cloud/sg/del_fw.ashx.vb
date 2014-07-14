@@ -2,11 +2,10 @@
 Imports System.Web.Services
 Imports System.Web.Script.Serialization
 
-Public Class add_fw
+Public Class del_fw
     Implements System.Web.IHttpHandler, IReadOnlySessionState
 
     Sub ProcessRequest(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest
-
         context.Response.ContentType = "application/json"
         Dim jss As JavaScriptSerializer = New JavaScriptSerializer()
         Dim resp As Dictionary(Of String, String) = New Dictionary(Of String, String)
@@ -18,11 +17,6 @@ Public Class add_fw
             ' only alow post
             If context.Request.HttpMethod = "POST" Then
                 Try
-                    'Dim lista As List(Of BE.BECloudServer) = New List(Of BE.BECloudServer)
-                    'Dim lista As IEnumerable(Of BE.BEServicioBase) = New List(Of BE.BEServicioBase)
-                    Dim _lista As List(Of BE.BERegla) = New List(Of BE.BERegla)
-                    _lista = jss.Deserialize(context.Request.Form.Get("reglas"), GetType(List(Of BE.BERegla)))
-
                     'obtengo el cliente de la session
                     Dim blCli As BLL.BLLCliente = New BLL.BLLCliente()
 
@@ -34,12 +28,10 @@ Public Class add_fw
 
                     Dim fw As BE.BEGrupoSeguridad = New BE.BEGrupoSeguridad
                     fw.Nombre = context.Request.Form.Get("name")
-                    fw.Reglas = _lista
-                    fw.FechaIn = DateTime.Now
-                    fw.Cliente = oCli
+                    fw.Id = context.Request.Form.Get("sid")
 
                     Dim BL As BLL.BLLGrupoSeguridad = New BLL.BLLGrupoSeguridad()
-                    If BL.Crear(fw) Then
+                    If BL.Eliminar(fw) Then
                         'bitacora
                         'preparo bitacora
                         Dim oBita As New BE.Bitacora
@@ -48,7 +40,7 @@ Public Class add_fw
                         oBita.Fecha = Date.Now
                         oBita.Usuario = oBitaUser
                         oBita.Categoria = "Grupos Seguridad"
-                        oBita.Descripcion = "El usuario " + context.Session("Username") + " creó el grupo de seguridad " + fw.Nombre
+                        oBita.Descripcion = "El usuario " + context.Session("Username") + " eliminó el grupo de seguridad " + fw.Nombre
                         'guardo en bitacora
                         Dim oInfraBita As Infra.Bitacora = Infra.Bitacora.getInfraBitacora()
                         oInfraBita.Log(oBita)
@@ -56,7 +48,7 @@ Public Class add_fw
                     End If
 
                     resp.Add("status", "200")
-                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("sg_generated_ok", context.Session("lang")))
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("sg_deleted_ok", context.Session("lang")))
 
                 Catch ex As ExceptionsPersonales.CustomException
                     resp.Add("status", "500")
@@ -64,15 +56,16 @@ Public Class add_fw
 
                 Catch ex As Exception
                     resp.Add("status", "500")
-                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("sg_generated_err", context.Session("lang")))
+                    resp.Add("msg", Infra.TraductorMgr.TraducirControl("sg_deleted_err", context.Session("lang")))
+
+                Finally
+                    Dim oRes = jss.Serialize(resp)
+                    context.Response.Write(oRes)
                 End Try
 
-                Dim oRes = jss.Serialize(resp)
-                context.Response.Write(oRes)
-
             End If
 
-            End If
+        End If
 
 
     End Sub

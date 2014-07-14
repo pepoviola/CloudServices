@@ -34,4 +34,21 @@
         End Try
     End Function
 
+    Function Eliminar(oSG As BE.BEGrupoSeguridad) As Boolean
+        Dim oDAL As DAL.DALGrupoSeguridad = DAL.DALGrupoSeguridad.getDALGrupo()
+        Try
+            Return oDAL.Eliminar(oSG)
+        Catch exsql As SqlClient.SqlException
+            If exsql.Number = 547 Then
+                Throw New ExceptionsPersonales.CustomException("SGEnUso")
+            Else
+                Throw New ExceptionsPersonales.CustomException("sg_deleted_err")
+            End If
+        Catch ex As Exception
+            Throw New ExceptionsPersonales.CustomException("sg_deleted_err")
+        Finally
+
+        End Try
+    End Function
+
 End Class

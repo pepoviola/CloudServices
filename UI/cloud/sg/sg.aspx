@@ -64,7 +64,7 @@
                                          <a href="#" class="btn btn-primary edit" data-sid="<% =s.Id%>" data-name="<%=s.Nombre %>">
                                              <i class="icon-pencil icon-white"></i> <% =translate("btn_edit")%>
                                          </a>
-                                        <a href="#" class="btn btn-danger delete" data-sid="<% =s.Id%>"   ><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>                                        
+                                        <a href="#" class="btn btn-danger delete" data-sid="<% =s.Id%>"  data-name="<%=s.Nombre %>" ><i class="icon-trash icon-white"></i> <% =translate("btn_delete")%></a>                                        
                                     </td>
                                     
                                 </tr>                            
@@ -315,6 +315,46 @@
 
         $(document).ready(function () {
 
+            // edit
+            $('.delete').click(function(ev){
+                ev.preventDefault();
+                var sid = $(this).data('sid');
+                var name = $(this).data('name');
+                $.confirm({
+                    text: "<%=translate("desea_eliminar_sg")%> ",
+                             confirmButton: "<%=translate("Si")%>",
+                             cancelButton: "<%=translate("Cancelar")%>",
+                             confirm: function () {
+                                 $.post('/cloud/sg/del_fw.ashx', { sid: sid, name: name }, function (res) {
+                                     // if the session expired reload the page to go to login form
+                                     if (res.status == undefined) {
+                                         location.reload();
+                                     }
+                                     else {
+
+                                         var alert_type = (res.status == 200) ? "info" : "error";
+                                         var div_alert = '<div class="alert alert-' + alert_type + '">'
+                                             + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                                             + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                                         //remove if there any
+                                         $('.alert').remove();
+                                         $('section').prepend(div_alert);
+                                         // scroll to top to show
+                                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                                     }
+
+                                     // continue
+                                     if (res.status == "200") {
+
+                                         // it's new so reload the page in 1 sec
+                                         setTimeout(function () { location.reload() }, 1000);
+                                     }
+
+                                 });
+                             }
+                         });
+            });
             // create edit
             $('.edit').click(function(ev){
                 ev.preventDefault();
