@@ -328,6 +328,9 @@
     <Compile Include="cloud\eventos\actionVM.ashx.vb">
       <DependentUpon>actionVM.ashx</DependentUpon>
     </Compile>
+    <Compile Include="cloud\eventos\dataVM.ashx.vb">
+      <DependentUpon>dataVM.ashx</DependentUpon>
+    </Compile>
     <Compile Include="cloud\eventos\eventos.aspx.designer.vb">
       <DependentUpon>eventos.aspx</DependentUpon>
     </Compile>
@@ -610,6 +613,7 @@
     <Content Include="cloud\sg\save_fw.ashx" />
     <Content Include="cloud\sg\config_vm_fw.ashx" />
     <Content Include="cloud\sg\del_fw.ashx" />
+    <Content Include="cloud\eventos\dataVM.ashx" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

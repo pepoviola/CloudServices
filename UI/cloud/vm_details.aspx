@@ -130,7 +130,7 @@
 
             try {
                 //usebrowserproxy=true;tunnelmks=true
-                var ret = vmrc.startup(2, 1, "tunnelmks=true");
+                var ret = vmrc.startup(2, 1, "");
                 log('startup returned "' + ret + '"');
             } catch (err) {
                 log('startup call failed: ' + err);
@@ -141,6 +141,7 @@
                 //startup(2,1,null);
                 var ret = vmrc.connect("190.210.166.138", "", true,
                                  "<%=tt%>", "", "", "<%=mor%>", "", "");
+               
                 log('connect succeeded');
             } catch (err) {
                 log('connect failed: ' + err);

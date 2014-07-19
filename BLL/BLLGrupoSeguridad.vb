@@ -23,7 +23,7 @@
         End Try
     End Function
 
-    Function Actualziar(oSG As BE.BEGrupoSeguridad) As Boolean
+    Function Actualziar(ByVal oSG As BE.BEGrupoSeguridad) As Boolean
         Dim oDAL As DAL.DALGrupoSeguridad = DAL.DALGrupoSeguridad.getDALGrupo()
         Try
             Return oDAL.Actualizar(oSG)
@@ -34,7 +34,7 @@
         End Try
     End Function
 
-    Function Eliminar(oSG As BE.BEGrupoSeguridad) As Boolean
+    Function Eliminar(ByVal oSG As BE.BEGrupoSeguridad) As Boolean
         Dim oDAL As DAL.DALGrupoSeguridad = DAL.DALGrupoSeguridad.getDALGrupo()
         Try
             Return oDAL.Eliminar(oSG)

@@ -7,6 +7,10 @@
         .data_sep {
             padding: 0px 5px;
         }
+        .modal.large {
+            width: 96%; /* respsonsive width */
+            margin-left:-48%; /* width/2) */ 
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
@@ -75,9 +79,11 @@
                             </div>
                             <hr />
                             <div class="row-fluid">
-                                    <a class="btn btn-primary segs" data-action="config" data-vmid="<%=VM.Id%>" >Config SG</a>                                
-                                    <a class="btn btn-warning actions" data-action="reboot" data-vmid="<%=VM.Id%>" >Reboot</a>
-                                    <a class="btn btn-danger actions" data-action="reset" data-vmid="<%=VM.Id%>">Reset</a>
+                                    <a class="btn btn-primary segs" data-action="config" data-vmid="<%=VM.Id%>" ><%=translate("btn_config_sg")%></a>
+                                    <a class="btn btn-success graph" data-action="graph" data-vmid="<%=VM.Id%>"><%=translate("btn_graficos")%></a>                                
+                                    <a class="btn btn-warning actions" data-action="reboot" data-vmid="<%=VM.Id%>" ><%=translate("btn_reboot")%></a>
+                                    <a class="btn btn-danger actions" data-action="reset" data-vmid="<%=VM.Id%>"><%=translate("btn_reset")%></a>
+                                
                                     <% End If%>                  
                             </div>        
                             
@@ -140,20 +146,214 @@
          </div>
             </form>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="save" id="save-sg">save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><%=translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="save" id="save-sg"><%=translate("btn_save")%></button>
         </div>
     </div>
     <!-- end form -->   
+
+    <!-- modal performance -->
+       <div id="modalPerf" class="modal large hide fade">
+           <div class="modal-header">               
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 style="text-align: center;"><%=translate("h4_graficos_performance")%></h4>
+            </div>
+           <div class="modal-body">
+               <div id="container-cpu">
+                   
+               </div>
+               <br />
+               <br />
+               <div id="container-mem"></div>
+           </div>
+           
+       </div>
+    <!-- end modal performance -->
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="js_block" runat="server">
+    <script src="/scripts/spin/spin.js"></script>
+    <script src="/scripts/spin/jquery.spin.js"></script>
+    <script src="/scripts/highcharts/highcharts.js"></script>
     <script>
 
+        // grficos 
+        var res_helper
+        var generar_graficos = function(){
+            // obtengo la info
+            $('#modalPerf').modal("show");
+            $('#container-cpu').html('<div class="spin" style="margin-left:50%;margin-top:25%"></div>');
+            $('#container-mem').children().remove();
+            $('.spin').spin({ lines: 8, length: 10, width: 3, radius: 5, left: 20 });
+            $.post("/cloud/eventos/dataVM.ashx",{id:$('.segs').data('vmid')},function(res){
+                res_helper = res;
+                // if the session expired reload the page to go to login form
+                if (res.status == undefined) {
+                    location.reload();
+                }
+                else {
+
+                    var alert_type = (res.status == 200) ? "info" : "error";
+                    var div_alert = '<div class="alert alert-grafico alert-' + alert_type + '">'
+                        + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
+                        + '<div class="alert-msg">' + res.msg + '</div></div>';
+
+                    //remove if there any
+                    $('.alert-grafico').remove();
+                    if(res.status != 200){
+                        $('#container-cpu').html(div_alert);
+                    }
+                    else{
+                        data_json =  res.proxy_res;
+                        //genero
+                        $('#container-cpu').highcharts({
+                            chart: {
+                                //type: 'spline'
+                                zoomType: 'x'
+                            },
+                            title: {
+                                text: "<%=translate("performance_cpu")%>"
+                            },
+                            subtitle: {
+                                text: "<%=translate("drag_and_drop_for_zoom")%>"
+                            },
+                            xAxis: {
+
+                                type:"datetime"
+                            },
+                            tooltip: {
+                                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} %</b><br/>',
+                                shared: true
+                            },
+                            yAxis:{
+                                floor:0,
+                                labels: {
+                                    formatter: function () {                            
+                                        return this.value+' %'
+                                    }
+                                },
+                                title: {
+                                    text: "<%=translate("porcentaje")%>"
+                                 }
+                            },
+                      
+
+                            plotOptions: {
+                                area: {
+                                    fillColor: {
+                                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                                        stops: [
+                                            [0, Highcharts.getOptions().colors[0]],
+                                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                        ]
+                                    },
+                                    marker: {
+                                        radius: 1.5
+                                    },
+                                    lineWidth: 1,
+                                    states: {
+                                        hover: {
+                                            lineWidth: 1
+                                        }
+                                    },
+                                    threshold: null
+                                }
+                            },
+                            series: [{
+                                type: 'area',
+                                pointInterval:3600 * 1000,
+                                name:"CPU",
+                                data: data_json.stats.cpu
+                            },
+                            //{
+                            //            //type: 'area',
+                            //            pointInterval:3600 * 1000,
+                            //            name:"MEM",
+                            //            data: data_json.stats.mem
+                            //        }
+                            ]
+                        });
+
+                        //mem
+                        $('#container-mem').highcharts({
+                            chart: {
+                                //type: 'spline'
+                                zoomType: 'x'
+                            },
+                            title: {
+                                text: "<%=translate("performance_mem")%>"
+                            },
+                            subtitle: {
+                                text: "<%=translate("drag_and_drop_for_zoom")%>"
+                            },
+                            xAxis: {
+
+                                type:"datetime"
+                            },
+                            tooltip: {
+                                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} %</b><br/>',
+                                shared: true
+                            },
+                            yAxis:{
+                                floor:0,
+                                labels: {
+                                    formatter: function () {                            
+                                        return this.value+'%'
+                                    }
+                                },
+                                title: {
+                                    text: "<%=translate("porcentaje")%>"
+                                }
+                            },
+                      
+
+                            plotOptions: {
+                                area: {
+                                    fillColor: {
+                                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                                        stops: [
+                                            [0, Highcharts.getOptions().colors[2]],
+                                            [1, Highcharts.Color(Highcharts.getOptions().colors[2]).setOpacity(0).get('rgba')]
+                                        ]
+                                    },
+                                    marker: {
+                                        radius: 2
+                                    },
+                                    lineWidth: 1,
+                                    states: {
+                                        hover: {
+                                            lineWidth: 1
+                                        }
+                                    },
+                                    threshold: null
+                                }
+                            },
+                            series: [{
+                                type: 'area',
+                                pointInterval:3600 * 1000,
+                                name:"MEM",
+                                data: data_json.stats.mem,
+                                color: Highcharts.getOptions().colors[2]
+                            }]
+                        });
+                    
+
+                    }
+
+
+                    
+
+                }
+            });
+        };
         // vm serialziada
         var vm = <%=VM_serialziada%>;
         var helper_debug;
         $(document).ready(function () {
 
+            $('.graph').click(function(ev){
+                ev.preventDefault();
+                generar_graficos();
+            });
             $('.segs').click(function (ev) {
                 var sid = $(this).data('vmid');
                 $('#sid-edit').val(sid);
@@ -218,9 +418,15 @@
                 text: "<%=translate("desea_realizar")%> "+action,
                     confirmButton: "<%=translate("Si")%>",
                     cancelButton: "<%=translate("Cancelar")%>",
-                    confirm: function () {
-                        $.post('/cloud/eventos/actionVM.ashx', { id: vmid, action: action }, function (res) {
-                            // if the session expired reload the page to go to login form
+                confirm: function () {
+                        // insert backdrop
+                        $('<div class="modal-backdrop"></div>').appendTo(document.body);
+                        
+                        $.post('/cloud/eventos/actionVM.ashx', { id: vmid, action: action }, function (res) {                            
+                            // remove backdrop
+                            $(".modal-backdrop").remove();
+
+                            // if the session expired reload the page to go to login form                            
                             if (res.status == undefined) {
                                 location.reload();
                             }
@@ -231,6 +437,8 @@
                                     + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
                                     + '<div class="alert-msg">' + res.msg + '</div></div>';
 
+
+                                
                                 //remove if there any
                                 $('.alert').remove();
                                 $('section').prepend(div_alert);

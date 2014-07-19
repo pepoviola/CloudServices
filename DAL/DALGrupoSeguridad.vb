@@ -92,7 +92,7 @@ Public Class DALGrupoSeguridad
                 dbManager.addParam(cmd, "@name", DBNull.Value)
             End If
 
-            If Not oSG Is Nothing AndAlso Not oSG.Cliente Is Nothing AndAlso Not oSG.Cliente.Id = 0 Then
+            If Not oSG Is Nothing AndAlso Not oSG.Cliente Is Nothing AndAlso Not oSG.Cliente.ClienteId = 0 Then
                 dbManager.addParam(cmd, "@idCli", oSG.Cliente.ClienteId)
             Else
                 dbManager.addParam(cmd, "@idCli", DBNull.Value)
