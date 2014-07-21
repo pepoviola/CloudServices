@@ -18,10 +18,20 @@ Public Class Global_asax
         '    listaErrs.AddRange(oInfraDVV.check(tabla))
         'Next
         Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-        listaErrs = Infra.DigitoVerificador.verificarDigitos()
+        Try
 
-        Application.Set("listaErrs", listaErrs)
-        Application.Set("demo", 1)
+            listaErrs = Infra.DigitoVerificador.verificarDigitos()
+
+            Application.Set("listaErrs", listaErrs)
+            Application.Set("demo", 1)
+
+        Catch ex As Exception
+            Dim err As Dictionary(Of String, String) = New Dictionary(Of String, String)
+            err.Add("err", "error en db")
+            listaErrs.Add(err)
+            Application.Set("listaErrs", listaErrs)
+        End Try
+       
 
         'RegisterCacheEntry()
 

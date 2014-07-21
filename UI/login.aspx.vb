@@ -39,51 +39,56 @@ Public Class login
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-       
-        Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma
-        _lista_idiomas = oInfraIdioma.Filtrar(New BE.Idioma())
+        Try
+            Dim oInfraIdioma As Infra.Idioma = Infra.Idioma.getIdioma
+            _lista_idiomas = oInfraIdioma.Filtrar(New BE.Idioma())
 
 
-        ' lang by querystring
-        If Not (String.IsNullOrEmpty(Request.QueryString("lang"))) Then
-            ' cheque si existe el idioma
-            For Each i As BE.Idioma In lista_idioma
-                If i.Id = Request.QueryString("lang") Then
-                    Session("lang") = i.Id
-                    'Dim cookie As HttpCookie = New HttpCookie("lang", i.Id)
+            ' lang by querystring
+            If Not (String.IsNullOrEmpty(Request.QueryString("lang"))) Then
+                ' cheque si existe el idioma
+                For Each i As BE.Idioma In lista_idioma
+                    If i.Id = Request.QueryString("lang") Then
+                        Session("lang") = i.Id
+                        'Dim cookie As HttpCookie = New HttpCookie("lang", i.Id)
 
 
-                    Exit For
-                End If
-            Next
+                        Exit For
+                    End If
+                Next
 
-            'Else
-            '    If (String.IsNullOrEmpty(Session("lang"))) Then
-            '        Session("lang") = 1
-            '        'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
-            '    End If
-        End If
+                'Else
+                '    If (String.IsNullOrEmpty(Session("lang"))) Then
+                '        Session("lang") = 1
+                '        'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
+                '    End If
+            End If
 
-        If (String.IsNullOrEmpty(Session("lang"))) Then
-            '    ' default
-            Session("lang") = 1
-            '    'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
-        End If
+            If (String.IsNullOrEmpty(Session("lang"))) Then
+                '    ' default
+                Session("lang") = 1
+                '    'Dim cookie As HttpCookie = New HttpCookie("lang", "1")
+            End If
 
-        ''Response.Cookies.Add(cookie)
+            ''Response.Cookies.Add(cookie)
 
-        Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
-        listaErrs = Application("listaErrs")
-        If listaErrs.Count > 0 Then
-            _sistemaEnError = True
-        Else
-            _sistemaEnError = False
-        End If
+            Dim listaErrs As List(Of Dictionary(Of String, String)) = New List(Of Dictionary(Of String, String))
+            listaErrs = Application("listaErrs")
+            If listaErrs.Count > 0 Then
+                _sistemaEnError = True
+            Else
+                _sistemaEnError = False
+            End If
 
-        If Request.RequestType = "POST" Then
-            ' make login
-            login(Request.Form("txt_login_username"), Request.Form("txt_login_passwd"))
-        End If
+            If Request.RequestType = "POST" Then
+                ' make login
+                login(Request.Form("txt_login_username"), Request.Form("txt_login_passwd"))
+            End If
+
+        Catch ex As Exception
+            Session("_msg_dv_err") = "ERROR en DB"
+        End Try
+ 
 
 
 
