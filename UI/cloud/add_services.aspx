@@ -201,7 +201,7 @@
                     });
                 }
                 
-                console.log(JSON.stringify(servicios))
+                //console.log(JSON.stringify(servicios))
             });
 
             actualizar_total();

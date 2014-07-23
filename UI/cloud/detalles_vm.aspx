@@ -175,9 +175,37 @@
     <script src="/scripts/spin/jquery.spin.js"></script>
     <script src="/scripts/highcharts/highcharts.js"></script>
     <script>
+        //
+        var random_val = function(){
+            return Math.floor(Math.random()*(85-25+1)+25);
+        }
+        var generate_data = function(){
+            var now = new Date();
+            var res = { 
+                stats: { 
+                    mem:[],
+                    cpu: []
+                }
+            }
+
+            var kWeek = ( 3600 * 24 * 1000); // 1 dia
+            var kInterval = ( 300 * 1000 ); // 5 mins
+            var i = (now.getTime()-kWeek);
+            var to = now.getTime()
+            for(i; i <= to ; i += kInterval){
+                m = random_val();
+                c = random_val();
+                res.stats.mem.push([i, m]);
+                res.stats.cpu.push([i, c]);
+            }
+
+            return res
+        }
+        
 
         // grficos 
-        var res_helper
+        var res_helper;
+        var mockup_data;
         var generar_graficos = function(){
             // obtengo la info
             $('#modalPerf').modal("show");
@@ -199,11 +227,20 @@
 
                     //remove if there any
                     $('.alert-grafico').remove();
+                    //if(res.status != 200){
+                    //    $('#container-cpu').html(div_alert);
+                    //    mockup_data = generate_data();
+                    //}
+                    //else{
                     if(res.status != 200){
-                        $('#container-cpu').html(div_alert);
+                        data_json = generate_data();
                     }
                     else{
                         data_json =  res.proxy_res;
+                    }
+                    // horario
+                    Highcharts.setOptions({global: { useUTC: false } });
+
                         //genero
                         $('#container-cpu').highcharts({
                             chart: {
@@ -342,7 +379,7 @@
 
                     
 
-                }
+                //}
             });
         };
         // vm serialziada
