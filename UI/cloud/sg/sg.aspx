@@ -244,11 +244,11 @@
         var createFormRule = function (id) {
             next = parseInt(id, 10) + 1;
             var template = '<div class="form-inline regla" id="regla-'+ id +'">';
-            template += '      <label class="labelin" for="origen">Origen </label>';
+            template += '      <label class="labelin" for="origen"><% =translate("origen")%> </label>';
             template += '<input type="text" class="input-medium" name="origen" id="origen-' + id + '" placeholder="ALL / ip"  maxlength="50"/>'
-            template += '<label class="labelin" for="destino">Destino </label>'
+            template += '<label class="labelin" for="destino"><% =translate("destino")%> </label>'
             template += '<input type="text" class="input-mini" name="destino" id="destino-' + id + '"  placeholder="1-65535" maxlength="50"/>'
-            template += '<label class="labelin" for="origen">Regla </label>'
+            template += '<label class="labelin" for="origen"><% =translate("regla")%> </label>'
             template += '<select name="action_to" class="input-small">'
             template += '<option value="aceptar">aceptar</option>'
             template += '   <option value="rechazar">rechazar</option>'
@@ -262,11 +262,11 @@
         var createEditRule = function (id) {
             next = parseInt(id, 10) + 1;
             var template = '<div class="form-inline regla" id="edit-regla-'+ id +'">';
-            template += '      <label class="labelin" for="origen">Origen </label>';
+            template += '      <label class="labelin" for="origen"><% =translate("origen")%> </label>';
             template += '<input type="text" class="input-medium" name="origen" id="origen-' + id + '" placeholder="ALL / ip"  maxlength="50"/>'
-            template += '<label class="labelin" for="destino">Destino </label>'
+            template += '<label class="labelin" for="destino"><% =translate("destino")%> </label>'
             template += '<input type="text" class="input-mini" name="destino" id="destino-' + id + '"  placeholder="1-65535" maxlength="50"/>'
-            template += '<label class="labelin" for="origen">Regla </label>'
+            template += '<label class="labelin" for="origen"><% =translate("regla")%> </label>'
             template += '<select name="action_to" class="input-small">'
             template += '<option value="aceptar">aceptar</option>'
             template += '   <option value="rechazar">rechazar</option>'
@@ -376,11 +376,11 @@
                 
                 $.each(fw.Reglas,function(k,r){
                     var template = '<div class="form-inline regla" id="edit-regla-'+ r.Id +'">';
-                    template += '      <label class="labelin" for="origen">Origen </label>';
+                    template += '      <label class="labelin" for="origen"><% =translate("origen")%>  </label>';
                     template += '<input type="text" class="input-medium" name="origen" id="origen-' + r.Id + '" placeholder="ALL / ip"  maxlength="50" value="'+r.Origen+'"/>'
-                    template += '<label class="labelin" for="destino">Destino </label>'
+                    template += '<label class="labelin" for="destino"><% =translate("destino")%>  </label>'
                     template += '<input type="text" class="input-mini" name="destino" id="destino-' + r.Id + '"  placeholder="1-65535" maxlength="50" value="'+r.PtoDestino+'" />'
-                    template += '<label class="labelin" for="origen">Regla </label>'
+                    template += '<label class="labelin" for="origen"><% =translate("regla")%>  </label>'
                     template += '<select name="action_to" class="input-small">'
                     if(r.Regla == "aceptar"){
                         template += '<option value="aceptar" selected>aceptar</option>'
