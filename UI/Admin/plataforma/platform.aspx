@@ -91,8 +91,8 @@
         </div>
             </form>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="server_create">save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><% =translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="server_create"><% =translate("btn_save")%></button>
         </div>
     <!-- end form -->            
 
@@ -133,8 +133,8 @@
         </div>
             </form>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="save" id="save-server">save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><% =translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="save" id="save-server"><% =translate("btn_save")%></button>
         </div>
     <!-- end form -->            
 
