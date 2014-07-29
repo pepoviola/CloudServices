@@ -58,13 +58,17 @@
     
     <!-- modal create -->
     <div id="modal_idioma" class="modal hide fade">
-        <form class="form-horizontal" id="form_create_idioma" action="add_idioma.aspx" method="post">
+        
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3><%=translate("h3_agregar_idioma")%></h3>
         </div>
         <div class="modal-body">
-          
+             <label class="labeled-inline" for="filtrar_create"><% =translate("filtrar")%>
+                <input type="text" class="input-medium search-query" name="filtrar_create" id="filtrar_create"  />
+			</label>
+            <br />
+        <form class="form-horizontal" id="form_create_idioma" action="add_idioma.aspx" method="post">  
             <div class="control-group">
                 <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
@@ -87,26 +91,30 @@
              </div>
           <% Next%>
           
-
+            <!-- end form -->            
+            </form>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="create" id="idioma_create">save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><% =translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="create" id="idioma_create"><% =translate("btn_save")%></button>
         </div>
-    <!-- end form -->            
-    </form>
+    
     </div>
     <!-- .end modal create -->
 
         <!-- modal edit -->
     <div id="modal_idioma_edit" class="modal hide fade">
-        <form class="form-horizontal" id="edit_idioma_form" >
+        
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3><%=translate("h3_editar_idioma") %></h3>
+            <h3><%=translate("h3_editar_idioma") %></h3>          
         </div>
         <div class="modal-body">
-          
+            <label class="labeled-inline" for="filtrar_edit"><% =translate("filtrar")%>
+                <input type="text" class="input-medium search-query" name="filtrar_edit" id="filtrar_edit"  />
+			</label>
+            <br />
+        <form class="form-horizontal" id="edit_idioma_form" >  
             <div class="control-group">
                 <label class="control-label" for="idioma_code"><% =translate("lbl_idioma_code")%></label>
                 <div class="controls">
@@ -129,15 +137,15 @@
                 </div>
              </div>
           <% Next%>
-          
-
+            <!-- end form -->       
+            </form>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <button type="submit" class="btn btn-primary" data-action="edit" id="edit_idioma_save" >save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true"><% =translate("btn_close")%></a>
+            <button type="submit" class="btn btn-primary" data-action="edit" id="edit_idioma_save" ><% =translate("btn_save")%></button>
         </div>
-    <!-- end form -->            
-    </form>
+               
+    
     </div>
     <!-- .end modal edit -->
 
@@ -151,6 +159,11 @@
             // make active Admin tab
             $('.active').removeClass('active');
             $('.menu_admin').addClass('active');
+
+            // binding search
+            $('#filtrar_edit').on("input", function (ev) { var r = new RegExp($(this).val()); $.each($('.control-label'), function (k, v) { if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() } }) })
+            $('#filtrar_create').on("input", function (ev) { var r = new RegExp($(this).val()); $.each($('.control-label'), function (k, v) { if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() } }) })
+
 
             //binding actions
 
