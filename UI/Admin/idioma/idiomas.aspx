@@ -161,8 +161,32 @@
             $('.menu_admin').addClass('active');
 
             // binding search
-            $('#filtrar_edit').on("input", function (ev) { var r = new RegExp($(this).val()); $.each($('.control-label'), function (k, v) { if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() } }) })
-            $('#filtrar_create').on("input", function (ev) { var r = new RegExp($(this).val()); $.each($('.control-label'), function (k, v) { if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() } }) })
+            $('#filtrar_edit').on("input", function (ev) {
+                var r = new RegExp($(this).val());                
+                $.each($('#edit_idioma_form').find('.control-label'), function (k, v) {
+                    if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() }
+                })
+            });
+
+            // clear on shown
+            $('#modal_idioma_edit').on("shown", function () {
+                $('#filtrar_edit').val("");
+                $.each($('#edit_idioma_form').find('.control-label'), function (k, v) { $(v).parent().show() });
+            });
+
+
+            $('#filtrar_create').on("input", function (ev) {
+                var r = new RegExp($(this).val());
+                $.each($('#form_create_idioma').find('.control-label'), function (k, v) {
+                    if (!(r.test(v.innerHTML))) { $(v).parent().hide() } else { $(v).parent().show() }
+                })
+            });
+            // clear on shown
+            $('#modal_idioma').on("shown", function () {
+                $('#filtrar_create').val("");
+                $.each($('#form_create_idioma').find('.control-label'), function (k, v) { $(v).parent().show() });
+            });
+
 
 
             //binding actions
