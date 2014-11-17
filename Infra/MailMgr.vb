@@ -7,7 +7,7 @@ Public Class MailMgr
     Public Shared Sub sendMail(ByVal body As String, ByVal mail_to As String, ByVal subject As String)
 
         Dim _username As String = "cloudservices.tfi@gmail.com"
-        Dim _pass As String = "TFIUAI2014"
+        Dim _pass As String = "clave"
         Dim _host As String = "smtp.gmail.com"
         Dim _port As Integer = 587
 
